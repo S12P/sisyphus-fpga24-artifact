@@ -17,3 +17,4 @@ To run the bitstream, use the following commands:
 ```sh
 cd ./sisyphus/<kernel>/src/bin
 ./test.real.out workload-hw.xclbin
+```
