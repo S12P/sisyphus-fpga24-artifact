@@ -1,0 +1,208 @@
+
+
+================================================================
+== Vitis HLS Report for 'kernel_nlp_Pipeline_merlinL1'
+================================================================
+* Date:           Fri Dec 13 02:58:53 2024
+
+* Version:        2023.2 (Build 4023990 on Oct 11 2023)
+* Project:        kernel_nlp
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplusHBM
+* Target device:  xcu55c-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.55 ns|  2.976 ns|     1.23 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      493|      493|  2.241 us|  2.241 us|  493|  493|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+        |            |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |  Loop Name |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- merlinL1  |      491|      491|        22|          5|          1|    95|       yes|
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     2|        -|        -|    -|
+|Expression           |        -|     -|        0|      124|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|     -|        -|        -|    -|
+|Memory               |        -|     -|        -|        -|    -|
+|Multiplexer          |        -|     -|        -|      214|    -|
+|Register             |        -|     -|      388|       32|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|     2|      388|      370|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1344|  3008|   869120|   434560|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|    ~0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4032|  9024|  2607360|  1303680|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|    ~0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    +-------------------------------------+-------------------------------+--------------+
+    |               Instance              |             Module            |  Expression  |
+    +-------------------------------------+-------------------------------+--------------+
+    |mac_muladd_8ns_7ns_7ns_15_4_1_U1850  |mac_muladd_8ns_7ns_7ns_15_4_1  |  i0 * i1 + i2|
+    |mac_muladd_8ns_7ns_7ns_15_4_1_U1851  |mac_muladd_8ns_7ns_7ns_15_4_1  |  i0 * i1 + i2|
+    +-------------------------------------+-------------------------------+--------------+
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +--------------------------+----------+----+---+----+------------+------------+
+    |       Variable Name      | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +--------------------------+----------+----+---+----+------------+------------+
+    |add_ln254_fu_192_p2       |         +|   0|  0|  14|           7|           1|
+    |add_ln269_fu_202_p2       |         +|   0|  0|  22|          15|          15|
+    |icmp_ln254_fu_186_p2      |      icmp|   0|  0|  14|           7|           7|
+    |or_ln269_fu_231_p2        |        or|   0|  0|   8|           8|           1|
+    |select_ln269_1_fu_257_p3  |    select|   0|  0|  32|           1|          32|
+    |select_ln269_fu_250_p3    |    select|   0|  0|  32|           1|          32|
+    |ap_enable_pp0             |       xor|   0|  0|   2|           1|           2|
+    +--------------------------+----------+----+---+----+------------+------------+
+    |Total                     |          |   0|  0| 124|          40|          90|
+    +--------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +--------------------------------------+----+-----------+-----+-----------+
+    |                 Name                 | LUT| Input Size| Bits| Total Bits|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |F_buf_2_address0                      |  14|          3|   15|         45|
+    |F_buf_address0                        |  14|          3|   15|         45|
+    |add114_lcssa56_fu_60                  |   9|          2|   32|         64|
+    |ap_NS_fsm                             |  31|          6|    1|          6|
+    |ap_done_int                           |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter0               |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1               |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter4               |   9|          2|    1|          2|
+    |ap_loop_exit_ready_pp0_iter1_reg      |   9|          2|    1|          2|
+    |ap_loop_exit_ready_pp0_iter2_reg      |   9|          2|    1|          2|
+    |ap_loop_exit_ready_pp0_iter3_reg      |   9|          2|    1|          2|
+    |ap_sig_allocacmp_add114_lcssa56_load  |   9|          2|   32|         64|
+    |ap_sig_allocacmp_k                    |   9|          2|    7|         14|
+    |grp_fu_161_p0                         |  14|          3|   32|         96|
+    |grp_fu_161_p1                         |  14|          3|   32|         96|
+    |grp_fu_165_p0                         |  14|          3|   32|         96|
+    |grp_fu_165_p1                         |  14|          3|   32|         96|
+    |k_1_fu_64                             |   9|          2|    7|         14|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |Total                                 | 214|         46|  244|        650|
+    +--------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------------------------+----+----+-----+-----------+
+    |               Name               | FF | LUT| Bits| Const Bits|
+    +----------------------------------+----+----+-----+-----------+
+    |E_buf_2_load_reg_353              |  32|   0|   32|          0|
+    |E_buf_load_reg_348                |  32|   0|   32|          0|
+    |add114_1_reg_408                  |  32|   0|   32|          0|
+    |add114_lcssa56_fu_60              |  32|   0|   32|          0|
+    |ap_CS_fsm                         |   5|   0|    5|          0|
+    |ap_done_reg                       |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter0_reg       |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1           |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2           |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter3           |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter4           |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter1_reg  |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter2_reg  |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter3_reg  |   1|   0|    1|          0|
+    |icmp_ln254_reg_319                |   1|   0|    1|          0|
+    |k_1_fu_64                         |   7|   0|    7|          0|
+    |mul109_1_reg_393                  |  32|   0|   32|          0|
+    |mul2_reg_388                      |  32|   0|   32|          0|
+    |mul3_reg_333                      |   7|   0|    8|          1|
+    |select_ln269_1_reg_383            |  32|   0|   32|          0|
+    |select_ln269_reg_378              |  32|   0|   32|          0|
+    |tmp_s_reg_398                     |  32|   0|   32|          0|
+    |zext_ln106_2_cast_reg_313         |   7|   0|   15|          8|
+    |icmp_ln254_reg_319                |  64|  32|    1|          0|
+    +----------------------------------+----+----+-----+-----------+
+    |Total                             | 388|  32|  334|          9|
+    +----------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------+-----+-----+------------+------------------------------+--------------+
+|         RTL Ports         | Dir | Bits|  Protocol  |         Source Object        |    C Type    |
++---------------------------+-----+-----+------------+------------------------------+--------------+
+|ap_clk                     |   in|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|ap_rst                     |   in|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|ap_start                   |   in|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|ap_done                    |  out|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|ap_idle                    |  out|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|ap_ready                   |  out|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5287_p_din0         |  out|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5287_p_din1         |  out|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5287_p_opcode       |  out|    2|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5287_p_dout0        |   in|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5287_p_ce           |  out|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5295_p_din0         |  out|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5295_p_din1         |  out|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5295_p_dout0        |   in|   32|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|grp_fu_5295_p_ce           |  out|    1|  ap_ctrl_hs|  kernel_nlp_Pipeline_merlinL1|  return value|
+|mul_ln269                  |   in|   15|     ap_none|                     mul_ln269|        scalar|
+|E_buf_address0             |  out|   15|   ap_memory|                         E_buf|         array|
+|E_buf_ce0                  |  out|    1|   ap_memory|                         E_buf|         array|
+|E_buf_q0                   |   in|   32|   ap_memory|                         E_buf|         array|
+|E_buf_2_address0           |  out|   15|   ap_memory|                       E_buf_2|         array|
+|E_buf_2_ce0                |  out|    1|   ap_memory|                       E_buf_2|         array|
+|E_buf_2_q0                 |   in|   32|   ap_memory|                       E_buf_2|         array|
+|zext_ln106_2               |   in|    7|     ap_none|                  zext_ln106_2|        scalar|
+|F_buf_address0             |  out|   15|   ap_memory|                         F_buf|         array|
+|F_buf_ce0                  |  out|    1|   ap_memory|                         F_buf|         array|
+|F_buf_q0                   |   in|   32|   ap_memory|                         F_buf|         array|
+|F_buf_2_address0           |  out|   15|   ap_memory|                       F_buf_2|         array|
+|F_buf_2_ce0                |  out|    1|   ap_memory|                       F_buf_2|         array|
+|F_buf_2_q0                 |   in|   32|   ap_memory|                       F_buf_2|         array|
+|empty                      |   in|    1|     ap_none|                         empty|        scalar|
+|add114_lcssa56_out         |  out|   32|      ap_vld|            add114_lcssa56_out|       pointer|
+|add114_lcssa56_out_ap_vld  |  out|    1|      ap_vld|            add114_lcssa56_out|       pointer|
++---------------------------+-----+-----+------------+------------------------------+--------------+
+
