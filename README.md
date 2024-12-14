@@ -1,5 +1,6 @@
 # Sisyphus Artifact
 
+[![DOI](https://zenodo.org/badge/903321472.svg)](https://doi.org/10.5281/zenodo.14472168)
 
 This repository contains the artifact for the **Sisyphus** project, which includes all the results from the evaluation.
 
