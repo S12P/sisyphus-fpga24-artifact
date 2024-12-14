@@ -5,7 +5,6 @@ open_project kernel_nlp
 set_top kernel_nlp
 
 add_files "output.cpp"  -cflags " -O3 -D XILINX "
-add_files -tb "csim.cpp"
 open_solution -flow_target vitis solution
 set_part xcu200-fsgd2104-2-e
 
