@@ -1,0 +1,99 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-13 01:51:45
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++--------------------+---------------+--------------+-------------+--------+------------+-------+------+
+|       Kernel       |    Cycles     |     LUT      |     FF      |  BRAM  |    DSP     | URAM  |Detail|
++--------------------+---------------+--------------+-------------+--------+------------+-------+------+
+|kernel_3mm (3mm.c:3)|82300 (0.329ms)|1391169 (117%)|2066404 (87%)|228 (5%)|12635 (184%)|0 (~0%)|-     |
++--------------------+---------------+--------------+-------------+--------+------------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++------------+-----------+-----------+----+------------------+
+| Interface  |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++------------+-----------+-----------+----+------------------+
+|ni (3mm.c:3)|         32|         32|   -|-                 |
+|nj (3mm.c:3)|         32|         32|   -|-                 |
+|nk (3mm.c:3)|         32|         32|   -|-                 |
+|nl (3mm.c:3)|         32|         32|   -|-                 |
+|nm (3mm.c:3)|         32|         32|   -|-                 |
+|E (3mm.c:3) |         32|         64| R/W|cached & coalesced|
+|A (3mm.c:3) |         32|        256|  RO|cached & coalesced|
+|B (3mm.c:3) |         32|         64|  RO|cached & coalesced|
+|F (3mm.c:3) |         32|         64| R/W|cached & coalesced|
+|C (3mm.c:3) |         32|        128|  RO|cached & coalesced|
+|D (3mm.c:3) |         32|         32|  RO|cached[1]         |
+|G (3mm.c:3) |         32|         64| R/W|cached & coalesced|
++------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'D' (3mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++------------------------------------+---+--------------+-----+---------------------------------+
+|             Hierarchy              |TC |      AC      | CPC |             Detail              |
++------------------------------------+---+--------------+-----+---------------------------------+
+|kernel_3mm (3mm.c:3)                |   |82300 (100.0%)|82300|-                                |
+|    auto memory burst for 'B'(read) |   |19000 ( 23.1%)|19000|cache size=152000B               |
+|    auto memory burst for 'A'(read) |   | 4500 (  5.5%)| 4500|cache size=144000B               |
+|    auto memory burst for 'E'(read) |   |17100 ( 20.8%)|17100|cache size=136800B               |
+|    auto memory burst for 'F'(read) |   |19950 ( 24.2%)|19950|cache size=159600B               |
+|    loop i (3mm.c:13)               |180| 7105 (  8.6%)| 7105|parallel factor=3x, pipeline II=1|
+|        loop j (3mm.c:19)           |190|             -|    -|flattened, parallel factor=2x    |
+|            loop k (3mm.c:23)       |200|             -|    -|parallel factor=200x             |
+|    auto memory burst for 'C'(read) |   |10450 ( 12.7%)|10450|cache size=167200B               |
+|    auto memory burst for 'D'(read) |   |46200 ( 56.1%)|46200|cache size=184800B               |
+|    loop i (3mm.c:32)               |190| 8195 ( 10.0%)| 8195|parallel factor=2x, pipeline II=1|
+|        loop j (3mm.c:38)           |210|             -|    -|flattened, parallel factor=3x    |
+|            loop k (3mm.c:42)       |220|             -|    -|parallel factor=220x             |
+|    auto memory burst for 'G'(read) |   |18900 ( 23.0%)|18900|cache size=151200B               |
+|    loop i (3mm.c:51)               |180| 7644 (  9.3%)| 7644|parallel factor=3x, pipeline II=1|
+|        loop j (3mm.c:57)           |210|             -|    -|flattened, parallel factor=2x    |
+|            loop k (3mm.c:61)       |190|             -|    -|parallel factor=190x             |
+|    auto memory burst for 'F'(write)|   |19950 ( 24.2%)|19950|cache size=159600B               |
+|    auto memory burst for 'G'(write)|   |18900 ( 23.0%)|18900|cache size=151200B               |
+|    auto memory burst for 'E'(write)|   |17100 ( 20.8%)|17100|cache size=136800B               |
++------------------------------------+---+--------------+-----+---------------------------------+
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++------------------------------------+--------------+-------------+--------+------------+-------+------+
+|             Hierarchy              |     LUT      |     FF      |  BRAM  |    DSP     | URAM  |Detail|
++------------------------------------+--------------+-------------+--------+------------+-------+------+
+|kernel_3mm (3mm.c:3)                |1391169 (117%)|2066404 (87%)|228 (5%)|12635 (184%)|0 (~0%)|-     |
+|    auto memory burst for 'B'(read) |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'A'(read) |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'E'(read) |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'F'(read) |             -|            -|       -|           -|      -|-     |
+|    loop i (3mm.c:13)               |             -|            -|       -|           -|      -|-     |
+|        loop j (3mm.c:19)           |             -|            -|       -|           -|      -|-     |
+|            loop k (3mm.c:23)       |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'C'(read) |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'D'(read) |             -|            -|       -|           -|      -|-     |
+|    loop i (3mm.c:32)               |             -|            -|       -|           -|      -|-     |
+|        loop j (3mm.c:38)           |             -|            -|       -|           -|      -|-     |
+|            loop k (3mm.c:42)       |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'G'(read) |             -|            -|       -|           -|      -|-     |
+|    loop i (3mm.c:51)               |             -|            -|       -|           -|      -|-     |
+|        loop j (3mm.c:57)           |             -|            -|       -|           -|      -|-     |
+|            loop k (3mm.c:61)       |             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'F'(write)|             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'G'(write)|             -|            -|       -|           -|      -|-     |
+|    auto memory burst for 'E'(write)|             -|            -|       -|           -|      -|-     |
++------------------------------------+--------------+-------------+--------+------------+-------+------+

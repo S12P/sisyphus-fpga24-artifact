@@ -1,0 +1,56 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Hello Loop Tiling ... 
+Find a loop (8):for(j = 0;j < 64;j++) {...}
+Nest: nullptr -> SgForStatement:for(j = 0;j < 64;j++) {...}
+Hello Loop Tiling ... 
+Traverse Loop: for(i = 0;i < 100;i++) {...}(bert_100_64.c:14)
+  ==> insert sub Loop: for(j = 0;j < 8;j++) {...}(bert_100_64.c:21)
+Traverse Loop: for(j = 0;j < 8;j++) {...}(bert_100_64.c:21)
+  ==> insert sub Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_64.c:21)
+Traverse Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_64.c:21)
+  ==> insert sub Loop: for(k = 0;k < 100;k++) {...}(bert_100_64.c:25)
+ANALYZE Loop: for(i = 0;i < 100;i++) {...}(bert_100_64.c:14)
+tc: 100
+ANALYZE Loop: for(j = 0;j < 8;j++) {...}(bert_100_64.c:21)
+tc: 8
+ANALYZE Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_64.c:21)
+tc: 1
+ANALYZE Loop: for(k = 0;k < 100;k++) {...}(bert_100_64.c:25)
+tc: 1
+
+
+ START Candidate analysis
+====
+
+
+ START Critical loops analysis
+====
+CHECK reference latency: 0
+CHECK rest latency: 160000
+Tagging Pragma For Loop: for(k = 0;k < 100;k++) {...}(bert_100_64.c:25)
+Loop latency: 160000
+total latency: 0
+Loop TripCount: 1
+curr resource: 144
+CHECK reference latency: 0
+CHECK rest latency: 38400
+Tagging Pragma For Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_64.c:21)
+Loop latency: 38400
+total latency: 0
+Loop TripCount: 1
+curr resource: 1821
+CHECK reference latency: 0
+CHECK rest latency: 5600
+Tagging Pragma For Loop: for(j = 0;j < 8;j++) {...}(bert_100_64.c:21)
+Loop latency: 5600
+total latency: 0
+Loop TripCount: 8
+curr resource: 14586
+STOP reference latency: 1500
+STOP rest latency: 0
+
+
+ START Trivial loops analysis
+====
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p auto_parallel -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0/bert_100_64/ -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0/./ -I/mnt/software/xilinx/Vitis_HLS/2023.2/lnx64/tools/gcc/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include/ -I/mnt/software/xilinx/Vitis_HLS/2023.2/include/ -I/opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags="-D XILINX -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

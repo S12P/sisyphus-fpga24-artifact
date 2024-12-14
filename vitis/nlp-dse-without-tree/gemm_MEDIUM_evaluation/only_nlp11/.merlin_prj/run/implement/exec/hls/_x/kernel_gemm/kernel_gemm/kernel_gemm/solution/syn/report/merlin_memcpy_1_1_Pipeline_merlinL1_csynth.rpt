@@ -1,0 +1,224 @@
+
+
+================================================================
+== Vitis HLS Report for 'merlin_memcpy_1_1_Pipeline_merlinL1'
+================================================================
+* Date:           Thu Dec 12 21:23:33 2024
+
+* Version:        2023.2 (Build 4023990 on Oct 11 2023)
+* Project:        kernel_gemm
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu200-fsgd2104-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|  2.920 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      223|      223|  0.892 us|  0.892 us|  223|  223|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+        |            |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |  Loop Name |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- merlinL1  |      221|      221|         3|          1|          1|   220|       yes|
+        +------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        0|      114|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |        -|     -|        -|        -|    -|
+|Memory               |        -|     -|        -|        -|    -|
+|Multiplexer          |        -|     -|        -|       72|    -|
+|Register             |        -|     -|       76|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |        0|     0|       76|      186|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1440|  2280|   788160|   394080|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4320|  6840|  2364480|  1182240|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |        0|     0|       ~0|       ~0|    0|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------------+----------+----+---+----+------------+------------+
+    |       Variable Name       | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------------+----------+----+---+----+------------+------------+
+    |add_ln45_fu_215_p2         |         +|   0|  0|  15|           8|           1|
+    |add_ln54_1_fu_262_p2       |         +|   0|  0|  24|          17|           9|
+    |add_ln54_fu_282_p2         |         +|   0|  0|  18|          11|          11|
+    |i_4_fu_205_p2              |         +|   0|  0|  15|           8|           1|
+    |ap_block_pp0_stage0_11001  |       and|   0|  0|   2|           1|           1|
+    |icmp_ln45_fu_221_p2        |      icmp|   0|  0|  15|           8|           3|
+    |icmp_ln49_fu_199_p2        |      icmp|   0|  0|  15|           8|           7|
+    |select_ln45_fu_227_p3      |    select|   0|  0|   8|           1|           8|
+    |ap_enable_pp0              |       xor|   0|  0|   2|           1|           2|
+    +---------------------------+----------+----+---+----+------------+------------+
+    |Total                      |          |   0|  0| 114|          63|          43|
+    +---------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +--------------------------------------+----+-----------+-----+-----------+
+    |                 Name                 | LUT| Input Size| Bits| Total Bits|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |ap_done_int                           |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1               |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_3                  |   9|          2|    8|         16|
+    |ap_sig_allocacmp_phi_urem_load        |   9|          2|    8|         16|
+    |i_fu_88                               |   9|          2|    8|         16|
+    |merlin_gmem_kernel_gemm_32_C_blk_n_R  |   9|          2|    1|          2|
+    |phi_mul_fu_84                         |   9|          2|   17|         34|
+    |phi_urem_fu_80                        |   9|          2|    8|         16|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |Total                                 |  72|         16|   52|        104|
+    +--------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +------------------------------------------------+----+----+-----+-----------+
+    |                      Name                      | FF | LUT| Bits| Const Bits|
+    +------------------------------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                                       |   1|   0|    1|          0|
+    |ap_done_reg                                     |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1                         |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2                         |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter1_reg                |   1|   0|    1|          0|
+    |i_fu_88                                         |   8|   0|    8|          0|
+    |merlin_gmem_kernel_gemm_32_C_addr_read_reg_340  |  32|   0|   32|          0|
+    |phi_mul_fu_84                                   |  17|   0|   17|          0|
+    |phi_urem_fu_80                                  |   8|   0|    8|          0|
+    |trunc_ln54_reg_336                              |   3|   0|    3|          0|
+    |trunc_ln54_reg_336_pp0_iter1_reg                |   3|   0|    3|          0|
+    +------------------------------------------------+----+----+-----+-----------+
+    |Total                                           |  76|   0|   76|          0|
+    +------------------------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------------------------+-----+-----+------------+-------------------------------------+--------------+
+|                  RTL Ports                  | Dir | Bits|  Protocol  |            Source Object            |    C Type    |
++---------------------------------------------+-----+-----+------------+-------------------------------------+--------------+
+|ap_clk                                       |   in|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|ap_rst                                       |   in|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|ap_start                                     |   in|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|ap_done                                      |  out|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|ap_idle                                      |  out|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|ap_ready                                     |  out|    1|  ap_ctrl_hs|  merlin_memcpy_1.1_Pipeline_merlinL1|  return value|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWVALID   |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWREADY   |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWADDR    |  out|   64|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWID      |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWLEN     |  out|   32|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWSIZE    |  out|    3|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWBURST   |  out|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWLOCK    |  out|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWCACHE   |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWPROT    |  out|    3|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWQOS     |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWREGION  |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_AWUSER    |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WVALID    |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WREADY    |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WDATA     |  out|   32|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WSTRB     |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WLAST     |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WID       |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_WUSER     |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARVALID   |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARREADY   |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARADDR    |  out|   64|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARID      |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARLEN     |  out|   32|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARSIZE    |  out|    3|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARBURST   |  out|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARLOCK    |  out|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARCACHE   |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARPROT    |  out|    3|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARQOS     |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARREGION  |  out|    4|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_ARUSER    |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RVALID    |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RREADY    |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RDATA     |   in|   32|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RLAST     |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RID       |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RFIFONUM  |   in|    9|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RUSER     |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_RRESP     |   in|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_BVALID    |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_BREADY    |  out|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_BRESP     |   in|    2|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_BID       |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|m_axi_merlin_gmem_kernel_gemm_32_C_BUSER     |   in|    1|       m_axi|         merlin_gmem_kernel_gemm_32_C|       pointer|
+|dst_4_address0                               |  out|   11|   ap_memory|                                dst_4|         array|
+|dst_4_ce0                                    |  out|    1|   ap_memory|                                dst_4|         array|
+|dst_4_we0                                    |  out|    1|   ap_memory|                                dst_4|         array|
+|dst_4_d0                                     |  out|   32|   ap_memory|                                dst_4|         array|
+|mul_ln54                                     |   in|   11|     ap_none|                             mul_ln54|        scalar|
+|dst_3_address0                               |  out|   11|   ap_memory|                                dst_3|         array|
+|dst_3_ce0                                    |  out|    1|   ap_memory|                                dst_3|         array|
+|dst_3_we0                                    |  out|    1|   ap_memory|                                dst_3|         array|
+|dst_3_d0                                     |  out|   32|   ap_memory|                                dst_3|         array|
+|dst_2_address0                               |  out|   11|   ap_memory|                                dst_2|         array|
+|dst_2_ce0                                    |  out|    1|   ap_memory|                                dst_2|         array|
+|dst_2_we0                                    |  out|    1|   ap_memory|                                dst_2|         array|
+|dst_2_d0                                     |  out|   32|   ap_memory|                                dst_2|         array|
+|dst_1_address0                               |  out|   11|   ap_memory|                                dst_1|         array|
+|dst_1_ce0                                    |  out|    1|   ap_memory|                                dst_1|         array|
+|dst_1_we0                                    |  out|    1|   ap_memory|                                dst_1|         array|
+|dst_1_d0                                     |  out|   32|   ap_memory|                                dst_1|         array|
+|dst_0_address0                               |  out|   11|   ap_memory|                                dst_0|         array|
+|dst_0_ce0                                    |  out|    1|   ap_memory|                                dst_0|         array|
+|dst_0_we0                                    |  out|    1|   ap_memory|                                dst_0|         array|
+|dst_0_d0                                     |  out|   32|   ap_memory|                                dst_0|         array|
+|sext_ln49                                    |   in|   62|     ap_none|                            sext_ln49|        scalar|
++---------------------------------------------+-----+-----+------------+-------------------------------------+--------------+
+

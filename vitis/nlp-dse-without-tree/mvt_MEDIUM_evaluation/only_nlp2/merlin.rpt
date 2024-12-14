@@ -1,0 +1,82 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 16:48:33
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 236MHz
++--------------------+----------------+------------+------------+---------+----------+-------+------+
+|       Kernel       |     Cycles     |    LUT     |     FF     |  BRAM   |   DSP    | URAM  |Detail|
++--------------------+----------------+------------+------------+---------+----------+-------+------+
+|kernel_mvt (mvt.c:3)|329607 (1.397ms)|440677 (37%)|652106 (27%)|950 (21%)|4001 (58%)|0 (~0%)|-     |
++--------------------+----------------+------------+------------+---------+----------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++-------------+-----------+-----------+----+------------------+
+|  Interface  |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++-------------+-----------+-----------+----+------------------+
+|n (mvt.c:3)  |         32|         32|   -|-                 |
+|x1 (mvt.c:3) |         32|        256| R/W|cached & coalesced|
+|x2 (mvt.c:3) |         32|        512| R/W|cached & coalesced|
+|y_1 (mvt.c:3)|         32|         32|  RO|cached[1]         |
+|y_2 (mvt.c:3)|         32|        512|  RO|cached & coalesced|
+|A (mvt.c:3)  |         32|         32|  RO|cached[2]         |
++-------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'y_1' (mvt.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 'A' (mvt.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++---------------------------------------+---+---------------+------+-------------------------------------+
+|               Hierarchy               |TC |      AC       | CPC  |               Detail                |
++---------------------------------------+---+---------------+------+-------------------------------------+
+|kernel_mvt (mvt.c:3)                   |   |329607 (100.0%)|329607|-                                    |
+|    auto memory burst for 'x1'(read)   |   |    50 (  0.0%)|    50|cache size=1600B                     |
+|    auto memory burst for 'y_1'(read)  |   |   400 (  0.1%)|   400|cache size=1600B                     |
+|    loop i (mvt.c:12)                  |400|165784 ( 50.3%)|165784|parallel factor=200x                 |
+|        auto memory burst for 'A'(read)|   |160000 ( 48.5%)| 80000|cache size=320000B                   |
+|        loop j (mvt.c:16)              |400|  5622 (  1.7%)|  2811|parallel factor=5x, pipeline II=35[3]|
+|    auto memory burst for 'x1'(write)  |   |    50 (  0.0%)|    50|cache size=1600B                     |
+|    auto memory burst for 'y_2'(read)  |   |    25 (  0.0%)|    25|cache size=1600B                     |
+|    auto memory burst for 'A'(read)    |   |160000 ( 48.5%)|160000|cache size=640000B                   |
+|    auto memory burst for 'x2'(read)   |   |    25 (  0.0%)|    25|cache size=1600B                     |
+|    loop i (mvt.c:25)                  |400|  3005 (  0.9%)|  3005|parallel factor=2x, pipeline II=1    |
+|        loop j (mvt.c:28)              |400|              -|     -|parallel factor=400x                 |
+|    auto memory burst for 'x2'(write)  |   |    25 (  0.0%)|    25|cache size=1600B                     |
++---------------------------------------+---+---------------+------+-------------------------------------+
+[3]: Unable to enforce a carried dependence constraint because of the access on variable 'x1' (mvt.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++---------------------------------------+------------+------------+---------+----------+-------+------+
+|               Hierarchy               |    LUT     |     FF     |  BRAM   |   DSP    | URAM  |Detail|
++---------------------------------------+------------+------------+---------+----------+-------+------+
+|kernel_mvt (mvt.c:3)                   |440677 (37%)|652106 (27%)|950 (21%)|4001 (58%)|0 (~0%)|-     |
+|    auto memory burst for 'x1'(read)   |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'y_1'(read)  |           -|           -|        -|         -|      -|-     |
+|    loop i (mvt.c:12)                  |           -|           -|        -|         -|      -|-     |
+|        auto memory burst for 'A'(read)|           -|           -|        -|         -|      -|-     |
+|        loop j (mvt.c:16)              |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'x1'(write)  |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'y_2'(read)  |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'A'(read)    |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'x2'(read)   |           -|           -|        -|         -|      -|-     |
+|    loop i (mvt.c:25)                  |           -|           -|        -|         -|      -|-     |
+|        loop j (mvt.c:28)              |           -|           -|        -|         -|      -|-     |
+|    auto memory burst for 'x2'(write)  |           -|           -|        -|         -|      -|-     |
++---------------------------------------+------------+------------+---------+----------+-------+------+

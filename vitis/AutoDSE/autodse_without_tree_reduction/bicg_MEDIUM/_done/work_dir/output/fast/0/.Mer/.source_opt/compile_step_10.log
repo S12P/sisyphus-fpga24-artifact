@@ -1,0 +1,64 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Hello Loop Tiling ... 
+Find a loop (2):for(i = 0;i < 390;i++) {...}
+Nest: nullptr -> SgForStatement:for(i = 0;i < 390;i++) {...}
+WARNING: Loop tiling is disabled because Factor >= Loop Trip Count: 
+for(i = 0;i < 410;i++) {...} (bicg_MEDIUM.c:20)
+
+Hello Loop Tiling ... 
+Traverse Loop: for(i = 0;i < 410;i++) {...}(bicg_MEDIUM.c:20)
+  ==> insert sub Loop: for(j = 0;j < 390;j++) {...}(bicg_MEDIUM.c:24)
+Traverse Loop: for(i = 0;i < 195;i++) {...}(bicg_MEDIUM.c:11)
+  ==> insert sub Loop: for(int i_sub = 0;i_sub < 2;++i_sub) {...}(bicg_MEDIUM.c:11)
+ANALYZE Loop: for(i = 0;i < 410;i++) {...}(bicg_MEDIUM.c:20)
+tc: 410
+ANALYZE Loop: for(j = 0;j < 390;j++) {...}(bicg_MEDIUM.c:24)
+tc: 1
+ANALYZE Loop: for(i = 0;i < 195;i++) {...}(bicg_MEDIUM.c:11)
+tc: 195
+ANALYZE Loop: for(int i_sub = 0;i_sub < 2;++i_sub) {...}(bicg_MEDIUM.c:11)
+tc: 1
+
+
+ START Candidate analysis
+====
+
+
+ START Critical loops analysis
+====
+CHECK reference latency: 0
+CHECK rest latency: 480870
+Tagging Pragma For Loop: for(j = 0;j < 390;j++) {...}(bicg_MEDIUM.c:24)
+Loop latency: 479700
+total latency: 0
+Loop TripCount: 1
+curr resource: 35
+CHECK reference latency: 0
+CHECK rest latency: 3630
+Tagging Pragma For Loop: for(i = 0;i < 410;i++) {...}(bicg_MEDIUM.c:20)
+Loop latency: 2460
+total latency: 0
+Loop TripCount: 410
+curr resource: 13686
+CHECK reference latency: 416
+CHECK rest latency: 1170
+Tagging Pragma For Loop: for(int i_sub = 0;i_sub < 2;++i_sub) {...}(bicg_MEDIUM.c:11)
+Loop latency: 1170
+total latency: 416
+Loop TripCount: 1
+curr resource: 3
+CHECK reference latency: 416
+CHECK rest latency: 585
+Tagging Pragma For Loop: for(i = 0;i < 195;i++) {...}(bicg_MEDIUM.c:11)
+Loop latency: 585
+total latency: 416
+Loop TripCount: 195
+curr resource: 7
+STOP reference latency: 614
+STOP rest latency: 0
+
+
+ START Trivial loops analysis
+====
+mars_opt __dummy__.c __merlinwrapper_kernel_bicg.c __merlinkernel_kernel_bicg.c  -e c -p auto_parallel -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_without_tree_reduction/bicg_MEDIUM/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_without_tree_reduction/bicg_MEDIUM/_done/work_dir/output/fast/0/bicg_MEDIUM/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags=" -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

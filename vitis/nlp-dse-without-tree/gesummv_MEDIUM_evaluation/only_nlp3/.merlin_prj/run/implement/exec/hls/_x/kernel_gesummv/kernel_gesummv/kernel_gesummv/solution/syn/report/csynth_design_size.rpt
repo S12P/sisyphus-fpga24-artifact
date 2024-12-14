@@ -1,0 +1,44 @@
+================================================================
+== Design Size Report
+================================================================
+
+* C-Synthesis has not completed!
+
+* Total Instructions per Compilation Phase
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+| Phase         | Step               | Instructions | Description                                                                      |
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+| Compile/Link  |                    | 13,820       | After all functions are compiled and linked into a single design                 |
+|               |                    |              |                                                                                  |
+| Unroll/Inline |                    |              | After user unroll and inline pragmas are applied                                 |
+|               | (1) unroll         |  6,715       | user unroll pragmas are applied                                                  |
+|               | (2) simplification |  5,902       | simplification of applied user unroll pragmas                                    |
+|               | (3) inline         |  5,903       | user inline pragmas are applied                                                  |
+|               | (4) simplification |  5,903       | simplification of applied user inline pragmas                                    |
+|               |                    |              |                                                                                  |
+| Array/Struct  |                    | pending      | After user array partition and struct aggregate/disaggregate pragmas are applied |
+| Performance   |                    |              | After transformations are applied to meet performance pragma targets             |
+| HW Transforms |                    |              | After hardware transfomations                                                    |
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+
+* Instructions per Function for each Compilation Phase
++------------------------------------+------------------------------------+------------------+---------------+
+| Function                           | Location                           | Compile/Link     | Unroll/Inline |
++------------------------------------+------------------------------------+------------------+---------------+
+| + kernel_gesummv                   | __merlinkernel_kernel_gesummv.c:20 | 13,820           | 5,903         |
+|  + memcpy_wide_bus_read_float_5... | mars_wide_bus.h:3385               | 8,348 (4 calls)  |               |
+|     merlin_get_range_512           | memcpy_512.h:32                    | 5,304 (68 calls) |               |
+|  + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326            | 1,124 (2 calls)  |               |
+|     merlin_get_range_64            | memcpy_64.h:32                     |   624 (8 calls)  |               |
+|  + memcpy_wide_bus_write_float_... | mars_wide_bus.h:3621               | 4,214 (2 calls)  |               |
+|     merlin_set_range_512           | memcpy_512.h:72                    | 2,926 (38 calls) |               |
++------------------------------------+------------------------------------+------------------+---------------+
+
+* Design Size Message Settings
++---------------------------------------------+--------+------------------------------------------------------------------+
+| Message Setting                             | Value  | Description                                                      |
++---------------------------------------------+--------+------------------------------------------------------------------+
+| config_compile -design_size_maximum_warning | 100000 | Show a warning when total design instructions exceeds this value |
++---------------------------------------------+--------+------------------------------------------------------------------+
+
+

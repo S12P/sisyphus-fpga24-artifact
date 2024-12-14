@@ -1,0 +1,53 @@
+================================================================
+== Design Size Report
+================================================================
+
+* C-Synthesis has not completed!
+
+* Total Instructions per Compilation Phase
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Phase         | Step                        | Instructions | Description                                                                            |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Compile/Link  |                             | 4,497        | After all functions are compiled and linked into a single design                       |
+|               |                             |              |                                                                                        |
+| Unroll/Inline |                             |              | After user unroll and inline pragmas are applied                                       |
+|               | (1) unroll                  |   767        | user unroll pragmas are applied                                                        |
+|               | (2) simplification          |   633        | simplification of applied user unroll pragmas                                          |
+|               | (3) inline                  |   630        | user inline pragmas are applied                                                        |
+|               | (4) simplification          |   630        | simplification of applied user inline pragmas                                          |
+|               |                             |              |                                                                                        |
+| Array/Struct  |                             |              | After user array partition and struct aggregate/disaggregate pragmas are applied       |
+|               | (1) array partition         | 1,009        | user array partition pragmas are applied                                               |
+|               | (2) simplification          |   792        | simplification of applied user array partition & struct aggregate/disaggregate pragmas |
+|               | (3) aggregate/disaggregate  | 1,032        | user struct aggregate/disaggregate pragmas are applied                                 |
+|               | (4) array reshape           |   981        | apply array reshape pragmas                                                            |
+|               |                             |              |                                                                                        |
+| Performance   |                             | pending      | After transformations are applied to meet performance pragma targets                   |
+| HW Transforms |                             |              | After hardware transfomations                                                          |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+
+* Instructions per Function for each Compilation Phase
++------------------------------------+--------------------------------+-----------------+---------------+--------------+
+| Function                           | Location                       | Compile/Link    | Unroll/Inline | Array/Struct |
++------------------------------------+--------------------------------+-----------------+---------------+--------------+
+| + kernel_2mm                       | __merlinkernel_kernel_2mm.c:28 | 4,497           | 630           | 981          |
+|  + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326        | 1,124 (2 calls) |               |              |
+|     merlin_get_range_64            | memcpy_64.h:32                 |  624 (8 calls)  |               |              |
+|  + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326        |  562            |               |              |
+|     merlin_get_range_64            | memcpy_64.h:32                 |  312 (4 calls)  |               |              |
+|  + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326        | 1,124 (2 calls) |               |              |
+|     merlin_get_range_128           | memcpy_128.h:32                |  624 (8 calls)  |               |              |
+|  + memcpy_wide_bus_write_float_... | mars_wide_bus_2d.h:1422        |  766            |               |              |
+|     merlin_set_range_128           | memcpy_128.h:72                |  462 (6 calls)  |               |              |
+|  + memcpy_wide_bus_write_float_... | mars_wide_bus_2d.h:1422        |  766            |               |              |
+|     merlin_set_range_64            | memcpy_64.h:72                 |  462 (6 calls)  |               |              |
++------------------------------------+--------------------------------+-----------------+---------------+--------------+
+
+* Design Size Message Settings
++---------------------------------------------+--------+------------------------------------------------------------------+
+| Message Setting                             | Value  | Description                                                      |
++---------------------------------------------+--------+------------------------------------------------------------------+
+| config_compile -design_size_maximum_warning | 100000 | Show a warning when total design instructions exceeds this value |
++---------------------------------------------+--------+------------------------------------------------------------------+
+
+

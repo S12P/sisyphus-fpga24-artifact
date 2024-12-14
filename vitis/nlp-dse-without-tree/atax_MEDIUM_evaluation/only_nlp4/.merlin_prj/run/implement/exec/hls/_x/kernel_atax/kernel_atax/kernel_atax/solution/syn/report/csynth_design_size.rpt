@@ -1,0 +1,47 @@
+================================================================
+== Design Size Report
+================================================================
+
+* C-Synthesis has not completed!
+
+* Total Instructions per Compilation Phase
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+| Phase         | Step               | Instructions | Description                                                                      |
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+| Compile/Link  |                    |  11,160      | After all functions are compiled and linked into a single design                 |
+|               |                    |              |                                                                                  |
+| Unroll/Inline |                    |              | After user unroll and inline pragmas are applied                                 |
+|               | (1) unroll         |   9,725      | user unroll pragmas are applied                                                  |
+|               | (2) simplification |   8,082      | simplification of applied user unroll pragmas                                    |
+|               | (3) inline         |   8,082      | user inline pragmas are applied                                                  |
+|               | (4) simplification |   8,082      | simplification of applied user inline pragmas                                    |
+|               |                    |              |                                                                                  |
+| Array/Struct  |                    | 350,744 *    | After user array partition and struct aggregate/disaggregate pragmas are applied |
+|               |                    |              |                                                                                  |
+| Performance   |                    | pending      | After transformations are applied to meet performance pragma targets             |
+| HW Transforms |                    |              | After hardware transfomations                                                    |
++---------------+--------------------+--------------+----------------------------------------------------------------------------------+
+    * - Exceeded design size warning message threshold
+
+* Instructions per Function for each Compilation Phase
++------------------------------------+---------------------------------+------------------+---------------+--------------+
+| Function                           | Location                        | Compile/Link     | Unroll/Inline | Array/Struct |
++------------------------------------+---------------------------------+------------------+---------------+--------------+
+| + kernel_atax                      | __merlinkernel_kernel_atax.c:20 | 11,160           | 8,082         | 350,744 *    |
+|  + memcpy_wide_bus_read_float_5... | mars_wide_bus.h:3385            | 6,261 (3 calls)  |               |              |
+|     merlin_get_range_512           | memcpy_512.h:32                 | 3,978 (51 calls) |               |              |
+|  + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326         |   562            |               |              |
+|     merlin_get_range_64            | memcpy_64.h:32                  |   312 (4 calls)  |               |              |
+|  + memcpy_wide_bus_write_float_... | mars_wide_bus.h:3621            | 4,214 (2 calls)  |               |              |
+|     merlin_set_range_512           | memcpy_512.h:72                 | 2,926 (38 calls) |               |              |
++------------------------------------+---------------------------------+------------------+---------------+--------------+
+    * - Exceeded design size warning message threshold
+
+* Design Size Message Settings
++---------------------------------------------+--------+------------------------------------------------------------------+
+| Message Setting                             | Value  | Description                                                      |
++---------------------------------------------+--------+------------------------------------------------------------------+
+| config_compile -design_size_maximum_warning | 100000 | Show a warning when total design instructions exceeds this value |
++---------------------------------------------+--------+------------------------------------------------------------------+
+
+

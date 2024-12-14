@@ -1,0 +1,59 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Hello Loop Tiling ... 
+WARNING: Loop tiling is disabled because Factor >= Loop Trip Count: 
+for(j = 0;j < 768;j++) {...} (bert_100_768.c:21)
+
+Hello Loop Tiling ... 
+Find a loop (8):for(j = 0;j < 768;j++) {...}
+Nest: nullptr -> SgForStatement:for(j = 0;j < 768;j++) {...}
+Traverse Loop: for(i = 0;i < 100;i++) {...}(bert_100_768.c:14)
+  ==> insert sub Loop: for(j = 0;j < 96;j++) {...}(bert_100_768.c:21)
+Traverse Loop: for(j = 0;j < 96;j++) {...}(bert_100_768.c:21)
+  ==> insert sub Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_768.c:21)
+Traverse Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_768.c:21)
+  ==> insert sub Loop: for(k = 0;k < 100;k++) {...}(bert_100_768.c:25)
+ANALYZE Loop: for(i = 0;i < 100;i++) {...}(bert_100_768.c:14)
+tc: 100
+ANALYZE Loop: for(j = 0;j < 96;j++) {...}(bert_100_768.c:21)
+tc: 768
+ANALYZE Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_768.c:21)
+tc: 1
+ANALYZE Loop: for(k = 0;k < 100;k++) {...}(bert_100_768.c:25)
+tc: 1
+
+
+ START Candidate analysis
+====
+
+
+ START Critical loops analysis
+====
+CHECK reference latency: 0
+CHECK rest latency: 15360000
+Tagging Pragma For Loop: for(k = 0;k < 100;k++) {...}(bert_100_768.c:25)
+Loop latency: 15360000
+total latency: 0
+Loop TripCount: 1
+curr resource: 144
+CHECK reference latency: 0
+CHECK rest latency: 3072000
+Tagging Pragma For Loop: for(int j_sub = 0;j_sub < 8;++j_sub) {...}(bert_100_768.c:21)
+Loop latency: 3072000
+total latency: 0
+Loop TripCount: 1
+curr resource: 1820
+CHECK reference latency: 0
+CHECK rest latency: 460800
+Tagging Pragma For Loop: for(j = 0;j < 96;j++) {...}(bert_100_768.c:21)
+Loop latency: 460800
+total latency: 0
+Loop TripCount: 768
+curr resource: 14578
+STOP reference latency: 77400
+STOP rest latency: 0
+
+
+ START Trivial loops analysis
+====
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p auto_parallel -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_without_tree_reduction/bert_100_768/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_without_tree_reduction/bert_100_768/_done/work_dir/output/fast/0/bert_100_768/ -I/home/spouget/iccad_24/autodse_without_tree_reduction/bert_100_768/_done/work_dir/output/fast/0/./ -I/mnt/software/xilinx/Vitis_HLS/2023.2/lnx64/tools/gcc/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include/ -I/mnt/software/xilinx/Vitis_HLS/2023.2/include/ -I/opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags="-D XILINX -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

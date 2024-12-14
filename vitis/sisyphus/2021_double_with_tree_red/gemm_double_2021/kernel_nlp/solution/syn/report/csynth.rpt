@@ -1,0 +1,127 @@
+
+
+================================================================
+== Synthesis Summary Report of 'kernel_nlp'
+================================================================
++ General Information: 
+    * Date:           Wed Aug 14 23:02:11 2024
+    * Version:        2021.1 (Build 3247384 on Thu Jun 10 19:36:07 MDT 2021)
+    * Project:        kernel_nlp
+    * Solution:       solution (Vitis Kernel Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu200-fsgd2104-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+------------+------------+--------------+--------------+-----+
+    |                               Modules                               |  Issue |       | Latency |  Latency  | Iteration|         |  Trip |          |            |            |              |              |     |
+    |                               & Loops                               |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined|    BRAM    |     DSP    |      FF      |      LUT     | URAM|
+    +---------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+------------+------------+--------------+--------------+-----+
+    |+ kernel_nlp                                                         |  Timing|  -2.87|    90268|  5.228e+05|         -|    90269|      -|        no|  1402 (32%)|  3349 (48%)|  558228 (23%)|  435846 (36%)|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_14_1_VITIS_LOOP_15_2_fu_13945  |  Timing|  -0.00|    11012|  6.378e+04|         -|    11012|      -|        no|           -|           -|     922 (~0%)|     905 (~0%)|    -|
+    |  o VITIS_LOOP_14_1_VITIS_LOOP_15_2                                  |       -|   2.92|    11010|  6.377e+04|        12|        1|  11000|       yes|           -|           -|             -|             -|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_27_1_VITIS_LOOP_28_2_fu_14656  |  Timing|  -0.00|    13212|  7.652e+04|         -|    13212|      -|        no|           -|           -|     726 (~0%)|     767 (~0%)|    -|
+    |  o VITIS_LOOP_27_1_VITIS_LOOP_28_2                                  |       -|   2.92|    13210|  7.651e+04|        12|        1|  13200|       yes|           -|           -|             -|             -|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_40_1_VITIS_LOOP_41_2_fu_14839  |  Timing|  -0.00|     3003|  1.739e+04|         -|     3003|      -|        no|           -|           -|    1071 (~0%)|     236 (~0%)|    -|
+    |  o VITIS_LOOP_40_1_VITIS_LOOP_41_2                                  |       -|   2.92|     3001|  1.738e+04|         3|        1|   3000|       yes|           -|           -|             -|             -|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_83_2_VITIS_LOOP_84_3_fu_14910  |       -|   0.16|      146|    845.632|         -|      146|      -|        no|           -|     1 (~0%)|   185647 (7%)|    72354 (6%)|    -|
+    |  o VITIS_LOOP_83_2_VITIS_LOOP_84_3                                  |       -|   2.92|      144|    834.048|        21|        1|    125|       yes|           -|           -|             -|             -|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_108_4_fu_15620                 |  Timing|  -2.87|      509|  2.948e+03|         -|      509|      -|        no|           -|    531 (7%)|   179751 (7%)|  164336 (13%)|    -|
+    |  o VITIS_LOOP_108_4                                                 |      II|   2.92|      507|  2.937e+03|        36|        8|     60|       yes|           -|           -|             -|             -|    -|
+    | + grp_kernel_nlp_Pipeline_VITIS_LOOP_65_1_VITIS_LOOP_66_2_fu_16571  |  Timing|  -0.00|    11014|  6.379e+04|         -|    11014|      -|        no|           -|           -|    3869 (~0%)|    4935 (~0%)|    -|
+    |  o VITIS_LOOP_65_1_VITIS_LOOP_66_2                                  |       -|   2.92|    11012|  6.378e+04|        14|        1|  11000|       yes|           -|           -|             -|             -|    -|
+    | o VITIS_LOOP_105_1_VITIS_LOOP_106_2                                 |       -|   2.92|    65750|  3.808e+05|       526|        -|    125|        no|           -|           -|             -|             -|    -|
+    +---------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+------------+------------+--------------+--------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++----------------+--------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface      | Data Width   | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|                | (SW->HW)     |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++----------------+--------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_kernel_A | 1024 -> 1024 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          |
+| m_axi_kernel_B | 256 -> 256   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          |
+| m_axi_kernel_C | 256 -> 256   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          |
++----------------+--------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 7             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------------+
+| Argument | Direction | Datatype            |
++----------+-----------+---------------------+
+| alpha    | in        | double              |
+| beta     | in        | double              |
+| vC       | inout     | vector<double, 4>*  |
+| vA       | in        | vector<double, 16>* |
+| vB       | in        | vector<double, 4>*  |
++----------+-----------+---------------------+
+
+* SW-to-HW Mapping
++----------+-----------------------+-----------+----------+-----------------------+
+| Argument | HW Name               | HW Type   | HW Usage | HW Info               |
++----------+-----------------------+-----------+----------+-----------------------+
+| alpha    | s_axi_control alpha_1 | register  |          | offset=0x10, range=32 |
+| alpha    | s_axi_control alpha_2 | register  |          | offset=0x14, range=32 |
+| beta     | s_axi_control beta_1  | register  |          | offset=0x1c, range=32 |
+| beta     | s_axi_control beta_2  | register  |          | offset=0x20, range=32 |
+| vC       | m_axi_kernel_C        | interface |          |                       |
+| vC       | s_axi_control vC_1    | register  | offset   | offset=0x28, range=32 |
+| vC       | s_axi_control vC_2    | register  | offset   | offset=0x2c, range=32 |
+| vA       | m_axi_kernel_A        | interface |          |                       |
+| vA       | s_axi_control vA_1    | register  | offset   | offset=0x34, range=32 |
+| vA       | s_axi_control vA_2    | register  | offset   | offset=0x38, range=32 |
+| vB       | m_axi_kernel_B        | interface |          |                       |
+| vB       | s_axi_control vB_1    | register  | offset   | offset=0x40, range=32 |
+| vB       | s_axi_control vB_2    | register  | offset   | offset=0x44, range=32 |
++----------+-----------------------+-----------+----------+-----------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+* Burst Summary
++----------------+-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| HW Interface   | Loop            | Message                                                                                                                                                                                                                      | Location                 |
++----------------+-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| m_axi_kernel_C | VITIS_LOOP_14_1 | Multiple burst reads of length 11000 and bit width 256. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.  | code_generated.cpp:14:19 |
+| m_axi_kernel_B | VITIS_LOOP_27_1 | Multiple burst reads of length 13200 and bit width 256. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.  | code_generated.cpp:27:19 |
+| m_axi_kernel_A | VITIS_LOOP_40_1 | Multiple burst reads of length 3000 and bit width 1024. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.  | code_generated.cpp:40:19 |
+| m_axi_kernel_C | VITIS_LOOP_65_1 | Multiple burst writes of length 11000 and bit width 256. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. | code_generated.cpp:65:19 |
++----------------+-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+* Bursts and Widening Missed
++----------------+----------+-----------------+----------------------------------------------------------------------------------------------------------------------+--------------------------+
+| HW Interface   | Variable | Loop            | Problem                                                                                                              | Location                 |
++----------------+----------+-----------------+----------------------------------------------------------------------------------------------------------------------+--------------------------+
+| m_axi_kernel_C | vC       | VITIS_LOOP_66_2 | Could not widen since Type i256 size is greater than or equal to alignment 32(bytes)                                 | code_generated.cpp:66:26 |
+| m_axi_kernel_A | vA       |                 | Could not widen since the size of type 'i1024' is greater than or equal to the max_widen_bitwidth threshold of '64'. | code_generated.cpp:40:19 |
+| m_axi_kernel_B | vB       | VITIS_LOOP_28_2 | Could not widen since Type i256 size is greater than or equal to alignment 32(bytes)                                 | code_generated.cpp:28:26 |
+| m_axi_kernel_C | vC       | VITIS_LOOP_15_2 | Could not widen since Type i256 size is greater than or equal to alignment 32(bytes)                                 | code_generated.cpp:15:26 |
++----------------+----------+-----------------+----------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+

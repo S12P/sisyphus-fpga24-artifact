@@ -1,0 +1,82 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 13:10:36
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++----------------------+-----------------+----------+-----------+---------+--------+-------+------+
+|        Kernel        |     Cycles      |   LUT    |    FF     |  BRAM   |  DSP   | URAM  |Detail|
++----------------------+-----------------+----------+-----------+---------+--------+-------+------+
+|kernel_atax (atax.c:3)|1482035 (5.928ms)|17990 (1%)|16888 (~0%)|666 (15%)|27 (~0%)|0 (~0%)|-     |
++----------------------+-----------------+----------+-----------+---------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++--------------+-----------+-----------+----+------------------+
+|  Interface   |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++--------------+-----------+-----------+----+------------------+
+|m (atax.c:3)  |         32|         32|   -|-                 |
+|n (atax.c:3)  |         32|         32|   -|-                 |
+|A (atax.c:3)  |         32|         32|  RO|cached[1]         |
+|x (atax.c:3)  |         32|         32|  RO|cached[2]         |
+|y (atax.c:3)  |         32|         32| R/W|cached[3]         |
+|tmp (atax.c:3)|         32|        512| R/W|cached & coalesced|
++--------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'A' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 'x' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'y' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++--------------------------------------+---+----------------+-------+-------------------------------------+
+|              Hierarchy               |TC |       AC       |  CPC  |               Detail                |
++--------------------------------------+---+----------------+-------+-------------------------------------+
+|kernel_atax (atax.c:3)                |   |1482035 (100.0%)|1482035|-                                    |
+|    auto memory burst for 'y'(read)   |   |    410 (  0.0%)|    410|cache size=1640B                     |
+|    loop i (atax.c:11)                |410|     82 (  0.0%)|     82|parallel factor=5x, pipeline II=1    |
+|    auto memory burst for 'A'(read)   |   | 159900 ( 10.8%)| 159900|cache size=639600B                   |
+|    auto memory burst for 'x'(read)   |   |    410 (  0.0%)|    410|cache size=1640B                     |
+|    auto memory burst for 'tmp'(read) |   |     24 (  0.0%)|     24|cache size=1560B                     |
+|    auto memory burst for 'A'(read)   |   | 159900 ( 10.8%)| 159900|cache size=639600B                   |
+|    loop i (atax.c:17)                |390|1161420 ( 78.4%)|1161420|-                                    |
+|        loop j (atax.c:22)            |410|1121250 ( 75.7%)|   2875|parallel factor=5x, pipeline II=35[4]|
+|        loop j (atax.c:28)            |410|  36660 (  2.5%)|     94|parallel factor=5x, pipeline II=1    |
+|    auto memory burst for 'tmp'(write)|   |     24 (  0.0%)|     24|cache size=1560B                     |
+|    auto memory burst for 'y'(write)  |   |    410 (  0.0%)|    410|cache size=1640B                     |
++--------------------------------------+---+----------------+-------+-------------------------------------+
+[4]: Unable to enforce a carried dependence constraint because of the access on variable 'tmp' (atax.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++--------------------------------------+----------+-----------+---------+--------+-------+------+
+|              Hierarchy               |   LUT    |    FF     |  BRAM   |  DSP   | URAM  |Detail|
++--------------------------------------+----------+-----------+---------+--------+-------+------+
+|kernel_atax (atax.c:3)                |17990 (1%)|16888 (~0%)|666 (15%)|27 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'y'(read)   |         -|          -|        -|       -|      -|-     |
+|    loop i (atax.c:11)                |         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'tmp'(read) |         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|          -|        -|       -|      -|-     |
+|    loop i (atax.c:17)                |         -|          -|        -|       -|      -|-     |
+|        loop j (atax.c:22)            |         -|          -|        -|       -|      -|-     |
+|        loop j (atax.c:28)            |         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'tmp'(write)|         -|          -|        -|       -|      -|-     |
+|    auto memory burst for 'y'(write)  |         -|          -|        -|       -|      -|-     |
++--------------------------------------+----------+-----------+---------+--------+-------+------+

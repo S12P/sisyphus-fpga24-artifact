@@ -1,0 +1,83 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-04-06 23:36:10
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++------------------------+------+----------+----------+---------+--------+-------+------+
+|         Kernel         |Cycles|   LUT    |    FF    |  BRAM   |  DSP   | URAM  |Detail|
++------------------------+------+----------+----------+---------+--------+-------+------+
+|kernel_syr2k (syr2k.c:3)|     ?|48582 (4%)|40814 (1%)|602 (13%)|109 (1%)|32 (3%)|-     |
++------------------------+------+----------+----------+---------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++-----------------+-----------+-----------+----+---------------------+
+|    Interface    |SW Bitwidth|HW Bitwidth|Type|       Detail        |
++-----------------+-----------+-----------+----+---------------------+
+|n (syr2k.c:3)    |         32|         32|   -|-                    |
+|m (syr2k.c:3)    |         32|         32|   -|-                    |
+|alpha (syr2k.c:3)|         32|         32|   -|scalar               |
+|beta (syr2k.c:3) |         32|         32|   -|scalar               |
+|C (syr2k.c:3)    |         32|        512| R/W|cached & coalesced[1]|
+|A (syr2k.c:3)    |         32|        256|  RO|cached & coalesced   |
+|B (syr2k.c:3)    |         32|        256|  RO|cached & coalesced   |
++-----------------+-----------+-----------+----+---------------------+
+[1]: Coarse-grained parallelization NOT applied: loop (syr2k.c:19) because access on array 'C' (syr2k.c:3) cannot be parallelized due to possible loop carried data dependence.
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++----------------------------------------+---+--+--------+----------------------------------+
+|               Hierarchy                |TC |AC|  CPC   |              Detail              |
++----------------------------------------+---+--+--------+----------------------------------+
+|kernel_syr2k (syr2k.c:3)                |   | -|       ?|-                                 |
+|    loop i (syr2k.c:19)                 |240| -|12280800|-                                 |
+|        auto memory burst for 'A'(read) |   | -|      25|cache size=800B                   |
+|        auto memory burst for 'B'(read) |   | -|      25|cache size=800B                   |
+|        auto memory burst for 'C'(read) |   | -|      15|cache size=960B                   |
+|        auto memory burst for 'B'(read) |   | -|      25|cache size=800B                   |
+|        auto memory burst for 'A'(read) |   | -|      25|cache size=800B                   |
+|        loop j (syr2k.c:22)             |240| -|      40|parallel factor=16x, pipeline II=1|
+|        auto memory burst for 'A'(read) |   | -|    6000|cache size=192000B                |
+|        auto memory burst for 'A'(read) |   | -|    6000|cache size=192000B                |
+|        auto memory burst for 'B'(read) |   | -|    6000|cache size=192000B                |
+|        auto memory burst for 'B'(read) |   | -|    6000|cache size=192000B                |
+|        loop k (syr2k.c:28)             |200| -|   27000|-                                 |
+|            loop j (syr2k.c:31)         |240| -|     125|parallel factor=3x, pipeline II=1 |
+|        auto memory burst for 'C'(write)|   | -|      15|cache size=960B                   |
++----------------------------------------+---+--+--------+----------------------------------+
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++----------------------------------------+----------+----------+---------+--------+-------+------+
+|               Hierarchy                |   LUT    |    FF    |  BRAM   |  DSP   | URAM  |Detail|
++----------------------------------------+----------+----------+---------+--------+-------+------+
+|kernel_syr2k (syr2k.c:3)                |48582 (4%)|40814 (1%)|602 (13%)|109 (1%)|32 (3%)|-     |
+|    loop i (syr2k.c:19)                 |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'A'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'B'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'C'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'B'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'A'(read) |         -|         -|        -|       -|      -|-     |
+|        loop j (syr2k.c:22)             |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'A'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'A'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'B'(read) |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'B'(read) |         -|         -|        -|       -|      -|-     |
+|        loop k (syr2k.c:28)             |         -|         -|        -|       -|      -|-     |
+|            loop j (syr2k.c:31)         |         -|         -|        -|       -|      -|-     |
+|        auto memory burst for 'C'(write)|         -|         -|        -|       -|      -|-     |
++----------------------------------------+----------+----------+---------+--------+-------+------+

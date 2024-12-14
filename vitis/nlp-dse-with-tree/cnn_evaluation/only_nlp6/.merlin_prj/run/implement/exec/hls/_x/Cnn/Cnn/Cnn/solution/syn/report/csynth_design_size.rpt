@@ -1,0 +1,62 @@
+================================================================
+== Design Size Report
+================================================================
+
+* Total Instructions per Compilation Phase
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Phase         | Step                        | Instructions | Description                                                                            |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Compile/Link  |                             |  7,386       | After all functions are compiled and linked into a single design                       |
+|               |                             |              |                                                                                        |
+| Unroll/Inline |                             |              | After user unroll and inline pragmas are applied                                       |
+|               | (1) unroll                  | 24,749       | user unroll pragmas are applied                                                        |
+|               | (2) simplification          | 16,476       | simplification of applied user unroll pragmas                                          |
+|               | (3) inline                  | 15,560       | user inline pragmas are applied                                                        |
+|               | (4) simplification          | 15,293       | simplification of applied user inline pragmas                                          |
+|               |                             |              |                                                                                        |
+| Array/Struct  |                             |              | After user array partition and struct aggregate/disaggregate pragmas are applied       |
+|               | (1) array partition         | 84,936       | user array partition pragmas are applied                                               |
+|               | (2) simplification          | 42,324       | simplification of applied user array partition & struct aggregate/disaggregate pragmas |
+|               | (3) aggregate/disaggregate  | 46,464       | user struct aggregate/disaggregate pragmas are applied                                 |
+|               | (4) array reshape           | 46,407       | apply array reshape pragmas                                                            |
+|               | (5) access patterns         | 46,379       | array access pattern optmizations                                                      |
+|               |                             |              |                                                                                        |
+| Performance   |                             |              | After transformations are applied to meet performance pragma targets                   |
+|               | (1) loop simplification     | 42,603       | loop and instruction simplification                                                    |
+|               | (2) parallelization         | 42,600       | loops are unrolled or pipelined to meet performance targets                            |
+|               | (3) array partition         | 42,600       | arrays are partitioned to meet performance targets                                     |
+|               | (4) simplification          | 42,585       | simplification of design after performance transformations                             |
+|               |                             |              |                                                                                        |
+| HW Transforms |                             |              | After hardware transfomations                                                          |
+|               | (1) lowering                | 42,946       | initial conversion to HW specific instructions                                         |
+|               | (2) optimizations           | 42,425       | high level synthesis optimizations                                                     |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+
+* Instructions per Function for each Compilation Phase
++---------------------------------------+--------------------------+------------------+------------------+------------------+------------------+------------------+
+| Function                              | Location                 | Compile/Link     | Unroll/Inline    | Array/Struct     | Performance      | HW Transforms    |
++---------------------------------------+--------------------------+------------------+------------------+------------------+------------------+------------------+
+| + Cnn                                 | __merlinkernel_Cnn.c:152 | 7,386            | 15,293           | 46,379           | 42,585           | 42,425           |
+|    merlin_memcpy_0                    | __merlinkernel_Cnn.c:133 |   47             |    16            |   198            |   199            |   203            |
+|  + mars_kernel_0_1                    | __merlinkernel_Cnn.c:125 | 7,266 (3 calls)  | 15,237 (3 calls) | 46,005 (3 calls) | 42,210 (3 calls) | 42,039 (3 calls) |
+|   + mars_kernel_0_1_bus               | __merlinkernel_Cnn.c:110 | 7,254 (3 calls)  | 15,231 (3 calls) | 45,999 (3 calls) | 42,204 (3 calls) | 42,030 (3 calls) |
+|    + mars_kernel_0_1_node_0_stage...  | __merlinkernel_Cnn.c:26  | 2,286 (3 calls)  | 4,503 (3 calls)  | 6,252 (3 calls)  | 5,436 (3 calls)  | 5,604 (3 calls)  |
+|     + memcpy_wide_bus_read_float_3... | mars_wide_bus_3d.h:1648  | 2,262 (3 calls)  |                  |                  |                  |                  |
+|        merlin_get_range_512           | memcpy_512.h:32          | 1,170 (15 calls) |                  |                  |                  |                  |
+|    + mars_kernel_0_1_node_1_stage...  | __merlinkernel_Cnn.c:35  | 1,989 (3 calls)  | 3,762 (3 calls)  | 23,991 (3 calls) | 23,898 (3 calls) | 23,067 (3 calls) |
+|     + memcpy_wide_bus_read_float_2... | mars_wide_bus_2d.h:1326  | 1,686 (3 calls)  |                  |                  |                  |                  |
+|        merlin_get_range_128           | memcpy_128.h:32          |  936 (12 calls)  |                  |                  |                  |                  |
+|    + mars_kernel_0_1_node_2_stage...  | __merlinkernel_Cnn.c:101 | 2,895 (3 calls)  | 6,918 (3 calls)  | 15,708 (3 calls) | 12,822 (3 calls) | 13,308 (3 calls) |
+|     + memcpy_wide_bus_write_float_... | mars_wide_bus_3d.h:1769  | 2,871 (3 calls)  |                  |                  |                  |                  |
+|        merlin_set_range_512           | memcpy_512.h:72          | 1,617 (21 calls) |                  |                  |                  |                  |
+|     mars_kernel_0_1_comp              | __merlinkernel_Cnn.c:119 |    3 (3 calls)   |                  |                  |                  |                  |
++---------------------------------------+--------------------------+------------------+------------------+------------------+------------------+------------------+
+
+* Design Size Message Settings
++---------------------------------------------+--------+------------------------------------------------------------------+
+| Message Setting                             | Value  | Description                                                      |
++---------------------------------------------+--------+------------------------------------------------------------------+
+| config_compile -design_size_maximum_warning | 100000 | Show a warning when total design instructions exceeds this value |
++---------------------------------------------+--------+------------------------------------------------------------------+
+
+

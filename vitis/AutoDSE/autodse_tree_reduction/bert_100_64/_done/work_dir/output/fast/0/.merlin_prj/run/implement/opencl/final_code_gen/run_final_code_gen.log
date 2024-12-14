@@ -1,0 +1,64 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Enter final code gen...
+tool version = vitis
+---------------------
+-----STREAMING_UPDATE
+---------------------
+----------------------------
+-----FINISH STREAMING_UPDATE
+----------------------------
+    Enter getKernelMap...
+    Enter data parser...
+-- Kernel: SgFunctionDeclaration:void kernel_gemm(merlin_uint_512 [400... C,merlin_uint_128 [250... A,merlin_uint_512 [400... B) {...}
+-- Kernel call: SgFunctionCallExp:kernel_gemm(__m_C,__m_A,__m_B)
+-- Kernel pragma: SgPragmaDeclaration:#pragma ACCEL kernel
+-- Port: SgFunctionDeclaration:void kernel_gemm(merlin_uint_512 [400... C,merlin_uint_128 [250... A,merlin_uint_512 [400... B) {...}
+
+ ************* 
+Data Parser Output (Kernels):
+--kernel (kernel_gemm): device=fpga return_type=void 
+
+ ************* 
+Data Parser Output (Ports):
+--kernel (kernel_gemm): 
+  port (A): VARIABLE=A actual_name=A bank=nullptr bitwidth=128 data_size_in_byte=4*100*100 data_type=struct merlin_uint_128 depth=100,100 formal_name=A io=RW max_depth=100,100 org_bitwidth=32 org_name=A orig_data_type=float port_idx=1 port_type=array read_length=2500 read_offset=0 read_valid=1 volatile=no write_valid=0 
+  port (B): VARIABLE=B actual_name=B bank=nullptr bitwidth=512 data_size_in_byte=4*100*64 data_type=struct merlin_uint_512 depth=100,64 formal_name=B io=RW max_depth=100,64 org_bitwidth=32 org_name=B orig_data_type=float port_idx=2 port_type=array read_length=400 read_offset=0 read_valid=1 volatile=no write_valid=0 
+  port (C): VARIABLE=C actual_name=C bank=nullptr bitwidth=512 data_size_in_byte=4*100*64 data_type=struct merlin_uint_512 depth=100,64 formal_name=C io=RW max_depth=100,64 org_bitwidth=32 org_name=C orig_data_type=float port_idx=0 port_type=array read_length=400 read_offset=0 read_valid=1 volatile=no write_length=400 write_offset=0 write_valid=1 
+
+    Enter post process...
+[MARS-PARALLEL-MSG] Enable xilinx flow mode.
+    Enter set_unique_function_name_top...
+    Legalizing_kernel_name from : kernel_gemm to kernel_gemm
+checking func_name: kernel_gemm
+checking func_name: memcpy_wide_bus_read_float_3d_8_8_512
+checking func_name: merlin_get_range_512
+checking func_name: memcpy_wide_bus_read_float_2d_100_128
+checking func_name: merlin_get_range_128
+checking func_name: memcpy_wide_bus_write_float_3d_8_8_512
+checking func_name: merlin_set_range_512
+Enter replace memcpy with for loop in function
+    Enter shorten_function_name_top...
+		Enter check_and_short_function_name
+Enter adding loop label
+Data transfer generation for OpenCL
+    Enter opencl code generation...
+    Enter merlin parameter head generation...
+    Enter merlin kernel buffer head generation...
+one kernel = void kernel_gemm(merlin_uint_512 [400... C,merlin_uint_128 [250... A,merlin_uint_512 [400... B) {...}
+    Enter merlin kernel buffer file generation...
+    Legalizing_kernel_name from : kernel_gemm to kernel_gemm
+    Enter merlin wrapper generation...
+    Enter merlin task generation...
+    Enter insert hls interface pragma...
+rw = 0, bitwidth = 128, name = merlin_gmem_kernel_gemm_128_0
+bundle for A is merlin_gmem_kernel_gemm_128_0
+rw = 0, bitwidth = 512, name = merlin_gmem_kernel_gemm_512_0
+bundle for B is merlin_gmem_kernel_gemm_512_0
+bundle for C is merlin_gmem_kernel_gemm_512_C
+Enter generate_kernel_file_list.
+    Legalizing_kernel_name from : kernel_gemm to kernel_gemm
+    Legalizing_kernel_name from : kernel_gemm to kernel_gemm
+    legalizing kernel...
+    Legalizing_kernel_name from : kernel_gemm to kernel_gemm
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p final_code_gen -a cstd=c99 -a cxxstd=c++11 -a impl_tool=sdaccel -a mode=opencl -a naive= -a effort=standard -a volatile_flag= -a tool_version=vitis -a explicit_bundle= -a extern_c= -a pcie_transfer_opt= -a pure_kernel=off -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0/bert_100_64/ -I/home/spouget/iccad_24/autodse_tree_reduction/bert_100_64/_done/work_dir/output/fast/0/./ -I/mnt/software/xilinx/Vitis_HLS/2023.2/lnx64/tools/gcc/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include/ -I/mnt/software/xilinx/Vitis_HLS/2023.2/include/ -I/opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags="-D XILINX -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

@@ -1,0 +1,265 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Check existing HLS partition pragma...
+variable: A_7_0_buf
+found arr: A_7_0_buf
+   Add HLS array partition pragma: HLS array_partition variable=A_7_0_buf cyclic factor = 16 dim=3
+variable: B_7_0_buf
+found arr: B_7_0_buf
+   Add HLS array partition pragma: HLS array_partition variable=B_7_0_buf cyclic factor = 4 dim=2
+variable: C_buf
+found arr: C_buf
+   Add HLS array partition pragma: HLS array_partition variable=C_buf cyclic factor = 4 dim=2
+variable: C_buf
+found arr: C_buf
+   Add HLS array partition pragma: HLS array_partition variable=C_buf cyclic factor = 4 dim=2
+==============================================
+-----=# Coarse Pipeline Optimization Start#=----
+==============================================
+[TESTING] BSU node is: {#pragma ACCEL PIPELINEfloat C_buf[5][220];#pragma HLS array_partition variable=C_buf cyclic factor = 4 dim=2memcpy_wide_bus_read_float_2d_220_128(C_buf,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);for(int i_sub = 0;i_sub < 5;++i_sub) {#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC_buf[i_sub][j * 4L + j_sub] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC_buf[i_sub][j] += alpha * A_7_0_buf[i][i_sub][k] * B_7_0_buf[k][j];}}}#pragma HLS array_partition variable=C_buf cyclic factor = 4 dim=2memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);}
+
+[TESTING] Children list 
+[TESTING] BSU node is:0 unroll:0 has_loop: 1 
+{#pragma ACCEL PIPELINEfloat C_buf[5][220];#pragma HLS array_partition variable=C_buf cyclic factor = 4 dim=2memcpy_wide_bus_read_float_2d_220_128(C_buf,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);for(int i_sub = 0;i_sub < 5;++i_sub) {#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC_buf[i_sub][j * 4L + j_sub] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC_buf[i_sub][j] += alpha * A_7_0_buf[i][i_sub][k] * B_7_0_buf[k][j];}}}#pragma HLS array_partition variable=C_buf cyclic factor = 4 dim=2memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);}
+==> Label preprocessing......
+[MARS-PIPELINE-PARSING] Dependency graph parsing: 
+[MARS-COARSE-PIPTLINE] Function call is parsed as a graph node 
+[MARS-IR-PARSING] For loop is parsed as a graph node 
+[MARS-COARSE-PIPTLINE] Function call is parsed as a graph node 
+[preprocessing: ]
+Locally new var: float C_buf_0[5][220];
+[MARS-PIPELINE-PARSING] Dependency graph parsing: 
+[MARS-COARSE-PIPTLINE] Function call is parsed as a graph node 
+[MARS-IR-PARSING] For loop is parsed as a graph node 
+[MARS-COARSE-PIPTLINE] Function call is parsed as a graph node 
+Parsing node for dependency analysis: 
+Node 0:
+memcpy_wide_bus_read_float_2d_220_128(C_buf_0,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);
+Node 1:
+for(int i_sub = 0;i_sub < 5;++i_sub) {#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC_buf_0[i_sub][j * 4L + j_sub] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC_buf_0[i_sub][j] += alpha * A_7_0_buf[i][i_sub][k] * B_7_0_buf[k][j];}}}
+Node 2:
+memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf_0,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);
+Offset and index: 3,0
+[print ] wr_type to array/pointer 'C_buf_0' :1
+ Write to array/pointer C_buf_0
+Offset and index: 3,3
+[print ] wr_type to array/pointer 'C' :0
+ Read from array/pointer C
+Loop iterator ref: SgInitializedName:i
+Loop iterator ref: SgInitializedName:i_sub
+Loop iterator ref: SgInitializedName:i_sub
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j_sub
+Loop iterator ref: SgInitializedName:j_sub
+[print ] wr_type to array/pointer 'C_buf_0' :2
+ Read & write to array/pointer C_buf_0
+Loop iterator ref: SgInitializedName:i_sub
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j_sub
+[print ] wr_type to array/pointer 'beta' :0
+ Read from array/pointer beta
+Loop iterator ref: SgInitializedName:k
+Loop iterator ref: SgInitializedName:k
+Loop iterator ref: SgInitializedName:k
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j
+Loop iterator ref: SgInitializedName:j
+[print ] wr_type to array/pointer 'C_buf_0' :2
+ Read & write to array/pointer C_buf_0
+Loop iterator ref: SgInitializedName:i_sub
+Loop iterator ref: SgInitializedName:j
+[print ] wr_type to array/pointer 'alpha' :0
+ Read from array/pointer alpha
+[print ] wr_type to array/pointer 'A_7_0_buf' :0
+ Read from array/pointer A_7_0_buf
+Loop iterator ref: SgInitializedName:i
+Loop iterator ref: SgInitializedName:i_sub
+Loop iterator ref: SgInitializedName:k
+[print ] wr_type to array/pointer 'B_7_0_buf' :0
+ Read from array/pointer B_7_0_buf
+Loop iterator ref: SgInitializedName:k
+Loop iterator ref: SgInitializedName:j
+Offset and index: 1,0
+[print ] wr_type to array/pointer 'C' :1
+ Write to array/pointer C
+Offset and index: 1,1
+[print ] wr_type to array/pointer 'C_buf_0' :0
+ Read from array/pointer C_buf_0
+Loop iterator ref: SgInitializedName:i
+Dependency analysis between node 0 and 0
+Dependency analysis between node 0 and 1
+Read after write dependency: C_buf_0
+Analyze range legality: SgInitializedName:C_buf_0
+write: 
+SgExprStatement:memcpy_wide_bus_read_float_2d_220_128(C_buf_0,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);
+read: 
+SgForStatement:for(int i_sub = 0;i_sub < 5;++i_sub) {...}
+Write after write dependency: C_buf_0
+Write after write dependency: C_buf_0
+Dependency analysis between node 0 and 2
+Read after write dependency: C_buf_0
+Analyze range legality: SgInitializedName:C_buf_0
+write: 
+SgExprStatement:memcpy_wide_bus_read_float_2d_220_128(C_buf_0,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);
+read: 
+SgExprStatement:memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf_0,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);
+Write after read dependency: C
+Dependency analysis between node 1 and 0
+Write after write dependency: C_buf_0
+Write after write dependency: C_buf_0
+Write after read dependency: C_buf_0
+Write after read dependency: C_buf_0
+Dependency analysis between node 1 and 1
+Read after write dependency: C_buf_0
+Analyze range legality: SgInitializedName:C_buf_0
+write: 
+SgForStatement:for(int i_sub = 0;i_sub < 5;++i_sub) {...}
+read: 
+SgForStatement:for(int i_sub = 0;i_sub < 5;++i_sub) {...}
+Dependency analysis between node 1 and 2
+Read after write dependency: C_buf_0
+Analyze range legality: SgInitializedName:C_buf_0
+write: 
+SgForStatement:for(int i_sub = 0;i_sub < 5;++i_sub) {...}
+read: 
+SgExprStatement:memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf_0,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);
+read after read dependency: C_buf_0
+read after read dependency: C_buf_0
+Dependency analysis between node 2 and 0
+Read after write dependency: C
+Analyze range legality: SgInitializedName:C
+write: 
+SgExprStatement:memcpy_wide_bus_write_float_2d_220_128((merlin_uint_128 *)C,C_buf_0,0,0,(4 *(((long )i) * 1100L)),sizeof(float ) *((unsigned long )1100L),1100L);
+read: 
+SgExprStatement:memcpy_wide_bus_read_float_2d_220_128(C_buf_0,0,0,(merlin_uint_128 *)C,(((long )i) * 1100L * 4),sizeof(float ) *((unsigned long )1100L),1100L);
+Check flattened range on : SgInitializedName:C
+flatten write range: i * 275L..274L + i * 275L
+flatten write exact flag :1
+flatten read range:i * 275L..274L + i * 275L
+Access union range analysis: SgInitializedName:C
+Check multiple range on : SgInitializedName:C
+Access union range analysis: SgInitializedName:C
+multi write range: i * 275L..274L + i * 275L
+multi union range: i * 275L..274L + i * 275L
+multi write exact flag :1
+multi read range:i * 275L..274L + i * 275L
+Write after read dependency: C_buf_0
+Dependency analysis between node 2 and 1
+Write after read dependency: C_buf_0
+Write after read dependency: C_buf_0
+read after read dependency: C_buf_0
+read after read dependency: C_buf_0
+Dependency analysis between node 2 and 2
+Node 0 stage 0
+Node 1 stage 1
+Node 2 stage 2
+===Feedback testing
+test node 0 and 0 dep: 0
+test node 0 and 1 dep: 2
+===> 
+C_buf_0, 2
+test node 0 and 2 dep: 1
+===> 
+C, 1
+==> check read after write
+read range: i * 275L..274L + i * 275L
+write range: i * 275L..274L + i * 275L, 1
+0..274
+275..549
+empty
+0..274
+550..824
+empty
+C_buf_0, 3
+test node 1 and 0 dep: 1
+test node 1 and 1 dep: 1
+test node 1 and 2 dep: 3
+===> 
+C_buf_0, 3
+test node 2 and 0 dep: 1
+test node 2 and 1 dep: 1
+test node 2 and 2 dep: 0
+[print dep:] node0, stage:1
+[print dep:] node1, stage:3
+[print dep:] node2, stage:3
+Memcpy in node 0
+Port direct access in node 1
+Second level of CG is generated for bus conflict on node 1
+Memcpy in node 2
+Second level of CG is generated for bus conflict on node 2
+First appear of 'A_7_0_buf' is in stage 1, last appear of 'A_7_0_buf' is in stage 1
+First appear of 'B_7_0_buf' is in stage 1, last appear of 'B_7_0_buf' is in stage 1
+First appear of 'C' is in stage 0, last appear of 'C' is in stage 2
+First appear of 'C_buf_0' is in stage 0, last appear of 'C_buf_0' is in stage 2
+First appear of 'alpha' is in stage 1, last appear of 'alpha' is in stage 1
+First appear of 'beta' is in stage 1, last appear of 'beta' is in stage 1
+LIVENESS CHECK========
+  LIVE in : C,i,C_buf_0,
+  LIVE out:  
+DEFUSE CHECK========
+DEF HERE: SgInitializedName:A_7_0_bufInitializer is unnecessary
+DEF HERE: SgInitializedName:B_7_0_bufInitializer is unnecessary
+DEF HERE: SgInitializedName:C_buf_0Initializer is unnecessary
+Total pipeline stage level: 3
+Code transformation started.
+vcount: int mars_count_0_1 = 0;
+mars_A_7_0_buf_1
+mars_B_7_0_buf_1
+mars_C_buf_0_0
+mars_C_buf_0_1
+mars_C_buf_0_2
+mars_i
+mars_init
+mars_cond
+mars_A_7_0_buf_1
+mars_B_7_0_buf_1
+C
+mars_C_buf_0_0
+mars_C_buf_0_1
+mars_C_buf_0_2
+alpha
+beta
+mars_i
+mars_init
+mars_cond
+mars_A_7_0_buf_1
+mars_B_7_0_buf_1
+C
+mars_C_buf_0_0
+mars_C_buf_0_1
+mars_C_buf_0_2
+alpha
+beta
+Pragma propagate:
+SgInitializedName:B_7_0_buf
+SgInitializedName:A_7_0_buf
+Floating Node:C_buf
+SgInitializedName:C_buf_0
+SgPragmaDeclaration:#pragma HLS array_partition variable=C_buf_0 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_0[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_0 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_1[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_1 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_2[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_2 cyclic factor=4 dim=2
+SgPragmaDeclaration:#pragma HLS array_partition variable=C_buf_0 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_0[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_0 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_1[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_1 cyclic factor=4 dim=2
+decl: SgVariableDeclaration:float mars_kernel_0_1_C_buf_0_2[5][220];
+[pragma gen] HLS array_partition variable=mars_kernel_0_1_C_buf_0_2 cyclic factor=4 dim=2
+2
+SgPragmaDeclaration:#pragma HLS array_partition variable=C_buf_0 cyclic factor=4 dim=2
+SgPragmaDeclaration:#pragma HLS array_partition variable=C_buf_0 cyclic factor=4 dim=2
+here5
+[MARS-PIPELINE-MSG] Coarse-grained pipeline is applied.
+
+============================================
+============================================
+-----=# Coarse Pipeline Optimization End#=----
+============================================
+
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p coarse_pipeline -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0/gemm_MEDIUM/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags=" -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

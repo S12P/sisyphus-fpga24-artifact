@@ -1,0 +1,104 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+
+ Total BRAM size is 3145728 byte.
+==============================================
+-----=# Memory Burst Optimization Start#=----
+==============================================
+
+lifting burst for coarse grained paralleld loop: 
+lifting memory burst for general issues: 
+access range for variable 'C' within scope '{#pragma ACCEL PARALLELC[((long )(i * 5 + i_sub)) * 220L +((long )(j * 4 + j_sub))] *= beta;}':  
+i * 1100L + i_sub * 220L + j * 4 + j_sub..i * 1100L + i_sub * 220L + j * 4 + j_sub exact
+access range for variable 'C' within scope 'for(int j_sub = 0;j_sub < 4;++j_sub) {...}':  
+i * 1100L + i_sub * 220L + j * 4..3L + i * 1100L + i_sub * 220L + j * 4 exact
+access range for variable 'C' within scope '{#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC[((long )(i * 5 + i_sub)) * 220L +((long )(j * 4 + j_sub))] *= beta;}}':  
+i * 1100L + i_sub * 220L + j * 4..3L + i * 1100L + i_sub * 220L + j * 4 exact
+access range for variable 'C' within scope 'for(j = 0;j < 55;j++) {...}':  
+i * 1100L + i_sub * 220L..219L + i * 1100L + i_sub * 220L exact
+access range for variable 'C' within scope '{#pragma ACCEL TILED_TAG#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC[((long )(i * 5 + i_sub)) * 220L +((long )(j * 4 + j_sub))] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}}':  
+i * 1100L + i_sub * 220L..219L + i * 1100L + i_sub * 220L exact
+access range for variable 'C' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1100L..1099L + i * 1100L exact
+access range for variable 'C' within scope '{#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}':  
+i * 1100L + i_sub * 220L + j..i * 1100L + i_sub * 220L + j exact
+access range for variable 'C' within scope 'for(j = 0;j < 220;j++) {...}':  
+i * 1100L + i_sub * 220L..219L + i * 1100L + i_sub * 220L exact
+access range for variable 'C' within scope '{#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}':  
+i * 1100L + i_sub * 220L..219L + i * 1100L + i_sub * 220L exact
+access range for variable 'C' within scope 'for(k = 0;k < 240;k++) {...}':  
+i * 1100L + i_sub * 220L..219L + i * 1100L + i_sub * 220L exact
+access range for variable 'A' within scope '{#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}':  
+i * 1200L + i_sub * 240L + k..i * 1200L + i_sub * 240L + k exact
+access range for variable 'A' within scope 'for(j = 0;j < 220;j++) {...}':  
+i * 1200L + i_sub * 240L + k..i * 1200L + i_sub * 240L + k exact
+access range for variable 'A' within scope '{#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}':  
+i * 1200L + i_sub * 240L + k..i * 1200L + i_sub * 240L + k exact
+access range for variable 'A' within scope 'for(k = 0;k < 240;k++) {...}':  
+i * 1200L + i_sub * 240L..239L + i * 1200L + i_sub * 240L exact
+access range for variable 'A' within scope '{#pragma ACCEL TILED_TAG#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC[((long )(i * 5 + i_sub)) * 220L +((long )(j * 4 + j_sub))] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}}':  
+i * 1200L + i_sub * 240L..239L + i * 1200L + i_sub * 240L exact
+access range for variable 'A' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1200L..1199L + i * 1200L exact
+access range for variable 'B' within scope '{#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}':  
+k * 220L + j..k * 220L + j exact
+access range for variable 'B' within scope 'for(j = 0;j < 220;j++) {...}':  
+k * 220L..219L + k * 220L exact
+access range for variable 'B' within scope '{#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}':  
+k * 220L..219L + k * 220L exact
+access range for variable 'B' within scope 'for(k = 0;k < 240;k++) {...}':  
+0..52799 exact
+access range for variable 'B' within scope '{#pragma ACCEL TILED_TAG#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC[((long )(i * 5 + i_sub)) * 220L +((long )(j * 4 + j_sub))] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC[((long )(i * 5 + i_sub)) * 220L +((long )j)] += alpha * A[((long )(i * 5 + i_sub)) * 240L +((long )k)] * B[((long )k) * 220L +((long )j)];}}}':  
+0..52799 exact
+access range for variable 'B' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+0..52799 exact
+access range for variable 'C' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1100L..1099L + i * 1100L exact
+access range for variable 'C' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1100L..1099L + i * 1100L exact
+access range for variable 'C' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1100L..1099L + i * 1100L exact
+Memory burst inferred: variable 'C' for GENERAL (__merlinkernel_kernel_gemm.c)
+  burst buffer size = 4400 bytes
+access range for variable 'A' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1200L..1199L + i * 1200L exact
+access range for variable 'A' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1200L..1199L + i * 1200L exact
+access range for variable 'A' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+i * 1200L..1199L + i * 1200L exact
+access range for variable 'B' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+0..52799 exact
+access range for variable 'B' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+0..52799 exact
+access range for variable 'B' within scope 'for(int i_sub = 0;i_sub < 5;++i_sub) {...}':  
+0..52799 exact
+access range for variable 'C' within scope 'for(k = 0;k < 240;k++) {...}':  
+na..na inexact
+Cannot infer burst for variable 'C' in scope 'SgForStatement:for(k = 0;k < 240;k++) {...}' because of infinite bound
+parent pipeline found
+[MARS-BURST-MSG] Read to array/pointer 'A' .
+[MARS-BURST-PARSING] Burst inference granularity of array 'A' is depends on loop iterator 2
+[MARS-BURST-MSG] Intra loop data reuse can be achieved by MARS burst inference.
+[MARS-BURST-PARSING] Burst inference location of array 'A' is -1, lifted by 2 level 
+[MARS-BURST-PARSING] Burst inference buffer size of array 'A' is 48000
+{#pragma ACCEL interface variable=B depth=240,220 max_depth=240,220#pragma ACCEL interface variable=A depth=200,240 max_depth=200,240#pragma ACCEL interface variable=C depth=200,220 max_depth=200,220__merlin_access_range(B,0,52799);__merlin_access_range(A,0,47999);__merlin_access_range(C,0,43999);int i;int j;int k;{float A_7_0_buf[48000];{memcpy((void *)(&A_7_0_buf[0]),(const void *)(&A[0]),sizeof(float ) * 48000L);}for(i = 0;i < 40;i++) {#pragma ACCEL PIPELINEfloat C_buf[1100];memcpy((void *)(&C_buf[0]),(const void *)(&C[i * 1100L]),sizeof(float ) * 1100L);for(int i_sub = 0;i_sub < 5;++i_sub) {#pragma ACCEL TILED_TAG#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC_buf[i_sub * 220L + j * 4 + j_sub] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC_buf[i_sub * 220L + j] += alpha * A_7_0_buf[i * 1200L + i_sub * 240L + k] * B[((long )k) * 220L +((long )j)];}}}memcpy((void *)(&C[i * 1100L]),(const void *)(&C_buf[0]),sizeof(float ) * 1100L);}}}
+[MARS-BURST-MSG] Read to array/pointer 'B' .
+[MARS-BURST-PARSING] Burst inference granularity of array 'B' is depends on loop iterator 2
+[MARS-BURST-MSG] Intra loop data reuse can be achieved by MARS burst inference.
+[MARS-BURST-PARSING] Burst inference location of array 'B' is -1, lifted by 2 level 
+[MARS-BURST-PARSING] Burst inference buffer size of array 'B' is 52800
+{#pragma ACCEL interface variable=B depth=240,220 max_depth=240,220#pragma ACCEL interface variable=A depth=200,240 max_depth=200,240#pragma ACCEL interface variable=C depth=200,220 max_depth=200,220__merlin_access_range(B,0,52799);__merlin_access_range(A,0,47999);__merlin_access_range(C,0,43999);int i;int j;int k;{float B_7_0_buf[52800];float A_7_0_buf[48000];{memcpy((void *)(&A_7_0_buf[0]),(const void *)(&A[0]),sizeof(float ) * 48000L);}{memcpy((void *)(&B_7_0_buf[0]),(const void *)(&B[0]),sizeof(float ) * 52800L);}for(i = 0;i < 40;i++) {#pragma ACCEL PIPELINEfloat C_buf[1100];memcpy((void *)(&C_buf[0]),(const void *)(&C[i * 1100L]),sizeof(float ) * 1100L);for(int i_sub = 0;i_sub < 5;++i_sub) {#pragma ACCEL TILED_TAG#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 55;j++) {#pragma ACCEL PIPELINE AUTOfor(int j_sub = 0;j_sub < 4;++j_sub) {#pragma ACCEL PARALLELC_buf[i_sub * 220L + j * 4 + j_sub] *= beta;}}for(k = 0;k < 240;k++) {#pragma ACCEL PIPELINE#pragma ACCEL TILE FACTOR=1#pragma ACCEL PARALLEL FACTOR=1for(j = 0;j < 220;j++) {#pragma ACCEL PARALLEL COMPLETEC_buf[i_sub * 220L + j] += alpha * A_7_0_buf[i * 1200L + i_sub * 240L + k] * B_7_0_buf[k * 220L + j];}}}memcpy((void *)(&C[i * 1100L]),(const void *)(&C_buf[0]),sizeof(float ) * 1100L);}}}
+parent pipeline found
+parent pipeline found
+parent pipeline found
+parent pipeline found
+parent pipeline found
+parent pipeline found
+parent pipeline found
+parent pipeline found
+[MARS-BURST-MSG] Current analysis will skip function body or any function call in the loop.
+============================================
+-----=# Memory Burst Optimization End#=----
+============================================
+
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p memory_burst -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a bus_length_threshold= -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0/gemm_MEDIUM/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags=" -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

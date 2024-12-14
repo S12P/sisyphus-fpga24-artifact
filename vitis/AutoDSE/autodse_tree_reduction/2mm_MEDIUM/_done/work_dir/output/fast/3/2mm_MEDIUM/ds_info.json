@@ -1,0 +1,120 @@
+{
+	"design-space.definition" : 
+	{
+		"__PARA__L0" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180] if x*__TILE__L0<=180]",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PARA__L1" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180] if x*__TILE__L1<=180]",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PARA__L2" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 5, 10, 19, 38, 95, 190] if x*__TILE__L2<=190 and (x==1 or __PIPE__L0!='flatten')]",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PARA__L3" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110, 220] if x*__TILE__L3<=220 and (x==1 or __PIPE__L1!='flatten')]",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PARA__L4" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210] if x==1 or __PIPE__L2!='flatten' and __PIPE__L0!='flatten']",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PARA__L5" : 
+		{
+			"default" : 1,
+			"ds_type" : "PARALLEL",
+			"options" : "[x for x in [1, 2, 5, 10, 19, 38, 95, 190] if x==1 or __PIPE__L3!='flatten' and __PIPE__L1!='flatten']",
+			"order" : "0 if x&(x-1)==0 else 1"
+		},
+		"__PIPE__L0" : 
+		{
+			"default" : "off",
+			"ds_type" : "PIPELINE",
+			"options" : "[x for x in ['off','','flatten']]",
+			"order" : "0 if x!='flatten' else 1"
+		},
+		"__PIPE__L1" : 
+		{
+			"default" : "off",
+			"ds_type" : "PIPELINE",
+			"options" : "[x for x in ['off','','flatten']]",
+			"order" : "0 if x!='flatten' else 1"
+		},
+		"__PIPE__L2" : 
+		{
+			"default" : "off",
+			"ds_type" : "PIPELINE",
+			"options" : "[x for x in ['off','','flatten'] if x=='off' or __PIPE__L0!='flatten']",
+			"order" : "0 if x!='flatten' else 1"
+		},
+		"__PIPE__L3" : 
+		{
+			"default" : "off",
+			"ds_type" : "PIPELINE",
+			"options" : "[x for x in ['off','','flatten'] if x=='off' or __PIPE__L1!='flatten']",
+			"order" : "0 if x!='flatten' else 1"
+		},
+		"__TILE__L0" : 
+		{
+			"default" : 1,
+			"ds_type" : "TILING",
+			"options" : "[x for x in [1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180]]"
+		},
+		"__TILE__L1" : 
+		{
+			"default" : 1,
+			"ds_type" : "TILING",
+			"options" : "[x for x in [1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180]]"
+		},
+		"__TILE__L2" : 
+		{
+			"default" : 1,
+			"ds_type" : "TILING",
+			"options" : "[x for x in [1, 2, 5, 10, 19, 38, 95, 190] if x==1 or __TILE__L0==1 and __PIPE__L0!='flatten']"
+		},
+		"__TILE__L3" : 
+		{
+			"default" : 1,
+			"ds_type" : "TILING",
+			"options" : "[x for x in [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110, 220] if x==1 or __TILE__L1==1 and __PIPE__L1!='flatten']"
+		}
+	},
+	"design-space.max-part-num" : 4,
+	"evaluate.command.bitgen" : "make mcc_bitgen",
+	"evaluate.command.hls" : "make mcc_estimate",
+	"evaluate.command.transform" : "make mcc_acc",
+	"evaluate.max-util.BRAM" : 1,
+	"evaluate.max-util.DSP" : 1,
+	"evaluate.max-util.FF" : 1,
+	"evaluate.max-util.LUT" : 1,
+	"evaluate.worker-per-part" : 2,
+	"project.backup" : "BACKUP_ERROR",
+	"project.fast-output-num" : 4,
+	"project.name" : "dse_project",
+	"search.algorithm.exhaustive.batch-size" : 2,
+	"search.algorithm.gradient.fine-grained-first" : true,
+	"search.algorithm.gradient.latency-threshold" : 64,
+	"search.algorithm.gradient.quality-type" : "performance",
+	"search.algorithm.name" : "gradient",
+	"timeout.bitgen" : 480,
+	"timeout.exploration" : 1000,
+	"timeout.hls" : 180,
+	"timeout.transform" : 15
+}

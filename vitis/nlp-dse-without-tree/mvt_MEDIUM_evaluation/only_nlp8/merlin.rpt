@@ -1,0 +1,79 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 13:18:38
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++--------------------+----------------+----------+----------+----------+--------+-------+------+
+|       Kernel       |     Cycles     |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++--------------------+----------------+----------+----------+----------+--------+-------+------+
+|kernel_mvt (mvt.c:3)|230996 (0.924ms)|55939 (4%)|42058 (1%)|1174 (27%)|17 (~0%)|0 (~0%)|-     |
++--------------------+----------------+----------+----------+----------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++-------------+-----------+-----------+----+------------------+
+|  Interface  |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++-------------+-----------+-----------+----+------------------+
+|n (mvt.c:3)  |         32|         32|   -|-                 |
+|x1 (mvt.c:3) |         32|        512| R/W|cached & coalesced|
+|x2 (mvt.c:3) |         32|        512| R/W|cached & coalesced|
+|y_1 (mvt.c:3)|         32|        512|  RO|cached & coalesced|
+|y_2 (mvt.c:3)|         32|        512|  RO|cached & coalesced|
+|A (mvt.c:3)  |         32|        512|  RO|cached & coalesced|
++-------------+-----------+-----------+----+------------------+
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++-------------------------------------+---+---------------+------+---------------------------------------+
+|              Hierarchy              |TC |      AC       | CPC  |                Detail                 |
++-------------------------------------+---+---------------+------+---------------------------------------+
+|kernel_mvt (mvt.c:3)                 |   |230996 (100.0%)|230996|-                                      |
+|    auto memory burst for 'A'(read)  |   | 10000 (  4.3%)| 10000|cache size=640000B                     |
+|    auto memory burst for 'x1'(read) |   |    25 (  0.0%)|    25|cache size=1600B                       |
+|    auto memory burst for 'y_1'(read)|   |    25 (  0.0%)|    25|cache size=1600B                       |
+|    loop i (mvt.c:12)                |400| 70012 ( 30.3%)| 70012|parallel factor=16x, pipeline II=56[1] |
+|        loop j (mvt.c:16)            |400|              -|     -|flattened, parallel factor=8x          |
+|    auto memory burst for 'y_2'(read)|   |    25 (  0.0%)|    25|cache size=1600B                       |
+|    auto memory burst for 'A'(read)  |   | 10000 (  4.3%)| 10000|cache size=640000B                     |
+|    auto memory burst for 'x2'(read) |   |    25 (  0.0%)|    25|cache size=1600B                       |
+|    auto memory burst for 'x1'(write)|   |    25 (  0.0%)|    25|cache size=1600B                       |
+|    loop i (mvt.c:24)                |400|140700 ( 60.9%)|140700|parallel factor=8x                     |
+|        loop j (mvt.c:28)            |400|140400 ( 60.8%)|  2808|parallel factor=16x, pipeline II=112[2]|
+|    auto memory burst for 'x2'(write)|   |    25 (  0.0%)|    25|cache size=1600B                       |
++-------------------------------------+---+---------------+------+---------------------------------------+
+[1]: Unable to enforce a carried dependence constraint because of the access on variable 'x1' (mvt.c:3)
+[2]: Unable to enforce a carried dependence constraint because of the access on variable 'x2' (mvt.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++-------------------------------------+----------+----------+----------+--------+-------+------+
+|              Hierarchy              |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++-------------------------------------+----------+----------+----------+--------+-------+------+
+|kernel_mvt (mvt.c:3)                 |55939 (4%)|42058 (1%)|1174 (27%)|17 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'A'(read)  |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'x1'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'y_1'(read)|         -|         -|         -|       -|      -|-     |
+|    loop i (mvt.c:12)                |         -|         -|         -|       -|      -|-     |
+|        loop j (mvt.c:16)            |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'y_2'(read)|         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'A'(read)  |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'x2'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'x1'(write)|         -|         -|         -|       -|      -|-     |
+|    loop i (mvt.c:24)                |         -|         -|         -|       -|      -|-     |
+|        loop j (mvt.c:28)            |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'x2'(write)|         -|         -|         -|       -|      -|-     |
++-------------------------------------+----------+----------+----------+--------+-------+------+

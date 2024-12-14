@@ -1,0 +1,83 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 20:21:39
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 249MHz
++----------------------+-----------------+----------+----------+----------+--------+-------+------+
+|        Kernel        |     Cycles      |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++----------------------+-----------------+----------+----------+----------+--------+-------+------+
+|kernel_bicg (bicg.c:3)|1466951 (5.891ms)|42457 (3%)|46355 (1%)|1324 (30%)|200 (2%)|0 (~0%)|-     |
++----------------------+-----------------+----------+----------+----------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++------------+-----------+-----------+----+------------------+
+| Interface  |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++------------+-----------+-----------+----+------------------+
+|m (bicg.c:3)|         32|         32|   -|-                 |
+|n (bicg.c:3)|         32|         32|   -|-                 |
+|A (bicg.c:3)|         32|         32|  RO|cached[1]         |
+|s (bicg.c:3)|         32|         32| R/W|cached[2]         |
+|q (bicg.c:3)|         32|        512| R/W|cached & coalesced|
+|p (bicg.c:3)|         32|         32|  RO|cached[3]         |
+|r (bicg.c:3)|         32|        512|  RO|cached & coalesced|
++------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'A' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 's' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'p' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++------------------------------------+---+----------------+-------+-----------------------------------+
+|             Hierarchy              |TC |       AC       |  CPC  |              Detail               |
++------------------------------------+---+----------------+-------+-----------------------------------+
+|kernel_bicg (bicg.c:3)              |   |1466951 (100.0%)|1466951|-                                  |
+|    auto memory burst for 's'(read) |   |    390 (  0.0%)|    390|cache size=1560B                   |
+|    loop i (bicg.c:10)              |390|     10 (  0.0%)|     10|parallel factor=39x, pipeline II=1 |
+|    auto memory burst for 'p'(read) |   |    390 (  0.0%)|    390|cache size=1560B                   |
+|    auto memory burst for 'r'(read) |   |     25 (  0.0%)|     25|cache size=1640B                   |
+|    auto memory burst for 'A'(read) |   | 159900 ( 10.9%)| 159900|cache size=639600B                 |
+|    auto memory burst for 'q'(read) |   |     25 (  0.0%)|     25|cache size=1640B                   |
+|    auto memory burst for 'A'(read) |   | 159900 ( 10.9%)| 159900|cache size=639600B                 |
+|    loop i (bicg.c:16)              |410|1146360 ( 78.1%)|1146360|-                                  |
+|        loop j (bicg.c:21)          |390|1143900 ( 78.0%)|   2790|parallel factor=39x, no pipeline[4]|
+|    auto memory burst for 's'(write)|   |    390 (  0.0%)|    390|cache size=1560B                   |
+|    auto memory burst for 'q'(write)|   |     25 (  0.0%)|     25|cache size=1640B                   |
++------------------------------------+---+----------------+-------+-----------------------------------+
+[4]: Unable to enforce a carried dependence constraint because of the access on variable 's' (bicg.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++------------------------------------+----------+----------+----------+--------+-------+------+
+|             Hierarchy              |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++------------------------------------+----------+----------+----------+--------+-------+------+
+|kernel_bicg (bicg.c:3)              |42457 (3%)|46355 (1%)|1324 (30%)|200 (2%)|0 (~0%)|-     |
+|    auto memory burst for 's'(read) |         -|         -|         -|       -|      -|-     |
+|    loop i (bicg.c:10)              |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'p'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'r'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'A'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'q'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'A'(read) |         -|         -|         -|       -|      -|-     |
+|    loop i (bicg.c:16)              |         -|         -|         -|       -|      -|-     |
+|        loop j (bicg.c:21)          |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 's'(write)|         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'q'(write)|         -|         -|         -|       -|      -|-     |
++------------------------------------+----------+----------+----------+--------+-------+------+

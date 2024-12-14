@@ -1,0 +1,255 @@
+
+
+================================================================
+== Synthesis Summary Report of 'kernel_trmm'
+================================================================
++ General Information: 
+    * Date:           Sun Aug 11 02:35:47 2024
+    * Version:        2023.2 (Build 4023990 on Oct 11 2023)
+    * Project:        kernel_trmm
+    * Solution:       solution (Vitis Kernel Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu200-fsgd2104-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+----------+---------+-------------+------------+-----+
+    |                 Modules                 | Issue|      |  Latency  |  Latency  | Iteration|           |  Trip |          |          |         |             |            |     |
+    |                 & Loops                 | Type | Slack|  (cycles) |    (ns)   |  Latency |  Interval | Count | Pipelined|   BRAM   |   DSP   |      FF     |     LUT    | URAM|
+    +-----------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+----------+---------+-------------+------------+-----+
+    |+ kernel_trmm                            |     -|  0.00|  860056187|  3.440e+09|         -|  860056188|      -|        no|  125 (2%)|  9 (~0%)|  11477 (~0%)|  12416 (1%)|    -|
+    | + merlin_memcpy_0_1                     |     -|  0.00|      48091|  1.924e+05|         -|      48091|      -|        no|         -|        -|   1985 (~0%)|  1277 (~0%)|    -|
+    |  + merlin_memcpy_0_1_Pipeline_merlinL0  |     -|  0.00|      48019|  1.921e+05|         -|      48019|      -|        no|         -|        -|   1853 (~0%)|   798 (~0%)|    -|
+    |   o merlinL0                            |     -|  2.92|      48017|  1.921e+05|        19|          1|  48000|       yes|         -|        -|            -|           -|    -|
+    | + merlin_memcpy_1_1                     |     -|  0.00|      48091|  1.924e+05|         -|      48091|      -|        no|         -|        -|   1376 (~0%)|  1629 (~0%)|    -|
+    |  + merlin_memcpy_1_1_Pipeline_merlinL1  |     -|  0.00|      48021|  1.921e+05|         -|      48021|      -|        no|         -|        -|   1246 (~0%)|  1140 (~0%)|    -|
+    |   o merlinL1                            |     -|  2.92|      48019|  1.921e+05|        21|          1|  48000|       yes|         -|        -|            -|           -|    -|
+    | o merlinL6_merlinL5                     |     -|  2.92|  859960000|  3.440e+09|    107495|          -|   8000|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    |  o merlinL2                             |     -|  2.92|      17910|  7.164e+04|        90|          -|    199|        no|         -|        -|            -|           -|    -|
+    +-----------------------------------------+------+------+-----------+-----------+----------+-----------+-------+----------+----------+---------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface                          | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|                                    | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_merlin_gmem_kernel_trmm_32_0 | 32 -> 32   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=2            |
+| m_axi_merlin_gmem_kernel_trmm_32_B | 32 -> 512  | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
++------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                                         |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 4=AP_CONTINUE 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                                           |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                                      |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                                      |
+| s_axi_control | alpha    | 0x10   | 32    | W      | Data signal of alpha             |                                                                                    |
+| s_axi_control | A_1      | 0x18   | 32    | W      | Data signal of A                 |                                                                                    |
+| s_axi_control | A_2      | 0x1c   | 32    | W      | Data signal of A                 |                                                                                    |
+| s_axi_control | B_1      | 0x24   | 32    | W      | Data signal of B                 |                                                                                    |
+| s_axi_control | B_2      | 0x28   | 32    | W      | Data signal of B                 |                                                                                    |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| alpha    | in        | float    |
+| A        | in        | float*   |
+| B        | inout     | float*   |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+------------------------------------+-----------+----------+---------------------------------+
+| Argument | HW Interface                       | HW Type   | HW Usage | HW Info                         |
++----------+------------------------------------+-----------+----------+---------------------------------+
+| alpha    | s_axi_control                      | register  |          | name=alpha offset=0x10 range=32 |
+| A        | m_axi_merlin_gmem_kernel_trmm_32_0 | interface |          |                                 |
+| A        | s_axi_control                      | register  | offset   | name=A_1 offset=0x18 range=32   |
+| A        | s_axi_control                      | register  | offset   | name=A_2 offset=0x1c range=32   |
+| B        | m_axi_merlin_gmem_kernel_trmm_32_B | interface |          |                                 |
+| B        | s_axi_control                      | register  | offset   | name=B_1 offset=0x24 range=32   |
+| B        | s_axi_control                      | register  | offset   | name=B_2 offset=0x28 range=32   |
++----------+------------------------------------+-----------+----------+---------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++------------------------------------+-----------+--------+-------+
+| HW Interface                       | Direction | Length | Width |
++------------------------------------+-----------+--------+-------+
+| m_axi_merlin_gmem_kernel_trmm_32_B | read      | 3000   | 512   |
+| m_axi_merlin_gmem_kernel_trmm_32_B | write     | 3000   | 512   |
++------------------------------------+-----------+--------+-------+
+
+* All M_AXI Variable Accesses
++------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+------------+------------------------+
+| HW Interface                       | Variable | Access Location                                                                                                       | Direction | Burst Status | Length | Loop     | Loop Location                                                                                                         | Resolution | Problem                |
++------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+------------+------------------------+
+| m_axi_merlin_gmem_kernel_trmm_32_0 | A        | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:127:55 | read      | Fail         |        | merlinL2 | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:118:13 | 214-230    | Stride is incompatible |
+| m_axi_merlin_gmem_kernel_trmm_32_B | src      | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:27:93  | read      | Widened      | 3000   | merlinL0 | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:22:3   |            |                        |
+| m_axi_merlin_gmem_kernel_trmm_32_B | src      | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:27:93  | read      | Inferred     | 48000  | merlinL0 | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:22:3   |            |                        |
+| m_axi_merlin_gmem_kernel_trmm_32_B | dst      | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:46:25  | write     | Widened      | 3000   | merlinL1 | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:41:3   |            |                        |
+| m_axi_merlin_gmem_kernel_trmm_32_B | dst      | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:46:25  | write     | Inferred     | 48000  | merlinL1 | /workspaces/trmm_MEDIUM_nlp_dse_2023/only_nlp1/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_trmm.c:41:3   |            |                        |
++------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+------------+------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+| Name                                    | DSP | Pragma | Variable     | Op   | Impl    | Latency |
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+| + kernel_trmm                           | 9   |        |              |      |         |         |
+|   empty_fu_555_p2                       |     |        | empty        | add  | fabric  | 0       |
+|   add_ln85_3_fu_573_p2                  |     |        | add_ln85_3   | add  | fabric  | 0       |
+|   add_ln85_fu_588_p2                    |     |        | add_ln85     | add  | fabric  | 0       |
+|   add_ln85_1_fu_594_p2                  |     |        | add_ln85_1   | add  | fabric  | 0       |
+|   add_ln85_2_fu_600_p2                  |     |        | add_ln85_2   | add  | fabric  | 0       |
+|   p_mid16_fu_726_p2                     |     |        | p_mid16      | add  | fabric  | 0       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127    | mul  | auto    | 4       |
+|   grp_fu_506_p2                         |     |        | add_ln127    | add  | fabric  | 0       |
+|   add_ln127_1_fu_849_p2                 |     |        | add_ln127_1  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul1         | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add          | fadd | fulldsp | 6       |
+|   add_ln118_fu_835_p2                   |     |        | add_ln118    | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul          | fmul | maxdsp  | 3       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127_1  | mul  | auto    | 4       |
+|   grp_fu_506_p2                         |     |        | add_ln127_2  | add  | fabric  | 0       |
+|   add_ln127_3_fu_947_p2                 |     |        | add_ln127_3  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul25_s      | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add35_s      | fadd | fulldsp | 6       |
+|   add_ln118_1_fu_929_p2                 |     |        | add_ln118_1  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_s      | fmul | maxdsp  | 3       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127_2  | mul  | auto    | 4       |
+|   grp_fu_506_p2                         |     |        | add_ln127_4  | add  | fabric  | 0       |
+|   add_ln127_5_fu_1050_p2                |     |        | add_ln127_5  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul25_2      | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add35_2      | fadd | fulldsp | 6       |
+|   add_ln118_2_fu_1032_p2                |     |        | add_ln118_2  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_2      | fmul | maxdsp  | 3       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_1_c    | fmul | maxdsp  | 3       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127_3  | mul  | auto    | 4       |
+|   grp_fu_511_p2                         |     |        | add_ln127_6  | add  | fabric  | 0       |
+|   add_ln127_7_fu_1206_p2                |     |        | add_ln127_7  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul25_1      | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add35_1      | fadd | fulldsp | 6       |
+|   add_ln118_3_fu_1192_p2                |     |        | add_ln118_3  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_1      | fmul | maxdsp  | 3       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127_4  | mul  | auto    | 4       |
+|   grp_fu_511_p2                         |     |        | add_ln127_8  | add  | fabric  | 0       |
+|   add_ln127_9_fu_1243_p2                |     |        | add_ln127_9  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul25_1_1    | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add35_1_1    | fadd | fulldsp | 6       |
+|   add_ln118_4_fu_1135_p2                |     |        | add_ln118_4  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_1_1    | fmul | maxdsp  | 3       |
+|   mul_62s_9ns_62_5_1_U28                | 4   |        | mul_ln127_5  | mul  | auto    | 4       |
+|   grp_fu_511_p2                         |     |        | add_ln127_10 | add  | fabric  | 0       |
+|   add_ln127_11_fu_1363_p2               |     |        | add_ln127_11 | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul25_1_2    | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U26    | 2   |        | add35_1_2    | fadd | fulldsp | 6       |
+|   add_ln118_5_fu_1323_p2                |     |        | add_ln118_5  | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U27     | 3   |        | mul45_1_2    | fmul | maxdsp  | 3       |
+|   add_ln90_fu_1329_p2                   |     |        | add_ln90     | add  | fabric  | 0       |
+|  + merlin_memcpy_0_1                    | 0   |        |              |      |         |         |
+|   + merlin_memcpy_0_1_Pipeline_merlinL0 | 0   |        |              |      |         |         |
+|     i_4_fu_212_p2                       |     |        | i_4          | add  | fabric  | 0       |
+|     add_ln27_2_fu_231_p2                |     |        | add_ln27_2   | add  | fabric  | 0       |
+|     add_ln27_3_fu_330_p2                |     |        | add_ln27_3   | add  | fabric  | 0       |
+|     add_ln18_fu_257_p2                  |     |        | add_ln18     | add  | fabric  | 0       |
+|  + merlin_memcpy_1_1                    | 0   |        |              |      |         |         |
+|   + merlin_memcpy_1_1_Pipeline_merlinL1 | 0   |        |              |      |         |         |
+|     i_2_fu_217_p2                       |     |        | i_2          | add  | fabric  | 0       |
+|     add_ln46_2_fu_230_p2                |     |        | add_ln46_2   | add  | fabric  | 0       |
+|     add_ln46_3_fu_271_p2                |     |        | add_ln46_3   | add  | fabric  | 0       |
+|     add_ln37_fu_364_p2                  |     |        | add_ln37     | add  | fabric  | 0       |
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++----------------------------------------+--------------+-----------+------+------+--------+----------+------+---------+------------------+
+| Name                                   | Usage        | Type      | BRAM | URAM | Pragma | Variable | Impl | Latency | Bitwidth, Depth, |
+|                                        |              |           |      |      |        |          |      |         | Banks            |
++----------------------------------------+--------------+-----------+------+------+--------+----------+------+---------+------------------+
+| + kernel_trmm                          |              |           | 125  | 0    |        |          |      |         |                  |
+|   control_s_axi_U                      | interface    | s_axilite |      |      |        |          |      |         |                  |
+|   merlin_gmem_kernel_trmm_32_0_m_axi_U | interface    | m_axi     | 2    |      |        |          |      |         |                  |
+|   merlin_gmem_kernel_trmm_32_B_m_axi_U | interface    | m_axi     | 30   |      |        |          |      |         |                  |
+|   B_buf_U                              | ram_1p array |           | 31   |      |        | B_buf    | auto | 1       | 32, 16000, 1     |
+|   B_buf_1_U                            | ram_1p array |           | 31   |      |        | B_buf_1  | auto | 1       | 32, 16000, 1     |
+|   B_buf_2_U                            | ram_1p array |           | 31   |      |        | B_buf_2  | auto | 1       | 32, 16000, 1     |
++----------------------------------------+--------------+-----------+------+------+--------+----------+------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------------+---------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| Type                 | Options                                                                   | Location                                                                                             |
++----------------------+---------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+| inline               | off                                                                       | ../../../__merlinkernel_kernel_trmm.c:15 in merlin_memcpy_0                                          |
+| function_instantiate | variable=dst_idx_0,dst_idx_1,dst_idx_2,src_idx_0                          | ../../../__merlinkernel_kernel_trmm.c:17 in merlin_memcpy_0, dst_idx_0,dst_idx_1,dst_idx_2,src_idx_0 |
+| pipeline             | II=1                                                                      | ../../../__merlinkernel_kernel_trmm.c:24 in merlin_memcpy_0                                          |
+| loop_tripcount       | max=48000                                                                 | ../../../__merlinkernel_kernel_trmm.c:26 in merlin_memcpy_0                                          |
+| inline               | off                                                                       | ../../../__merlinkernel_kernel_trmm.c:34 in merlin_memcpy_1                                          |
+| function_instantiate | variable=dst_idx_0,src_idx_0,src_idx_1,src_idx_2                          | ../../../__merlinkernel_kernel_trmm.c:36 in merlin_memcpy_1, dst_idx_0,src_idx_0,src_idx_1,src_idx_2 |
+| pipeline             | II=1                                                                      | ../../../__merlinkernel_kernel_trmm.c:43 in merlin_memcpy_1                                          |
+| loop_tripcount       | max=48000                                                                 | ../../../__merlinkernel_kernel_trmm.c:45 in merlin_memcpy_1                                          |
+| interface            | m_axi port=A offset=slave depth=40000 bundle=merlin_gmem_kernel_trmm_32_0 | ../../../__merlinkernel_kernel_trmm.c:53 in kernel_trmm, A                                           |
+| interface            | m_axi port=B offset=slave depth=48000 bundle=merlin_gmem_kernel_trmm_32_B | ../../../__merlinkernel_kernel_trmm.c:55 in kernel_trmm, B                                           |
+| interface            | s_axilite port=A bundle=control                                           | ../../../__merlinkernel_kernel_trmm.c:57 in kernel_trmm, A                                           |
+| interface            | s_axilite port=B bundle=control                                           | ../../../__merlinkernel_kernel_trmm.c:59 in kernel_trmm, B                                           |
+| interface            | s_axilite port=alpha bundle=control                                       | ../../../__merlinkernel_kernel_trmm.c:61 in kernel_trmm, alpha                                       |
+| interface            | s_axilite port=return bundle=control                                      | ../../../__merlinkernel_kernel_trmm.c:63 in kernel_trmm, return                                      |
+| array_partition      | variable=B_buf complete dim=3                                             | ../../../__merlinkernel_kernel_trmm.c:82 in kernel_trmm, B_buf                                       |
+| dependence           | variable=B_buf array inter false                                          | ../../../__merlinkernel_kernel_trmm.c:98 in kernel_trmm, B_buf                                       |
+| pipeline             |                                                                           | ../../../__merlinkernel_kernel_trmm.c:100 in kernel_trmm                                             |
+| unroll               |                                                                           | ../../../__merlinkernel_kernel_trmm.c:106 in kernel_trmm                                             |
+| unroll               |                                                                           | ../../../__merlinkernel_kernel_trmm.c:116 in kernel_trmm                                             |
+| unroll               |                                                                           | ../../../__merlinkernel_kernel_trmm.c:124 in kernel_trmm                                             |
+| loop_tripcount       | max=199                                                                   | ../../../__merlinkernel_kernel_trmm.c:126 in kernel_trmm                                             |
++----------------------+---------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+
+
+

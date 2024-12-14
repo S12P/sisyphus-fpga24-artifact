@@ -1,0 +1,73 @@
+debug mode
+Warning: this is an empty file (no tokens found): not even a CR present! (but not an error using the token stream unparsing) 
+Hello Loop Tiling ... 
+Find a loop (5):for(i = 0;i < 200;i++) {...}
+Nest: nullptr -> SgForStatement:for(i = 0;i < 200;i++) {...}
+Find a loop (4):for(j = 0;j < 220;j++) {...}
+Nest: nullptr -> SgForStatement:for(j = 0;j < 220;j++) {...}
+Hello Loop Tiling ... 
+Traverse Loop: for(i = 0;i < 40;i++) {...}(gemm_MEDIUM.c:22)
+  ==> insert sub Loop: for(int i_sub = 0;i_sub < 5;++i_sub) {...}(gemm_MEDIUM.c:22)
+Traverse Loop: for(int i_sub = 0;i_sub < 5;++i_sub) {...}(gemm_MEDIUM.c:22)
+  ==> insert sub Loop: for(j = 0;j < 55;j++) {...}(gemm_MEDIUM.c:25)
+Traverse Loop: for(j = 0;j < 55;j++) {...}(gemm_MEDIUM.c:25)
+  ==> insert sub Loop: for(int j_sub = 0;j_sub < 4;++j_sub) {...}(gemm_MEDIUM.c:25)
+Traverse Loop: for(int i_sub = 0;i_sub < 5;++i_sub) {...}(gemm_MEDIUM.c:22)
+  ==> insert sub Loop: for(k = 0;k < 240;k++) {...}(gemm_MEDIUM.c:34)
+Traverse Loop: for(k = 0;k < 240;k++) {...}(gemm_MEDIUM.c:34)
+  ==> insert sub Loop: for(j = 0;j < 220;j++) {...}(gemm_MEDIUM.c:37)
+ANALYZE Loop: for(i = 0;i < 40;i++) {...}(gemm_MEDIUM.c:22)
+tc: 40
+ANALYZE Loop: for(int i_sub = 0;i_sub < 5;++i_sub) {...}(gemm_MEDIUM.c:22)
+tc: 5
+ANALYZE Loop: for(k = 0;k < 240;k++) {...}(gemm_MEDIUM.c:34)
+tc: 240
+ANALYZE Loop: for(j = 0;j < 220;j++) {...}(gemm_MEDIUM.c:37)
+tc: 1
+ANALYZE Loop: for(j = 0;j < 55;j++) {...}(gemm_MEDIUM.c:25)
+tc: 55
+ANALYZE Loop: for(int j_sub = 0;j_sub < 4;++j_sub) {...}(gemm_MEDIUM.c:25)
+tc: 1
+
+
+ START Candidate analysis
+====
+
+
+ START Critical loops analysis
+====
+CHECK reference latency: 0
+CHECK rest latency: 21252000
+Tagging Pragma For Loop: for(j = 0;j < 220;j++) {...}(gemm_MEDIUM.c:37)
+Loop latency: 21120000
+total latency: 0
+Loop TripCount: 1
+curr resource: 26
+CHECK reference latency: 0
+CHECK rest latency: 372000
+Tagging Pragma For Loop: for(k = 0;k < 240;k++) {...}(gemm_MEDIUM.c:34)
+Loop latency: 240000
+total latency: 0
+Loop TripCount: 240
+curr resource: 5748
+CHECK reference latency: 49000
+CHECK rest latency: 132000
+Tagging Pragma For Loop: for(int j_sub = 0;j_sub < 4;++j_sub) {...}(gemm_MEDIUM.c:25)
+Loop latency: 132000
+total latency: 49000
+Loop TripCount: 1
+curr resource: 11
+CHECK reference latency: 49000
+CHECK rest latency: 33000
+Tagging Pragma For Loop: for(j = 0;j < 55;j++) {...}(gemm_MEDIUM.c:25)
+Loop latency: 33000
+total latency: 49000
+Loop TripCount: 55
+curr resource: 53
+STOP reference latency: 60600
+STOP rest latency: 0
+
+
+ START Trivial loops analysis
+====
+mars_opt __dummy__.c __merlinwrapper_kernel_gemm.c __merlinkernel_kernel_gemm.c  -e c -p auto_parallel -a cstd=c99 -a cxxstd=c++11  -a impl_tool=sdaccel -a tool_version=vitis -a effort=standard -a generate_l2_api=on -a debug_mode=debug   -I /opt/merlin/sources/merlin-compiler/trunk/source-opt/include/apint_include -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0 -I/home/spouget/iccad_24/autodse_without_tree_reduction/gemm_MEDIUM/_done/work_dir/output/fast/0/gemm_MEDIUM/ -I/opt/merlin/sources/merlin-compiler/trunk//mars-gen/lib/merlin -I /opt/merlin/sources/merlin-compiler/trunk/mars-gen/lib/merlin -a cflags=" -D__SYNTHESIS__  -D_MARS_COMPILER_FLOW_ "

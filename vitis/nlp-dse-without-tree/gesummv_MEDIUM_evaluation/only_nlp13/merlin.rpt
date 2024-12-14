@@ -1,0 +1,82 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 12:45:01
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++----------------------------+----------------+----------+-----------+--------+--------+-------+------+
+|           Kernel           |     Cycles     |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++----------------------------+----------------+----------+-----------+--------+--------+-------+------+
+|kernel_gesummv (gesummv.c:3)|506584 (2.026ms)|20842 (1%)|20612 (~0%)|320 (7%)|10 (~0%)|0 (~0%)|-     |
++----------------------------+----------------+----------+-----------+--------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++-------------------+-----------+-----------+----+------------------+
+|     Interface     |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++-------------------+-----------+-----------+----+------------------+
+|n (gesummv.c:3)    |         32|         32|   -|-                 |
+|alpha (gesummv.c:3)|         32|         32|   -|scalar            |
+|beta (gesummv.c:3) |         32|         32|   -|scalar            |
+|A (gesummv.c:3)    |         32|         32|  RO|cached[1]         |
+|B (gesummv.c:3)    |         32|         32|  RO|cached[2]         |
+|tmp (gesummv.c:3)  |         32|        512| R/W|cached & coalesced|
+|x (gesummv.c:3)    |         32|         32|  RO|cached[3]         |
+|y (gesummv.c:3)    |         32|        512| R/W|cached & coalesced|
++-------------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'A' (gesummv.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 'B' (gesummv.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'x' (gesummv.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++--------------------------------------+---+---------------+------+-------------------------------------+
+|              Hierarchy               |TC |      AC       | CPC  |               Detail                |
++--------------------------------------+---+---------------+------+-------------------------------------+
+|kernel_gesummv (gesummv.c:3)          |   |506584 (100.0%)|506584|-                                    |
+|    auto memory burst for 'y'(read)   |   |    15 (  0.0%)|    15|cache size=1000B                     |
+|    auto memory burst for 'x'(read)   |   |   250 (  0.0%)|   250|cache size=1000B                     |
+|    auto memory burst for 'x'(read)   |   |   250 (  0.0%)|   250|cache size=1000B                     |
+|    auto memory burst for 'A'(read)   |   | 62500 ( 12.3%)| 62500|cache size=250000B                   |
+|    auto memory burst for 'B'(read)   |   | 62500 ( 12.3%)| 62500|cache size=250000B                   |
+|    auto memory burst for 'tmp'(read) |   |    15 (  0.0%)|    15|cache size=1000B                     |
+|    loop i (gesummv.c:11)             |250|443500 ( 87.5%)|443500|-                                    |
+|        loop j (gesummv.c:17)         |250|439000 ( 86.7%)|  1756|parallel factor=5x, pipeline II=35[4]|
+|    auto memory burst for 'y'(write)  |   |    15 (  0.0%)|    15|cache size=1000B                     |
+|    auto memory burst for 'tmp'(write)|   |    15 (  0.0%)|    15|cache size=1000B                     |
++--------------------------------------+---+---------------+------+-------------------------------------+
+[4]: Unable to enforce a carried dependence constraint because of the access on variable 'tmp' (gesummv.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++--------------------------------------+----------+-----------+--------+--------+-------+------+
+|              Hierarchy               |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++--------------------------------------+----------+-----------+--------+--------+-------+------+
+|kernel_gesummv (gesummv.c:3)          |20842 (1%)|20612 (~0%)|320 (7%)|10 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'y'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'B'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'tmp'(read) |         -|          -|       -|       -|      -|-     |
+|    loop i (gesummv.c:11)             |         -|          -|       -|       -|      -|-     |
+|        loop j (gesummv.c:17)         |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'y'(write)  |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'tmp'(write)|         -|          -|       -|       -|      -|-     |
++--------------------------------------+----------+-----------+--------+--------+-------+------+

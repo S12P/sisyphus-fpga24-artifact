@@ -1,0 +1,57 @@
+<design_size title="Design Size Report">
+    <item name="Total Instructions per Compilation Phase">
+        <table>
+            <keys size="4">Phase, Step, Instructions, Description</keys>
+            <column name="Compile/Link">,     865, After all functions are compiled and linked into a single design</column>
+            <column name="">, , </column>
+            <column name="Unroll/Inline">, , After user unroll and inline pragmas are applied</column>
+            <column name="">(1) unroll,  18792, user unroll pragmas are applied</column>
+            <column name="">(2) simplification,  17492, simplification of applied user unroll pragmas</column>
+            <column name="">(3) inline,  16883, user inline pragmas are applied</column>
+            <column name="">(4) simplification,  16883, simplification of applied user inline pragmas</column>
+            <column name="">, , </column>
+            <column name="Array/Struct">, , After user array partition and struct aggregate/disaggregate pragmas are applied</column>
+            <column name="">(1) array partition, 356915 *, user array partition pragmas are applied</column>
+            <column name="">(2) simplification,  63248, simplification of applied user array partition &amp; struct aggregate/disaggregate pragmas</column>
+            <column name="">(3) aggregate/disaggregate ,  63440, user struct aggregate/disaggregate pragmas are applied</column>
+            <column name="">(4) array reshape,  63377, apply array reshape pragmas</column>
+            <column name="">(5) access patterns,  63790, array access pattern optmizations</column>
+            <column name="">, , </column>
+            <column name="Performance">, , After transformations are applied to meet performance pragma targets</column>
+            <column name="">(1) loop simplification,  63662, loop and instruction simplification</column>
+            <column name="">(2) parallelization,  63662, loops are unrolled or pipelined to meet performance targets</column>
+            <column name="">(3) array partition,  70062, arrays are partitioned to meet performance targets</column>
+            <column name="">(4) simplification,  70062, simplification of design after performance transformations</column>
+            <column name="">, , </column>
+            <column name="HW Transforms">, , After hardware transfomations</column>
+            <column name="">(1) lowering,  71670, initial conversion to HW specific instructions</column>
+            <column name="">(2) optimizations,  75895, high level synthesis optimizations</column>
+        </table>
+    </item>
+    <item name="Instructions per Function for each Compilation Phase">
+        <hiertable>
+            <header size="7" col0="Function" col1="Location" col2="Compile/Link" col3="Unroll/Inline" col4="Array/Struct" col5="Performance" col6="HW Transforms"/>
+            <rows>
+                <row id="0" col0="kernel_gemm" col1="__merlinkernel_kernel_gemm.c:150" col2="865" col3="16883" col4="63790" col5="70062" col6="75895">
+                    <row id="2" col0="merlin_memcpy_0" col1="__merlinkernel_kernel_gemm.c:93" col2="29" col3="13" col4="9000" col4_disp="9,000 (200 calls)" col5="9000" col5_disp="9,000 (200 calls)" col6="10600" col6_disp="10,600 (200 calls)"/>
+                    <row id="6" col0="memcpy_wide_bus_read_float_2d_240_512" col1="mars_wide_bus_2d.h:1326" col2="562" col3="" col4="" col5="" col6="">
+                        <row id="4" col0="merlin_get_range_512" col1="memcpy_512.h:32" col2="312" col2_disp="312 (4 calls)" col3="" col4="" col5="" col6=""/>
+                    </row>
+                    <row id="3" col0="merlin_memcpy_1" col1="__merlinkernel_kernel_gemm.c:112" col2="38" col3="14" col4="25" col5="26" col6="30"/>
+                    <row id="7" col0="kernel_gemm_L_1_para" col1="__merlinkernel_kernel_gemm.c:80" col2="90" col3="16001" col4="23601" col5="23601" col6="26002">
+                        <row id="5" col0="kernel_gemm_L_1_para_sub" col1="__merlinkernel_kernel_gemm.c:18" col2="71" col3="15200" col3_disp="15,200 (200 calls)" col4="23400" col4_disp="23,400 (200 calls)" col5="23400" col5_disp="23,400 (200 calls)" col6="25800" col6_disp="25,800 (200 calls)"/>
+                    </row>
+                    <row id="1" col0="merlin_memcpy_2" col1="__merlinkernel_kernel_gemm.c:131" col2="29" col3="13" col4="4600" col4_disp="4,600 (200 calls)" col5="4600" col5_disp="4,600 (200 calls)" col6="6400" col6_disp="6,400 (200 calls)"/>
+                </row>
+            </rows>
+            <notes/>
+        </hiertable>
+    </item>
+    <item name="Design Size Message Settings">
+        <table>
+            <keys size="3">Message Setting, Value, Description</keys>
+            <column name="config_compile -design_size_maximum_warning">100000, Show a warning when total design instructions exceeds this value</column>
+        </table>
+    </item>
+</design_size>
+

@@ -1,0 +1,389 @@
+
+
+================================================================
+== Synthesis Summary Report of 'kernel_nlp'
+================================================================
++ General Information: 
+    * Date:           Mon Oct  7 21:30:17 2024
+    * Version:        2023.2 (Build 4023990 on Oct 11 2023)
+    * Project:        kernel_nlp
+    * Solution:       solution (Vitis Kernel Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu200-fsgd2104-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+-----------+----------+------------+------------+-----+
+    |                           Modules                          |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |           |          |            |            |     |
+    |                           & Loops                          |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|   BRAM    |    DSP   |     FF     |     LUT    | URAM|
+    +------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+-----------+----------+------------+------------+-----+
+    |+ kernel_nlp                                                |  Timing|  -2.24|   563152|  3.129e+06|         -|   563153|     -|        no|  600 (13%)|  221 (3%)|  24202 (1%)|  24330 (2%)|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_79_1                      |       -|   0.00|     7503|  3.410e+04|         -|     7503|     -|        no|          -|         -|    50 (~0%)|    89 (~0%)|    -|
+    |  o VITIS_LOOP_79_1                                         |       -|   3.32|     7501|  3.409e+04|         3|        1|  7500|       yes|          -|         -|           -|           -|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_90_3                      |       -|   0.00|      228|  1.036e+03|         -|      228|     -|        no|          -|         -|    78 (~0%)|    79 (~0%)|    -|
+    |  o VITIS_LOOP_90_3                                         |       -|   3.32|      226|  1.027e+03|         3|        1|   225|       yes|          -|         -|           -|           -|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_100_5                     |       -|   0.00|     7503|  3.410e+04|         -|     7503|     -|        no|          -|         -|    50 (~0%)|    89 (~0%)|    -|
+    |  o VITIS_LOOP_100_5                                        |       -|   3.32|     7501|  3.409e+04|         3|        1|  7500|       yes|          -|         -|           -|           -|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_287_12                    |       -|   0.00|     7503|  3.410e+04|         -|     7503|     -|        no|          -|         -|    50 (~0%)|    89 (~0%)|    -|
+    |  o VITIS_LOOP_287_12                                       |       -|   3.32|     7501|  3.409e+04|         3|        1|  7500|       yes|          -|         -|           -|           -|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_299_14                    |       -|   0.00|      227|  1.032e+03|         -|      227|     -|        no|          -|         -|    11 (~0%)|    79 (~0%)|    -|
+    |  o VITIS_LOOP_299_14                                       |       -|   3.32|      225|  1.023e+03|         2|        1|   225|       yes|          -|         -|           -|           -|    -|
+    | + kernel_nlp_Pipeline_VITIS_LOOP_310_16                    |       -|   0.00|     7503|  3.410e+04|         -|     7503|     -|        no|          -|         -|    50 (~0%)|    89 (~0%)|    -|
+    |  o VITIS_LOOP_310_16                                       |       -|   3.32|     7501|  3.409e+04|         3|        1|  7500|       yes|          -|         -|           -|           -|    -|
+    | o VITIS_LOOP_112_7_VITIS_LOOP_113_8                        |       -|   3.32|   548000|  3.045e+06|       274|        -|  2000|        no|          -|         -|           -|           -|    -|
+    |  + kernel_nlp_Pipeline_VITIS_LOOP_114_9_VITIS_LOOP_115_10  |  Timing|  -2.24|      257|  1.428e+03|         -|      257|     -|        no|          -|  45 (~0%)|  7330 (~0%)|  8724 (~0%)|    -|
+    |   o VITIS_LOOP_114_9_VITIS_LOOP_115_10                     |       -|   3.32|      255|  1.417e+03|        18|        2|   120|       yes|          -|         -|           -|           -|    -|
+    |  + kernel_nlp_Pipeline_VITIS_LOOP_256_11                   |       -|   0.07|       13|     59.085|         -|       13|     -|        no|          -|  176 (2%)|  5166 (~0%)|  3956 (~0%)|    -|
+    |   o VITIS_LOOP_256_11                                      |       -|   3.32|       11|     49.995|         8|        1|     5|       yes|          -|         -|           -|           -|    -|
+    +------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+-----------+----------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_gmem0 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
+| m_axi_gmem1 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
+| m_axi_gmem2 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                                         |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 4=AP_CONTINUE 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                                           |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                                      |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                                      |
+| s_axi_control | vv0_1    | 0x10   | 32    | W      | Data signal of vv0               |                                                                                    |
+| s_axi_control | vv0_2    | 0x14   | 32    | W      | Data signal of vv0               |                                                                                    |
+| s_axi_control | vv1_1    | 0x1c   | 32    | W      | Data signal of vv1               |                                                                                    |
+| s_axi_control | vv1_2    | 0x20   | 32    | W      | Data signal of vv1               |                                                                                    |
+| s_axi_control | vv2_1    | 0x28   | 32    | W      | Data signal of vv2               |                                                                                    |
+| s_axi_control | vv2_2    | 0x2c   | 32    | W      | Data signal of vv2               |                                                                                    |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+--------------------+
+| Argument | Direction | Datatype           |
++----------+-----------+--------------------+
+| vv0      | inout     | vector<float, 16>* |
+| vv1      | inout     | vector<float, 16>* |
+| vv2      | inout     | vector<float, 16>* |
++----------+-----------+--------------------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+---------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                         |
++----------+---------------+-----------+----------+---------------------------------+
+| vv0      | m_axi_gmem0   | interface |          |                                 |
+| vv0      | s_axi_control | register  | offset   | name=vv0_1 offset=0x10 range=32 |
+| vv0      | s_axi_control | register  | offset   | name=vv0_2 offset=0x14 range=32 |
+| vv1      | m_axi_gmem1   | interface |          |                                 |
+| vv1      | s_axi_control | register  | offset   | name=vv1_1 offset=0x1c range=32 |
+| vv1      | s_axi_control | register  | offset   | name=vv1_2 offset=0x20 range=32 |
+| vv2      | m_axi_gmem2   | interface |          |                                 |
+| vv2      | s_axi_control | register  | offset   | name=vv2_1 offset=0x28 range=32 |
+| vv2      | s_axi_control | register  | offset   | name=vv2_2 offset=0x2c range=32 |
++----------+---------------+-----------+----------+---------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------+--------+-------+-------------------+-------------------+
+| HW Interface | Direction | Length | Width | Loop              | Loop Location     |
++--------------+-----------+--------+-------+-------------------+-------------------+
+| m_axi_gmem0  | read      | 7500   | 512   | VITIS_LOOP_79_1   | output.cpp:79:19  |
+| m_axi_gmem0  | write     | 7500   | 512   | VITIS_LOOP_287_12 | output.cpp:287:22 |
+| m_axi_gmem1  | read      | 225    | 512   | VITIS_LOOP_90_3   | output.cpp:90:20  |
+| m_axi_gmem1  | write     | 225    | 512   | VITIS_LOOP_299_14 | output.cpp:299:22 |
+| m_axi_gmem2  | read      | 7500   | 512   | VITIS_LOOP_100_5  | output.cpp:100:21 |
+| m_axi_gmem2  | write     | 7500   | 512   | VITIS_LOOP_310_16 | output.cpp:310:22 |
++--------------+-----------+--------+-------+-------------------+-------------------+
+
+* All M_AXI Variable Accesses
++--------------+----------+-------------------+-----------+--------------+--------+-------------------+-------------------+------------+----------------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Access Location   | Direction | Burst Status | Length | Loop              | Loop Location     | Resolution | Problem                                                                                                  |
++--------------+----------+-------------------+-----------+--------------+--------+-------------------+-------------------+------------+----------------------------------------------------------------------------------------------------------+
+| m_axi_gmem0  | vv0      | output.cpp:80:17  | read      | Widen Fail   |        | VITIS_LOOP_79_1   | output.cpp:79:19  | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem0  | vv0      | output.cpp:80:17  | read      | Inferred     | 7500   | VITIS_LOOP_79_1   | output.cpp:79:19  |            |                                                                                                          |
+| m_axi_gmem0  | vv0      | output.cpp:295:15 | write     | Widen Fail   |        | VITIS_LOOP_287_12 | output.cpp:287:22 | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem0  | vv0      | output.cpp:295:15 | write     | Inferred     | 7500   | VITIS_LOOP_287_12 | output.cpp:287:22 |            |                                                                                                          |
+| m_axi_gmem1  | vv1      | output.cpp:91:17  | read      | Widen Fail   |        | VITIS_LOOP_90_3   | output.cpp:90:20  | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem1  | vv1      | output.cpp:91:17  | read      | Inferred     | 225    | VITIS_LOOP_90_3   | output.cpp:90:20  |            |                                                                                                          |
+| m_axi_gmem1  | vv1      | output.cpp:306:15 | write     | Widen Fail   |        | VITIS_LOOP_299_14 | output.cpp:299:22 | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem1  | vv1      | output.cpp:306:15 | write     | Inferred     | 225    | VITIS_LOOP_299_14 | output.cpp:299:22 |            |                                                                                                          |
+| m_axi_gmem2  | vv2      | output.cpp:101:17 | read      | Widen Fail   |        | VITIS_LOOP_100_5  | output.cpp:100:21 | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem2  | vv2      | output.cpp:101:17 | read      | Inferred     | 7500   | VITIS_LOOP_100_5  | output.cpp:100:21 |            |                                                                                                          |
+| m_axi_gmem2  | vv2      | output.cpp:318:15 | write     | Widen Fail   |        | VITIS_LOOP_310_16 | output.cpp:310:22 | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_gmem2  | vv2      | output.cpp:318:15 | write     | Inferred     | 7500   | VITIS_LOOP_310_16 | output.cpp:310:22 |            |                                                                                                          |
++--------------+----------+-------------------+-----------+--------------+--------+-------------------+-------------------+------------+----------------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------------------------+-----+--------+-------------+------+--------+---------+
+| Name                                                      | DSP | Pragma | Variable    | Op   | Impl   | Latency |
++-----------------------------------------------------------+-----+--------+-------------+------+--------+---------+
+| + kernel_nlp                                              | 221 |        |             |      |        |         |
+|   add_ln112_1_fu_657_p2                                   |     |        | add_ln112_1 | add  | fabric | 0       |
+|   add_ln112_fu_669_p2                                     |     |        | add_ln112   | add  | fabric | 0       |
+|   empty_42_fu_762_p2                                      |     |        | empty_42    | add  | fabric | 0       |
+|   add_ln113_fu_769_p2                                     |     |        | add_ln113   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_79_1                    | 0   |        |             |      |        |         |
+|    add_ln79_fu_111_p2                                     |     |        | add_ln79    | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_90_3                    | 0   |        |             |      |        |         |
+|    add_ln90_fu_126_p2                                     |     |        | add_ln90    | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_100_5                   | 0   |        |             |      |        |         |
+|    add_ln100_fu_111_p2                                    |     |        | add_ln100   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_114_9_VITIS_LOOP_115_10 | 45  |        |             |      |        |         |
+|    add_ln114_1_fu_1161_p2                                 |     |        | add_ln114_1 | add  | fabric | 0       |
+|    add_ln114_fu_1173_p2                                   |     |        | add_ln114   | add  | fabric | 0       |
+|    mul_5ns_7ns_11_1_1_U42                                 |     |        | mul         | mul  | auto   | 0       |
+|    empty_34_fu_1258_p2                                    |     |        | empty_34    | add  | fabric | 0       |
+|    add_ln118_fu_1281_p2                                   |     |        | add_ln118   | add  | fabric | 0       |
+|    add_ln152_fu_1400_p2                                   |     |        | add_ln152   | add  | fabric | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U26                      | 3   |        | v9          | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U27                      | 3   |        | v11         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U28                      | 3   |        | v13         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U29                      | 3   |        | v15         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U30                      | 3   |        | v17         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U31                      | 3   |        | v19         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U32                      | 3   |        | v21         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U33                      | 3   |        | v23         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U34                      | 3   |        | v25         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U35                      | 3   |        | v27         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U36                      | 3   |        | v29         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U37                      | 3   |        | v31         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U38                      | 3   |        | v33         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U39                      | 3   |        | v35         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U40                      | 3   |        | v37         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U26                      | 3   |        | v40         | fmul | maxdsp | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U11                       |     |        | tmp         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U11                       |     |        | v44         | fadd | fabric | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U27                      | 3   |        | v46_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U28                      | 3   |        | v52_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U29                      | 3   |        | v58_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U30                      | 3   |        | v64_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U31                      | 3   |        | v70_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U32                      | 3   |        | v76_1       | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U33                      | 3   |        | v82         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U34                      | 3   |        | v88         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U35                      | 3   |        | v94         | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U36                      | 3   |        | v100        | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U37                      | 3   |        | v106        | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U38                      | 3   |        | v112        | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U39                      | 3   |        | v118        | fmul | maxdsp | 3       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U40                      | 3   |        | v124        | fmul | maxdsp | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U12                       |     |        | tmp1        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U12                       |     |        | v50         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U13                       |     |        | tmp2        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U13                       |     |        | v56         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U14                       |     |        | tmp3        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U14                       |     |        | v62         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U15                       |     |        | tmp4        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U15                       |     |        | v68_1       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U16                       |     |        | tmp5        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U16                       |     |        | v74_1       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U17                       |     |        | tmp6        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U17                       |     |        | v80         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U18                       |     |        | tmp7        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U18                       |     |        | v86         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U19                       |     |        | tmp8        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U19                       |     |        | v92         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U20                       |     |        | tmp9        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U20                       |     |        | v98         | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U21                       |     |        | tmp10       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U21                       |     |        | v104        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U22                       |     |        | tmp11       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U22                       |     |        | v110        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U23                       |     |        | tmp12       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U23                       |     |        | v116        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U24                       |     |        | tmp13       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U24                       |     |        | v122        | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U25                       |     |        | tmp14       | fadd | fabric | 3       |
+|    fadd_32ns_32ns_32_4_no_dsp_1_U25                       |     |        | v128        | fadd | fabric | 3       |
+|    add_ln115_fu_1207_p2                                   |     |        | add_ln115   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_256_11                  | 176 |        |             |      |        |         |
+|    add_ln256_fu_986_p2                                    |     |        | add_ln256   | add  | fabric | 0       |
+|    add_ln259_fu_1357_p2                                   |     |        | add_ln259   | add  | fabric | 0       |
+|    sub_ln258_fu_1016_p2                                   |     |        | sub_ln258   | sub  | fabric | 0       |
+|    add_ln258_fu_1077_p2                                   |     |        | add_ln258   | add  | fabric | 0       |
+|    add_ln258_1_fu_1082_p2                                 |     |        | add_ln258_1 | add  | fabric | 0       |
+|    add_ln258_2_fu_1087_p2                                 |     |        | add_ln258_2 | add  | fabric | 0       |
+|    add_ln258_3_fu_1092_p2                                 |     |        | add_ln258_3 | add  | fabric | 0       |
+|    add_ln258_4_fu_1097_p2                                 |     |        | add_ln258_4 | add  | fabric | 0       |
+|    add_ln258_5_fu_1102_p2                                 |     |        | add_ln258_5 | add  | fabric | 0       |
+|    add_ln258_6_fu_1107_p2                                 |     |        | add_ln258_6 | add  | fabric | 0       |
+|    add_ln258_7_fu_1112_p2                                 |     |        | add_ln258_7 | add  | fabric | 0       |
+|    mul_5ns_7ns_11_1_1_U120                                |     |        | mul_ln258   | mul  | auto   | 0       |
+|    add_ln258_8_fu_1371_p2                                 |     |        | add_ln258_8 | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U109                             | 16  |        | mul_ln260   | mul  | auto   | 4       |
+|    add_ln260_fu_1223_p2                                   |     |        | add_ln260   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U110                             | 16  |        | mul_ln262   | mul  | auto   | 4       |
+|    add_ln262_fu_1236_p2                                   |     |        | add_ln262   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U111                             | 16  |        | mul_ln264   | mul  | auto   | 4       |
+|    add_ln264_fu_1259_p2                                   |     |        | add_ln264   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U112                             | 16  |        | mul_ln266   | mul  | auto   | 4       |
+|    add_ln266_fu_1274_p2                                   |     |        | add_ln266   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U113                             | 16  |        | mul_ln268   | mul  | auto   | 4       |
+|    add_ln268_fu_1289_p2                                   |     |        | add_ln268   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U114                             | 16  |        | mul_ln270   | mul  | auto   | 4       |
+|    add_ln270_fu_1409_p2                                   |     |        | add_ln270   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U115                             | 16  |        | mul_ln272   | mul  | auto   | 4       |
+|    add_ln272_fu_1422_p2                                   |     |        | add_ln272   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U116                             | 16  |        | mul_ln274   | mul  | auto   | 4       |
+|    add_ln274_fu_1435_p2                                   |     |        | add_ln274   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U117                             | 16  |        | mul_ln276   | mul  | auto   | 4       |
+|    add_ln276_fu_1448_p2                                   |     |        | add_ln276   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U118                             | 16  |        | mul_ln278   | mul  | auto   | 4       |
+|    add_ln278_fu_1461_p2                                   |     |        | add_ln278   | add  | fabric | 0       |
+|    mul_64ns_66ns_129_5_1_U119                             | 16  |        | mul_ln280   | mul  | auto   | 4       |
+|    add_ln280_fu_1474_p2                                   |     |        | add_ln280   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_287_12                  | 0   |        |             |      |        |         |
+|    add_ln287_fu_110_p2                                    |     |        | add_ln287   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_299_14                  | 0   |        |             |      |        |         |
+|    add_ln299_fu_96_p2                                     |     |        | add_ln299   | add  | fabric | 0       |
+|  + kernel_nlp_Pipeline_VITIS_LOOP_310_16                  | 0   |        |             |      |        |         |
+|    add_ln310_fu_110_p2                                    |     |        | add_ln310   | add  | fabric | 0       |
++-----------------------------------------------------------+-----+--------+-------------+------+--------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++-------------------+---------------+-----------+------+------+--------+----------+------+---------+------------------+
+| Name              | Usage         | Type      | BRAM | URAM | Pragma | Variable | Impl | Latency | Bitwidth, Depth, |
+|                   |               |           |      |      |        |          |      |         | Banks            |
++-------------------+---------------+-----------+------+------+--------+----------+------+---------+------------------+
+| + kernel_nlp      |               |           | 600  | 0    |        |          |      |         |                  |
+|   control_s_axi_U | interface     | s_axilite |      |      |        |          |      |         |                  |
+|   gmem0_m_axi_U   | interface     | m_axi     | 30   |      |        |          |      |         |                  |
+|   gmem1_m_axi_U   | interface     | m_axi     | 30   |      |        |          |      |         |                  |
+|   gmem2_m_axi_U   | interface     | m_axi     | 30   |      |        |          |      |         |                  |
+|   v0_U            | ram_t2p array |           | 20   |      | yes    | v0       | bram | 1       | 32, 10000, 1     |
+|   v0_1_U          | ram_t2p array |           | 20   |      | yes    | v0_1     | bram | 1       | 32, 10000, 1     |
+|   v0_2_U          | ram_t2p array |           | 20   |      | yes    | v0_2     | bram | 1       | 32, 10000, 1     |
+|   v0_3_U          | ram_t2p array |           | 20   |      | yes    | v0_3     | bram | 1       | 32, 10000, 1     |
+|   v0_4_U          | ram_t2p array |           | 20   |      | yes    | v0_4     | bram | 1       | 32, 10000, 1     |
+|   v0_5_U          | ram_t2p array |           | 20   |      | yes    | v0_5     | bram | 1       | 32, 10000, 1     |
+|   v0_6_U          | ram_t2p array |           | 20   |      | yes    | v0_6     | bram | 1       | 32, 10000, 1     |
+|   v0_7_U          | ram_t2p array |           | 20   |      | yes    | v0_7     | bram | 1       | 32, 10000, 1     |
+|   v0_8_U          | ram_t2p array |           | 20   |      | yes    | v0_8     | bram | 1       | 32, 10000, 1     |
+|   v0_9_U          | ram_t2p array |           | 20   |      | yes    | v0_9     | bram | 1       | 32, 10000, 1     |
+|   v0_10_U         | ram_t2p array |           | 20   |      | yes    | v0_10    | bram | 1       | 32, 10000, 1     |
+|   v0_11_U         | ram_t2p array |           | 20   |      | yes    | v0_11    | bram | 1       | 32, 10000, 1     |
+|   v1_U            | ram_t2p array |           | 1    |      | yes    | v1       | bram | 1       | 32, 120, 1       |
+|   v1_1_U          | ram_t2p array |           | 1    |      | yes    | v1_1     | bram | 1       | 32, 120, 1       |
+|   v1_2_U          | ram_t2p array |           | 1    |      | yes    | v1_2     | bram | 1       | 32, 120, 1       |
+|   v1_3_U          | ram_t2p array |           | 1    |      | yes    | v1_3     | bram | 1       | 32, 120, 1       |
+|   v1_4_U          | ram_t2p array |           | 1    |      | yes    | v1_4     | bram | 1       | 32, 120, 1       |
+|   v1_5_U          | ram_t2p array |           | 1    |      | yes    | v1_5     | bram | 1       | 32, 120, 1       |
+|   v1_6_U          | ram_t2p array |           | 1    |      | yes    | v1_6     | bram | 1       | 32, 120, 1       |
+|   v1_7_U          | ram_t2p array |           | 1    |      | yes    | v1_7     | bram | 1       | 32, 120, 1       |
+|   v1_8_U          | ram_t2p array |           | 1    |      | yes    | v1_8     | bram | 1       | 32, 120, 1       |
+|   v1_9_U          | ram_t2p array |           | 1    |      | yes    | v1_9     | bram | 1       | 32, 120, 1       |
+|   v1_10_U         | ram_t2p array |           | 1    |      | yes    | v1_10    | bram | 1       | 32, 120, 1       |
+|   v1_11_U         | ram_t2p array |           | 1    |      | yes    | v1_11    | bram | 1       | 32, 120, 1       |
+|   v1_12_U         | ram_t2p array |           | 1    |      | yes    | v1_12    | bram | 1       | 32, 120, 1       |
+|   v1_13_U         | ram_t2p array |           | 1    |      | yes    | v1_13    | bram | 1       | 32, 120, 1       |
+|   v1_14_U         | ram_t2p array |           | 1    |      | yes    | v1_14    | bram | 1       | 32, 120, 1       |
+|   v1_15_U         | ram_t2p array |           | 1    |      | yes    | v1_15    | bram | 1       | 32, 120, 1       |
+|   v1_16_U         | ram_t2p array |           | 1    |      | yes    | v1_16    | bram | 1       | 32, 120, 1       |
+|   v1_17_U         | ram_t2p array |           | 1    |      | yes    | v1_17    | bram | 1       | 32, 120, 1       |
+|   v1_18_U         | ram_t2p array |           | 1    |      | yes    | v1_18    | bram | 1       | 32, 120, 1       |
+|   v1_19_U         | ram_t2p array |           | 1    |      | yes    | v1_19    | bram | 1       | 32, 120, 1       |
+|   v1_20_U         | ram_t2p array |           | 1    |      | yes    | v1_20    | bram | 1       | 32, 120, 1       |
+|   v1_21_U         | ram_t2p array |           | 1    |      | yes    | v1_21    | bram | 1       | 32, 120, 1       |
+|   v1_22_U         | ram_t2p array |           | 1    |      | yes    | v1_22    | bram | 1       | 32, 120, 1       |
+|   v1_23_U         | ram_t2p array |           | 1    |      | yes    | v1_23    | bram | 1       | 32, 120, 1       |
+|   v1_24_U         | ram_t2p array |           | 1    |      | yes    | v1_24    | bram | 1       | 32, 120, 1       |
+|   v1_25_U         | ram_t2p array |           | 1    |      | yes    | v1_25    | bram | 1       | 32, 120, 1       |
+|   v1_26_U         | ram_t2p array |           | 1    |      | yes    | v1_26    | bram | 1       | 32, 120, 1       |
+|   v1_27_U         | ram_t2p array |           | 1    |      | yes    | v1_27    | bram | 1       | 32, 120, 1       |
+|   v1_28_U         | ram_t2p array |           | 1    |      | yes    | v1_28    | bram | 1       | 32, 120, 1       |
+|   v1_29_U         | ram_t2p array |           | 1    |      | yes    | v1_29    | bram | 1       | 32, 120, 1       |
+|   v2_U            | ram_t2p array |           | 16   |      | yes    | v2       | bram | 1       | 32, 8000, 1      |
+|   v2_1_U          | ram_t2p array |           | 16   |      | yes    | v2_1     | bram | 1       | 32, 8000, 1      |
+|   v2_2_U          | ram_t2p array |           | 16   |      | yes    | v2_2     | bram | 1       | 32, 8000, 1      |
+|   v2_3_U          | ram_t2p array |           | 16   |      | yes    | v2_3     | bram | 1       | 32, 8000, 1      |
+|   v2_4_U          | ram_t2p array |           | 16   |      | yes    | v2_4     | bram | 1       | 32, 8000, 1      |
+|   v2_5_U          | ram_t2p array |           | 16   |      | yes    | v2_5     | bram | 1       | 32, 8000, 1      |
+|   v2_6_U          | ram_t2p array |           | 16   |      | yes    | v2_6     | bram | 1       | 32, 8000, 1      |
+|   v2_7_U          | ram_t2p array |           | 16   |      | yes    | v2_7     | bram | 1       | 32, 8000, 1      |
+|   v2_8_U          | ram_t2p array |           | 16   |      | yes    | v2_8     | bram | 1       | 32, 8000, 1      |
+|   v2_9_U          | ram_t2p array |           | 16   |      | yes    | v2_9     | bram | 1       | 32, 8000, 1      |
+|   v2_10_U         | ram_t2p array |           | 16   |      | yes    | v2_10    | bram | 1       | 32, 8000, 1      |
+|   v2_11_U         | ram_t2p array |           | 16   |      | yes    | v2_11    | bram | 1       | 32, 8000, 1      |
+|   v2_12_U         | ram_t2p array |           | 16   |      | yes    | v2_12    | bram | 1       | 32, 8000, 1      |
+|   v2_13_U         | ram_t2p array |           | 16   |      | yes    | v2_13    | bram | 1       | 32, 8000, 1      |
+|   v2_14_U         | ram_t2p array |           | 16   |      | yes    | v2_14    | bram | 1       | 32, 8000, 1      |
++-------------------+---------------+-----------+------+------+--------+----------+------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Pragmas with Warnings
++----------+-------------------------------+---------------------------------+----------------------------------------------------------------------------+
+| Type     | Options                       | Location                        | Messages                                                                   |
++----------+-------------------------------+---------------------------------+----------------------------------------------------------------------------+
+| resource | variable=v0 core=ram_t2p_bram | output.cpp:69 in kernel_nlp, v0 | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=v1 core=ram_t2p_bram | output.cpp:73 in kernel_nlp, v1 | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
+| resource | variable=v2 core=ram_t2p_bram | output.cpp:76 in kernel_nlp, v2 | 'Resource pragma' is deprecated, use 'bind_op/bind_storage pragma' instead |
++----------+-------------------------------+---------------------------------+----------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++-----------------+------------------------------------------+----------------------------------+
+| Type            | Options                                  | Location                         |
++-----------------+------------------------------------------+----------------------------------+
+| aggregate       | variable = vv0                           | output.cpp:50 in kernel_nlp      |
+| interface       | m_axi port=vv0 offset=slave bundle=gmem0 | output.cpp:52 in kernel_nlp, vv0 |
+| interface       | m_axi port=vv1 offset=slave bundle=gmem1 | output.cpp:53 in kernel_nlp, vv1 |
+| interface       | m_axi port=vv2 offset=slave bundle=gmem2 | output.cpp:54 in kernel_nlp, vv2 |
+| interface       | s_axilite port = vv0 bundle = control    | output.cpp:57 in kernel_nlp      |
+| interface       | s_axilite port = vv1 bundle = control    | output.cpp:58 in kernel_nlp      |
+| interface       | s_axilite port = vv2 bundle = control    | output.cpp:59 in kernel_nlp      |
+| interface       | s_axilite port = return bundle = control | output.cpp:62 in kernel_nlp      |
+| array_partition | variable=v0 cyclic factor=12 dim=3       | output.cpp:68 in kernel_nlp, v0  |
+| array_partition | variable=v1 cyclic factor=2 dim=1        | output.cpp:71 in kernel_nlp, v1  |
+| array_partition | variable=v1 cyclic factor=15 dim=2       | output.cpp:72 in kernel_nlp, v1  |
+| array_partition | variable=v2 cyclic factor=15 dim=3       | output.cpp:75 in kernel_nlp, v2  |
+| pipeline        | II=2                                     | output.cpp:116 in kernel_nlp     |
+| pipeline        | II=1                                     | output.cpp:257 in kernel_nlp     |
++-----------------+------------------------------------------+----------------------------------+
+
+

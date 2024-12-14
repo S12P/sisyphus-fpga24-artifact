@@ -1,0 +1,81 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-04-05 06:59:00
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++----------------------+----------------+----------+----------+-------+--------+-------+------+
+|        Kernel        |     Cycles     |   LUT    |    FF    | BRAM  |  DSP   | URAM  |Detail|
++----------------------+----------------+----------+----------+-------+--------+-------+------+
+|kernel_atax (atax.c:3)|379499 (1.518ms)|40057 (3%)|47433 (2%)|46 (1%)|205 (2%)|82 (8%)|-     |
++----------------------+----------------+----------+----------+-------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++--------------+-----------+-----------+----+------------------+
+|  Interface   |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++--------------+-----------+-----------+----+------------------+
+|m (atax.c:3)  |         32|         32|   -|-                 |
+|n (atax.c:3)  |         32|         32|   -|-                 |
+|A (atax.c:3)  |         32|         32|  RO|cached[1]         |
+|x (atax.c:3)  |         32|         32|  RO|cached[2]         |
+|y (atax.c:3)  |         32|         32| R/W|cached[3]         |
+|tmp (atax.c:3)|         32|        512| R/W|cached & coalesced|
++--------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'A' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 'x' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'y' (atax.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++--------------------------------------+---+---------------+------+----------------------------------+
+|              Hierarchy               |TC |      AC       | CPC  |              Detail              |
++--------------------------------------+---+---------------+------+----------------------------------+
+|kernel_atax (atax.c:3)                |   |379499 (100.0%)|379499|-                                 |
+|    auto memory burst for 'y'(read)   |   |   410 (  0.1%)|   410|cache size=1640B                  |
+|    loop i (atax.c:11)                |410|    10 (  0.0%)|    10|parallel factor=41x, pipeline II=1|
+|    auto memory burst for 'A'(read)   |   |159900 ( 42.1%)|159900|cache size=639600B                |
+|    auto memory burst for 'x'(read)   |   |   410 (  0.1%)|   410|cache size=1640B                  |
+|    auto memory burst for 'tmp'(read) |   |    24 (  0.0%)|    24|cache size=1560B                  |
+|    auto memory burst for 'A'(read)   |   |159900 ( 42.1%)|159900|cache size=639600B                |
+|    loop i (atax.c:17)                |390| 58890 ( 15.5%)| 58890|-                                 |
+|        loop j (atax.c:22)            |410| 46410 ( 12.2%)|   119|parallel factor=41x, pipeline II=6|
+|        loop j (atax.c:28)            |410|  8580 (  2.3%)|    22|parallel factor=41x, pipeline II=1|
+|    auto memory burst for 'tmp'(write)|   |    24 (  0.0%)|    24|cache size=1560B                  |
+|    auto memory burst for 'y'(write)  |   |   410 (  0.1%)|   410|cache size=1640B                  |
++--------------------------------------+---+---------------+------+----------------------------------+
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++--------------------------------------+----------+----------+-------+--------+-------+------+
+|              Hierarchy               |   LUT    |    FF    | BRAM  |  DSP   | URAM  |Detail|
++--------------------------------------+----------+----------+-------+--------+-------+------+
+|kernel_atax (atax.c:3)                |40057 (3%)|47433 (2%)|46 (1%)|205 (2%)|82 (8%)|-     |
+|    auto memory burst for 'y'(read)   |         -|         -|      -|       -|      -|-     |
+|    loop i (atax.c:11)                |         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'tmp'(read) |         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|         -|      -|       -|      -|-     |
+|    loop i (atax.c:17)                |         -|         -|      -|       -|      -|-     |
+|        loop j (atax.c:22)            |         -|         -|      -|       -|      -|-     |
+|        loop j (atax.c:28)            |         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'tmp'(write)|         -|         -|      -|       -|      -|-     |
+|    auto memory burst for 'y'(write)  |         -|         -|      -|       -|      -|-     |
++--------------------------------------+----------+----------+-------+--------+-------+------+

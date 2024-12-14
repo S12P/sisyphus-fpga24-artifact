@@ -1,0 +1,97 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-04-06 06:09:48
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++--------------------------+----------------+----------+----------+---------+--------+-------+------+
+|          Kernel          |     Cycles     |   LUT    |    FF    |  BRAM   |  DSP   | URAM  |Detail|
++--------------------------+----------------+----------+----------+---------+--------+-------+------+
+|kernel_gemver (gemver.c:3)|2115092 (8.46ms)|45062 (3%)|49014 (2%)|590 (13%)|13 (~0%)|0 (~0%)|-     |
++--------------------------+----------------+----------+----------+---------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++------------------+-----------+-----------+----+------------------+
+|    Interface     |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++------------------+-----------+-----------+----+------------------+
+|n (gemver.c:3)    |         32|         32|   -|-                 |
+|alpha (gemver.c:3)|         32|         32|   -|scalar            |
+|beta (gemver.c:3) |         32|         32|   -|scalar            |
+|A (gemver.c:3)    |         32|        512| R/W|cached & coalesced|
+|u1 (gemver.c:3)   |         32|        512|  RO|cached & coalesced|
+|v1 (gemver.c:3)   |         32|        512|  RO|cached & coalesced|
+|u2 (gemver.c:3)   |         32|        512|  RO|cached & coalesced|
+|v2 (gemver.c:3)   |         32|        512|  RO|cached & coalesced|
+|w (gemver.c:3)    |         32|        512| R/W|cached & coalesced|
+|x (gemver.c:3)    |         32|        512| R/W|cached & coalesced|
+|y (gemver.c:3)    |         32|        512|  RO|cached & coalesced|
+|z (gemver.c:3)    |         32|        512|  RO|cached & coalesced|
++------------------+-----------+-----------+----+------------------+
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++------------------------------------+---+----------------+-------+------------------+
+|             Hierarchy              |TC |       AC       |  CPC  |      Detail      |
++------------------------------------+---+----------------+-------+------------------+
+|kernel_gemver (gemver.c:3)          |   |2115092 (100.0%)|2115092|-                 |
+|    auto memory burst for 'x'(read) |   |     25 (  0.0%)|     25|cache size=1600B  |
+|    auto memory burst for 'v2'(read)|   |     25 (  0.0%)|     25|cache size=1600B  |
+|    auto memory burst for 'v1'(read)|   |     25 (  0.0%)|     25|cache size=1600B  |
+|    auto memory burst for 'A'(read) |   |  10000 (  0.5%)|  10000|cache size=640000B|
+|    auto memory burst for 'u2'(read)|   |     25 (  0.0%)|     25|cache size=1600B  |
+|    auto memory burst for 'u1'(read)|   |     25 (  0.0%)|     25|cache size=1600B  |
+|    loop i (gemver.c:11)            |400| 160019 (  7.6%)| 160019|pipeline II=1     |
+|        loop j (gemver.c:13)        |400|               -|      -|flattened         |
+|    auto memory burst for 'y'(read) |   |     25 (  0.0%)|     25|cache size=1600B  |
+|    loop i (gemver.c:20)            |400| 967200 ( 45.7%)| 967200|-                 |
+|        loop j (gemver.c:22)        |400| 964000 ( 45.6%)|   2410|pipeline II=6     |
+|    auto memory burst for 'z'(read) |   |     25 (  0.0%)|     25|cache size=1600B  |
+|    loop i (gemver.c:27)            |400|    408 (  0.0%)|    408|pipeline II=1     |
+|    auto memory burst for 'w'(read) |   |     25 (  0.0%)|     25|cache size=1600B  |
+|    loop i (gemver.c:33)            |400| 967200 ( 45.7%)| 967200|-                 |
+|        loop j (gemver.c:35)        |400| 964000 ( 45.6%)|   2410|pipeline II=6     |
+|    auto memory burst for 'x'(write)|   |     25 (  0.0%)|     25|cache size=1600B  |
+|    auto memory burst for 'A'(write)|   |  10000 (  0.5%)|  10000|cache size=640000B|
+|    auto memory burst for 'w'(write)|   |     25 (  0.0%)|     25|cache size=1600B  |
++------------------------------------+---+----------------+-------+------------------+
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++------------------------------------+----------+----------+---------+--------+-------+------+
+|             Hierarchy              |   LUT    |    FF    |  BRAM   |  DSP   | URAM  |Detail|
++------------------------------------+----------+----------+---------+--------+-------+------+
+|kernel_gemver (gemver.c:3)          |45062 (3%)|49014 (2%)|590 (13%)|13 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'x'(read) |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'v2'(read)|         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'v1'(read)|         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'A'(read) |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'u2'(read)|         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'u1'(read)|         -|         -|        -|       -|      -|-     |
+|    loop i (gemver.c:11)            |         -|         -|        -|       -|      -|-     |
+|        loop j (gemver.c:13)        |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'y'(read) |         -|         -|        -|       -|      -|-     |
+|    loop i (gemver.c:20)            |         -|         -|        -|       -|      -|-     |
+|        loop j (gemver.c:22)        |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'z'(read) |         -|         -|        -|       -|      -|-     |
+|    loop i (gemver.c:27)            |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'w'(read) |         -|         -|        -|       -|      -|-     |
+|    loop i (gemver.c:33)            |         -|         -|        -|       -|      -|-     |
+|        loop j (gemver.c:35)        |         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'x'(write)|         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'A'(write)|         -|         -|        -|       -|      -|-     |
+|    auto memory burst for 'w'(write)|         -|         -|        -|       -|      -|-     |
++------------------------------------+----------+----------+---------+--------+-------+------+

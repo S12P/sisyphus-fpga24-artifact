@@ -1,0 +1,754 @@
+
+
+================================================================
+== Vitis HLS Report for 'Cnn'
+================================================================
+* Date:           Mon Apr 22 05:11:19 2024
+
+* Version:        2023.2 (Build 4023990 on Oct 11 2023)
+* Project:        Cnn
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu200-fsgd2104-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|  3.098 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+------------+----------+-----------+---------+------------+---------+
+    |   Latency (cycles)   |  Latency (absolute)  |       Interval       | Pipeline|
+    |   min   |     max    |    min   |    max    |   min   |     max    |   Type  |
+    +---------+------------+----------+-----------+---------+------------+---------+
+    |  1641078|  1076361750|  6.564 ms|  4.305 sec|  1641079|  1076361751|       no|
+    +---------+------------+----------+-----------+---------+------------+---------+
+
+    + Detail: 
+        * Instance: 
+        +------------------------------+-------------------+---------+---------+-----------+-----------+---------+---------+---------+
+        |                              |                   |  Latency (cycles) |   Latency (absolute)  |      Interval     | Pipeline|
+        |           Instance           |       Module      |   min   |   max   |    min    |    max    |   min   |   max   |   Type  |
+        +------------------------------+-------------------+---------+---------+-----------+-----------+---------+---------+---------+
+        |grp_merlin_memcpy_0_1_fu_406  |merlin_memcpy_0_1  |  1638495|  1638495|   6.554 ms|   6.554 ms|  1638495|  1638495|       no|
+        |grp_mars_kernel_0_1_1_fu_438  |mars_kernel_0_1_1  |        7|  4165591|  28.000 ns|  16.662 ms|        7|  4165591|       no|
+        +------------------------------+-------------------+---------+---------+-----------+-----------+---------+---------+---------+
+
+        * Loop: 
+        +------------+---------+------------+--------------+-----------+-----------+------+----------+
+        |            |   Latency (cycles)   |   Iteration  |  Initiation Interval  | Trip |          |
+        |  Loop Name |   min   |     max    |    Latency   |  achieved |   target  | Count| Pipelined|
+        +------------+---------+------------+--------------+-----------+-----------+------+----------+
+        |- merlinL7  |     2580|  1074723252|  10 ~ 4165594|          -|          -|   258|        no|
+        +------------+---------+------------+--------------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+---------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
++---------------------+---------+------+---------+---------+-----+
+|DSP                  |        -|     -|        -|        -|    -|
+|Expression           |        -|     -|        0|      148|    -|
+|FIFO                 |        -|     -|        -|        -|    -|
+|Instance             |      290|  2082|   258075|   167407|    0|
+|Memory               |     3200|     -|        0|        0|   48|
+|Multiplexer          |        -|     -|        -|     5418|    -|
+|Register             |        -|     -|      288|        -|    -|
++---------------------+---------+------+---------+---------+-----+
+|Total                |     3490|  2082|   258363|   172973|   48|
++---------------------+---------+------+---------+---------+-----+
+|Available SLR        |     1440|  2280|   788160|   394080|  320|
++---------------------+---------+------+---------+---------+-----+
+|Utilization SLR (%)  |      242|    91|       32|       43|   15|
++---------------------+---------+------+---------+---------+-----+
+|Available            |     4320|  6840|  2364480|  1182240|  960|
++---------------------+---------+------+---------+---------+-----+
+|Utilization (%)      |       80|    30|       10|       14|    5|
++---------------------+---------+------+---------+---------+-----+
+
++ Detail: 
+    * Instance: 
+    +-------------------------------------------+-----------------------------------------+---------+------+--------+--------+-----+
+    |                  Instance                 |                  Module                 | BRAM_18K|  DSP |   FF   |   LUT  | URAM|
+    +-------------------------------------------+-----------------------------------------+---------+------+--------+--------+-----+
+    |control_s_axi_U                            |control_s_axi                            |        0|     0|     246|     424|    0|
+    |grp_mars_kernel_0_1_1_fu_438               |mars_kernel_0_1_1                        |      200|  2082|  244848|  157251|    0|
+    |merlin_gmem_Cnn_128_0_m_axi_U              |merlin_gmem_Cnn_128_0_m_axi              |       30|     0|    3521|    2695|    0|
+    |merlin_gmem_Cnn_32_0_m_axi_U               |merlin_gmem_Cnn_32_0_m_axi               |       30|     0|    3521|    2695|    0|
+    |merlin_gmem_Cnn_512_merlin_output_m_axi_U  |merlin_gmem_Cnn_512_merlin_output_m_axi  |       30|     0|    3521|    2695|    0|
+    |grp_merlin_memcpy_0_1_fu_406               |merlin_memcpy_0_1                        |        0|     0|    2418|    1647|    0|
+    +-------------------------------------------+-----------------------------------------+---------+------+--------+--------+-----+
+    |Total                                      |                                         |      290|  2082|  258075|  167407|    0|
+    +-------------------------------------------+-----------------------------------------+---------+------+--------+--------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +--------------------------------------------+-----------------------------------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |                   Memory                   |                        Module                       | BRAM_18K| FF| LUT| URAM| Words | Bits| Banks| W*Bits*Banks|
+    +--------------------------------------------+-----------------------------------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |mars_kernel_0_1_merlin_output_buf_0_0_U     |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_U     |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_U     |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_U   |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_U  |mars_kernel_0_1_merlin_output_buf_0_0_RAM_AUTO_1R1W  |        0|  0|   0|    1|   3136|   32|     1|       100352|
+    |weight_8_0_buf_U                            |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_1_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_2_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_3_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_4_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_5_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_6_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_7_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_8_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_9_U                          |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_10_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_11_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_12_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_13_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_14_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_15_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_16_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_17_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_18_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_19_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_20_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_21_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_22_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_23_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    |weight_8_0_buf_24_U                         |weight_8_0_buf_RAM_AUTO_1R1W                         |      128|  0|   0|    0|  65536|   32|     1|      2097152|
+    +--------------------------------------------+-----------------------------------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |Total                                       |                                                     |     3200|  0|   0|   48|1788928| 2336|    73|     57245696|
+    +--------------------------------------------+-----------------------------------------------------+---------+---+----+-----+-------+-----+------+-------------+
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------------------+----------+----+---+----+------------+------------+
+    |          Variable Name          | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------------------+----------+----+---+----+------------+------------+
+    |i_8_fu_544_p2                    |         +|   0|  0|  16|           9|           1|
+    |mars_count_0_1_1_fu_550_p2       |         +|   0|  0|  39|          32|           1|
+    |ap_predicate_op121_call_state6   |       and|   0|  0|   2|           1|           1|
+    |icmp_ln204_fu_538_p2             |      icmp|   0|  0|  16|           9|           9|
+    |icmp_ln216_fu_556_p2             |      icmp|   0|  0|  39|          32|           2|
+    |ap_block_state1                  |        or|   0|  0|   2|           1|           1|
+    |ap_block_state6_on_subcall_done  |        or|   0|  0|   2|           1|           1|
+    |mars_count_0_1_2_fu_562_p3       |    select|   0|  0|  32|           1|           1|
+    +---------------------------------+----------+----+---+----+------------+------------+
+    |Total                            |          |   0|  0| 148|          86|          17|
+    +---------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +---------------------------------------------------------------+----+-----------+-----+-----------+
+    |                              Name                             | LUT| Input Size| Bits| Total Bits|
+    +---------------------------------------------------------------+----+-----------+-----+-----------+
+    |ap_NS_fsm                                                      |  49|          9|    1|          9|
+    |ap_done                                                        |   9|          2|    1|          2|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_0_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_10_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_11_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_12_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_13_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_14_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_15_q1  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_1_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_2_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_3_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_4_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_5_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_6_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_7_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_8_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_1_9_q1   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_0_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_10_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_11_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_12_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_13_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_14_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_15_q0  |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_1_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_2_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_3_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_4_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_5_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_6_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_7_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_8_q0   |  20|          4|   32|        128|
+    |grp_mars_kernel_0_1_1_fu_438_mars_merlin_output_buf_0_2_9_q0   |  20|          4|   32|        128|
+    |i_02_fu_92                                                     |   9|          2|    9|         18|
+    |mars_count_0_1_fu_88                                           |   9|          2|   32|         64|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_10_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_11_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_12_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_13_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_14_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_15_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_1_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_2_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_3_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_4_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_5_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_6_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_7_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_8_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_9_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_0_address0                 |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_0_ce0                      |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_0_ce1                      |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_0_d0                       |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_0_we0                      |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_10_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_11_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_12_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_13_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_14_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_15_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_1_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_2_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_3_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_4_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_5_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_6_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_7_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_8_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_9_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_1_address0                 |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_1_ce0                      |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_1_ce1                      |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_1_d0                       |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_1_we0                      |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_10_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_11_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_12_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_13_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_14_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_address0              |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_ce0                   |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_ce1                   |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_d0                    |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_15_we0                   |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_1_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_2_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_3_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_4_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_5_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_6_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_7_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_8_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_address0               |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_ce0                    |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_ce1                    |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_d0                     |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_9_we0                    |  14|          3|    1|          3|
+    |mars_kernel_0_1_merlin_output_buf_0_2_address0                 |  20|          4|   12|         48|
+    |mars_kernel_0_1_merlin_output_buf_0_2_ce0                      |  20|          4|    1|          4|
+    |mars_kernel_0_1_merlin_output_buf_0_2_ce1                      |   9|          2|    1|          2|
+    |mars_kernel_0_1_merlin_output_buf_0_2_d0                       |  14|          3|   32|         96|
+    |mars_kernel_0_1_merlin_output_buf_0_2_we0                      |  14|          3|    1|          3|
+    |merlin_gmem_Cnn_128_0_ARVALID                                  |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_128_0_RREADY                                   |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_32_0_ARVALID                                   |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_32_0_RREADY                                    |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_512_merlin_output_ARVALID                      |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_512_merlin_output_AWVALID                      |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_512_merlin_output_BREADY                       |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_512_merlin_output_RREADY                       |   9|          2|    1|          2|
+    |merlin_gmem_Cnn_512_merlin_output_WVALID                       |   9|          2|    1|          2|
+    |weight_8_0_buf_10_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_10_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_10_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_11_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_11_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_11_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_12_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_12_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_12_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_13_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_13_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_13_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_14_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_14_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_14_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_15_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_15_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_15_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_16_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_16_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_16_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_17_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_17_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_17_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_18_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_18_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_18_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_19_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_19_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_19_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_1_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_1_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_1_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_20_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_20_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_20_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_21_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_21_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_21_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_22_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_22_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_22_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_23_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_23_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_23_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_24_address0                                     |  14|          3|   16|         48|
+    |weight_8_0_buf_24_ce0                                          |  14|          3|    1|          3|
+    |weight_8_0_buf_24_we0                                          |   9|          2|    1|          2|
+    |weight_8_0_buf_2_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_2_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_2_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_3_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_3_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_3_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_4_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_4_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_4_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_5_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_5_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_5_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_6_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_6_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_6_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_7_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_7_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_7_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_8_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_8_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_8_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_9_address0                                      |  14|          3|   16|         48|
+    |weight_8_0_buf_9_ce0                                           |  14|          3|    1|          3|
+    |weight_8_0_buf_9_we0                                           |   9|          2|    1|          2|
+    |weight_8_0_buf_address0                                        |  14|          3|   16|         48|
+    |weight_8_0_buf_ce0                                             |  14|          3|    1|          3|
+    |weight_8_0_buf_we0                                             |   9|          2|    1|          2|
+    +---------------------------------------------------------------+----+-----------+-----+-----------+
+    |Total                                                          |5418|       1129| 3782|      12876|
+    +---------------------------------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------------------------+----+----+-----+-----------+
+    |                    Name                   | FF | LUT| Bits| Const Bits|
+    +-------------------------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                                  |   8|   0|    8|          0|
+    |ap_done_reg                                |   1|   0|    1|          0|
+    |ap_rst_n_inv                               |   1|   0|    1|          0|
+    |ap_rst_reg_1                               |   1|   0|    1|          0|
+    |ap_rst_reg_2                               |   1|   0|    1|          0|
+    |grp_mars_kernel_0_1_1_fu_438_ap_start_reg  |   1|   0|    1|          0|
+    |grp_merlin_memcpy_0_1_fu_406_ap_start_reg  |   1|   0|    1|          0|
+    |i_02_fu_92                                 |   9|   0|    9|          0|
+    |i_8_reg_616                                |   9|   0|    9|          0|
+    |mars_count_0_1_fu_88                       |  32|   0|   32|          0|
+    |mars_count_0_1_load_1_reg_621              |  32|   0|   32|          0|
+    |merlin_input_read_reg_603                  |  64|   0|   64|          0|
+    |merlin_output_read_reg_593                 |  64|   0|   64|          0|
+    |weight_read_reg_598                        |  64|   0|   64|          0|
+    +-------------------------------------------+----+----+-----+-----------+
+    |Total                                      | 288|   0|  288|          0|
+    +-------------------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------------------------------------+-----+-----+---------------+-----------------------------------+--------------+
+|                     RTL Ports                    | Dir | Bits|    Protocol   |           Source Object           |    C Type    |
++--------------------------------------------------+-----+-----+---------------+-----------------------------------+--------------+
+|s_axi_control_AWVALID                             |   in|    1|          s_axi|                            control|        scalar|
+|s_axi_control_AWREADY                             |  out|    1|          s_axi|                            control|        scalar|
+|s_axi_control_AWADDR                              |   in|    6|          s_axi|                            control|        scalar|
+|s_axi_control_WVALID                              |   in|    1|          s_axi|                            control|        scalar|
+|s_axi_control_WREADY                              |  out|    1|          s_axi|                            control|        scalar|
+|s_axi_control_WDATA                               |   in|   32|          s_axi|                            control|        scalar|
+|s_axi_control_WSTRB                               |   in|    4|          s_axi|                            control|        scalar|
+|s_axi_control_ARVALID                             |   in|    1|          s_axi|                            control|        scalar|
+|s_axi_control_ARREADY                             |  out|    1|          s_axi|                            control|        scalar|
+|s_axi_control_ARADDR                              |   in|    6|          s_axi|                            control|        scalar|
+|s_axi_control_RVALID                              |  out|    1|          s_axi|                            control|        scalar|
+|s_axi_control_RREADY                              |   in|    1|          s_axi|                            control|        scalar|
+|s_axi_control_RDATA                               |  out|   32|          s_axi|                            control|        scalar|
+|s_axi_control_RRESP                               |  out|    2|          s_axi|                            control|        scalar|
+|s_axi_control_BVALID                              |  out|    1|          s_axi|                            control|        scalar|
+|s_axi_control_BREADY                              |   in|    1|          s_axi|                            control|        scalar|
+|s_axi_control_BRESP                               |  out|    2|          s_axi|                            control|        scalar|
+|ap_clk                                            |   in|    1|  ap_ctrl_chain|                                Cnn|  return value|
+|ap_rst_n                                          |   in|    1|  ap_ctrl_chain|                                Cnn|  return value|
+|interrupt                                         |  out|    1|  ap_ctrl_chain|                                Cnn|  return value|
+|m_axi_merlin_gmem_Cnn_128_0_AWVALID               |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWREADY               |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWADDR                |  out|   64|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWID                  |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWLEN                 |  out|    8|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWSIZE                |  out|    3|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWBURST               |  out|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWLOCK                |  out|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWCACHE               |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWPROT                |  out|    3|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWQOS                 |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWREGION              |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_AWUSER                |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WVALID                |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WREADY                |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WDATA                 |  out|  512|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WSTRB                 |  out|   64|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WLAST                 |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WID                   |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_WUSER                 |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARVALID               |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARREADY               |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARADDR                |  out|   64|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARID                  |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARLEN                 |  out|    8|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARSIZE                |  out|    3|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARBURST               |  out|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARLOCK                |  out|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARCACHE               |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARPROT                |  out|    3|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARQOS                 |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARREGION              |  out|    4|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_ARUSER                |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RVALID                |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RREADY                |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RDATA                 |   in|  512|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RLAST                 |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RID                   |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RUSER                 |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_RRESP                 |   in|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_BVALID                |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_BREADY                |  out|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_BRESP                 |   in|    2|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_BID                   |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_128_0_BUSER                 |   in|    1|          m_axi|              merlin_gmem_Cnn_128_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWVALID                |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWREADY                |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWADDR                 |  out|   64|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWID                   |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWLEN                  |  out|    8|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWSIZE                 |  out|    3|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWBURST                |  out|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWLOCK                 |  out|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWCACHE                |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWPROT                 |  out|    3|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWQOS                  |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWREGION               |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_AWUSER                 |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WVALID                 |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WREADY                 |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WDATA                  |  out|  512|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WSTRB                  |  out|   64|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WLAST                  |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WID                    |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_WUSER                  |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARVALID                |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARREADY                |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARADDR                 |  out|   64|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARID                   |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARLEN                  |  out|    8|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARSIZE                 |  out|    3|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARBURST                |  out|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARLOCK                 |  out|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARCACHE                |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARPROT                 |  out|    3|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARQOS                  |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARREGION               |  out|    4|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_ARUSER                 |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RVALID                 |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RREADY                 |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RDATA                  |   in|  512|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RLAST                  |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RID                    |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RUSER                  |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_RRESP                  |   in|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_BVALID                 |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_BREADY                 |  out|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_BRESP                  |   in|    2|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_BID                    |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_32_0_BUSER                  |   in|    1|          m_axi|               merlin_gmem_Cnn_32_0|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWVALID   |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWREADY   |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWADDR    |  out|   64|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWID      |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWLEN     |  out|    8|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWSIZE    |  out|    3|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWBURST   |  out|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWLOCK    |  out|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWCACHE   |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWPROT    |  out|    3|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWQOS     |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWREGION  |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_AWUSER    |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WVALID    |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WREADY    |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WDATA     |  out|  512|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WSTRB     |  out|   64|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WLAST     |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WID       |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_WUSER     |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARVALID   |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARREADY   |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARADDR    |  out|   64|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARID      |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARLEN     |  out|    8|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARSIZE    |  out|    3|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARBURST   |  out|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARLOCK    |  out|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARCACHE   |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARPROT    |  out|    3|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARQOS     |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARREGION  |  out|    4|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_ARUSER    |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RVALID    |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RREADY    |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RDATA     |   in|  512|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RLAST     |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RID       |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RUSER     |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_RRESP     |   in|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_BVALID    |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_BREADY    |  out|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_BRESP     |   in|    2|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_BID       |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
+|m_axi_merlin_gmem_Cnn_512_merlin_output_BUSER     |   in|    1|          m_axi|  merlin_gmem_Cnn_512_merlin_output|       pointer|
++--------------------------------------------------+-----+-----+---------------+-----------------------------------+--------------+
+

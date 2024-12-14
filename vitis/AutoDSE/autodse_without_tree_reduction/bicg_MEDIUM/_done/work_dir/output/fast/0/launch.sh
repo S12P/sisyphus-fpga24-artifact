@@ -1,0 +1,1 @@
+merlincc bicg_MEDIUM/bicg_MEDIUM.c -p=/opt/xilinx/platforms/xilinx_u55c_gen3x16_xdma_3_202210_1/xilinx_u55c_gen3x16_xdma_3_202210_1.xpfm --kernel_frequency 250 --report=impl 

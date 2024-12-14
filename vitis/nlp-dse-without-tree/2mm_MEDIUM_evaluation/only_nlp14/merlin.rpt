@@ -1,0 +1,98 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 15:46:15
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++--------------------+---------------------+----------+-----------+--------+--------+-------+------+
+|       Kernel       |       Cycles        |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++--------------------+---------------------+----------+-----------+--------+--------+-------+------+
+|kernel_2mm (2mm.c:3)|103228487 (412.914ms)|20575 (1%)|18403 (~0%)|363 (8%)|16 (~0%)|0 (~0%)|-     |
++--------------------+---------------------+----------+-----------+--------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++---------------+-----------+-----------+----+---------+
+|   Interface   |SW Bitwidth|HW Bitwidth|Type| Detail  |
++---------------+-----------+-----------+----+---------+
+|ni (2mm.c:3)   |         32|         32|   -|-        |
+|nj (2mm.c:3)   |         32|         32|   -|-        |
+|nk (2mm.c:3)   |         32|         32|   -|-        |
+|nl (2mm.c:3)   |         32|         32|   -|-        |
+|alpha (2mm.c:3)|         32|         32|   -|scalar   |
+|beta (2mm.c:3) |         32|         32|   -|scalar   |
+|tmp (2mm.c:3)  |         32|         32| R/W|cached[1]|
+|A (2mm.c:3)    |         32|         32|  RO|cached[2]|
+|B (2mm.c:3)    |         32|         32|  RO|cached[3]|
+|C (2mm.c:3)    |         32|         32|  RO|cached[4]|
+|D (2mm.c:3)    |         32|         32| R/W|cached[5]|
++---------------+-----------+-----------+----+---------+
+[1]: Suboptimal memory coalescing: variable 'tmp' (2mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 'A' (2mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'B' (2mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[4]: Suboptimal memory coalescing: variable 'C' (2mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[5]: Suboptimal memory coalescing: variable 'D' (2mm.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++------------------------------------------+---+------------------+---------+------------------+
+|                Hierarchy                 |TC |        AC        |   CPC   |      Detail      |
++------------------------------------------+---+------------------+---------+------------------+
+|kernel_2mm (2mm.c:3)                      |   |103228487 (100.0%)|103228487|-                 |
+|    auto memory burst for 'B'(read)       |   |    39990 (  0.0%)|    39990|cache size=159600B|
+|    auto memory burst for 'A'(read)       |   |    37891 (  0.0%)|    37891|cache size=151200B|
+|    loop i (2mm.c:13)                     |180| 50370720 ( 48.8%)| 50370720|pipeline II=21[6] |
+|        auto memory burst for 'tmp'(read) |   |    11340 (  0.0%)|       63|cache size=253B   |
+|        loop j (2mm.c:18)                 |190|                 -|        -|-                 |
+|            loop k (2mm.c:23)             |210|                 -|        -|parallel factor=3x|
+|        auto memory burst for 'tmp'(write)|   |    11340 (  0.0%)|       63|cache size=253B   |
+|    auto memory burst for 'tmp'(read)     |   |    34292 (  0.0%)|    34292|cache size=136800B|
+|    auto memory burst for 'C'(read)       |   |    41891 (  0.0%)|    41891|cache size=167200B|
+|    loop i (2mm.c:32)                     |180| 52775880 ( 51.1%)| 52775880|pipeline II=14[7] |
+|        auto memory burst for 'D'(read)   |   |    13140 (  0.0%)|       73|cache size=293B   |
+|        loop j (2mm.c:37)                 |220|                 -|        -|-                 |
+|            loop k (2mm.c:42)             |190|                 -|        -|parallel factor=2x|
+|        auto memory burst for 'D'(write)  |   |    13140 (  0.0%)|       73|cache size=293B   |
++------------------------------------------+---+------------------+---------+------------------+
+[6]: Unable to enforce a carried dependence constraint because of the access on variable 'tmp' (2mm.c:3)
+[7]: Unable to enforce a carried dependence constraint because of the access on variable 'D' (2mm.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++------------------------------------------+----------+-----------+--------+--------+-------+------+
+|                Hierarchy                 |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++------------------------------------------+----------+-----------+--------+--------+-------+------+
+|kernel_2mm (2mm.c:3)                      |20575 (1%)|18403 (~0%)|363 (8%)|16 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'B'(read)       |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'A'(read)       |         -|          -|       -|       -|      -|-     |
+|    loop i (2mm.c:13)                     |         -|          -|       -|       -|      -|-     |
+|        auto memory burst for 'tmp'(read) |         -|          -|       -|       -|      -|-     |
+|        loop j (2mm.c:18)                 |         -|          -|       -|       -|      -|-     |
+|            loop k (2mm.c:23)             |         -|          -|       -|       -|      -|-     |
+|        auto memory burst for 'tmp'(write)|         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'tmp'(read)     |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'C'(read)       |         -|          -|       -|       -|      -|-     |
+|    loop i (2mm.c:32)                     |         -|          -|       -|       -|      -|-     |
+|        auto memory burst for 'D'(read)   |         -|          -|       -|       -|      -|-     |
+|        loop j (2mm.c:37)                 |         -|          -|       -|       -|      -|-     |
+|            loop k (2mm.c:42)             |         -|          -|       -|       -|      -|-     |
+|        auto memory burst for 'D'(write)  |         -|          -|       -|       -|      -|-     |
++------------------------------------------+----------+-----------+--------+--------+-------+------+

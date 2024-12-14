@@ -1,0 +1,50 @@
+================================================================
+== Design Size Report
+================================================================
+
+* C-Synthesis has not completed!
+
+* Total Instructions per Compilation Phase
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Phase         | Step                        | Instructions | Description                                                                            |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+| Compile/Link  |                             |  1,170       | After all functions are compiled and linked into a single design                       |
+|               |                             |              |                                                                                        |
+| Unroll/Inline |                             |              | After user unroll and inline pragmas are applied                                       |
+|               | (1) unroll                  | 21,061       | user unroll pragmas are applied                                                        |
+|               | (2) simplification          |  4,330       | simplification of applied user unroll pragmas                                          |
+|               | (3) inline                  |  4,104       | user inline pragmas are applied                                                        |
+|               | (4) simplification          |  3,919       | simplification of applied user inline pragmas                                          |
+|               |                             |              |                                                                                        |
+| Array/Struct  |                             |              | After user array partition and struct aggregate/disaggregate pragmas are applied       |
+|               | (1) array partition         | 98,545       | user array partition pragmas are applied                                               |
+|               | (2) simplification          |  9,545       | simplification of applied user array partition & struct aggregate/disaggregate pragmas |
+|               | (3) aggregate/disaggregate  |  9,547       | user struct aggregate/disaggregate pragmas are applied                                 |
+|               | (4) array reshape           |  9,711       | apply array reshape pragmas                                                            |
+|               | (5) access patterns         |  9,359       | array access pattern optmizations                                                      |
+|               |                             |              |                                                                                        |
+| Performance   |                             |  9,363       | After transformations are applied to meet performance pragma targets                   |
+|               |                             |              |                                                                                        |
+| HW Transforms |                             | pending      | After hardware transfomations                                                          |
++---------------+-----------------------------+--------------+----------------------------------------------------------------------------------------+
+
+* Instructions per Function for each Compilation Phase
++---------------------+------------------------+--------------+---------------+--------------+-------------+
+| Function            | Location               | Compile/Link | Unroll/Inline | Array/Struct | Performance |
++---------------------+------------------------+--------------+---------------+--------------+-------------+
+| + kernel_nlp        | code_generated.cpp:144 | 1,170        | 3,919         | 9,359        | 9,363       |
+|  + task0            | code_generated.cpp:97  | 1,130        | 3,890         | 7,682        | 7,686       |
+|     load_output_S0  | code_generated.cpp:41  |  380         |  109          | 1,410        | 1,412       |
+|     load_weight_S0  | code_generated.cpp:27  |   78         |   39          |  664         |  664        |
+|     load_input_S0   | code_generated.cpp:12  |  128         |   42          |  688         |  690        |
+|     store_output_S0 | code_generated.cpp:68  |  380         |  109          |  657         |  657        |
++---------------------+------------------------+--------------+---------------+--------------+-------------+
+
+* Design Size Message Settings
++---------------------------------------------+--------+------------------------------------------------------------------+
+| Message Setting                             | Value  | Description                                                      |
++---------------------------------------------+--------+------------------------------------------------------------------+
+| config_compile -design_size_maximum_warning | 100000 | Show a warning when total design instructions exceeds this value |
++---------------------------------------------+--------+------------------------------------------------------------------+
+
+

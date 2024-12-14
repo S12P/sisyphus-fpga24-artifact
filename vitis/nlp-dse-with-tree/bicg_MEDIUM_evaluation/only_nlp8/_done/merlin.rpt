@@ -1,0 +1,82 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-04-05 09:17:24
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++----------------------+----------------+----------+----------+----------+--------+-------+------+
+|        Kernel        |     Cycles     |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++----------------------+----------------+----------+----------+----------+--------+-------+------+
+|kernel_bicg (bicg.c:3)|368971 (1.476ms)|35456 (2%)|36298 (1%)|1324 (30%)|65 (~0%)|0 (~0%)|-     |
++----------------------+----------------+----------+----------+----------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++------------+-----------+-----------+----+------------------+
+| Interface  |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++------------+-----------+-----------+----+------------------+
+|m (bicg.c:3)|         32|         32|   -|-                 |
+|n (bicg.c:3)|         32|         32|   -|-                 |
+|A (bicg.c:3)|         32|         32|  RO|cached[1]         |
+|s (bicg.c:3)|         32|         32| R/W|cached[2]         |
+|q (bicg.c:3)|         32|        512| R/W|cached & coalesced|
+|p (bicg.c:3)|         32|         32|  RO|cached[3]         |
+|r (bicg.c:3)|         32|        512|  RO|cached & coalesced|
++------------+-----------+-----------+----+------------------+
+[1]: Suboptimal memory coalescing: variable 'A' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[2]: Suboptimal memory coalescing: variable 's' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+[3]: Suboptimal memory coalescing: variable 'p' (bicg.c:3)
+  Reason: the lowest dimension size of on-chip buffer is not divisible by 2
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++------------------------------------+---+---------------+------+----------------------------------+
+|             Hierarchy              |TC |      AC       | CPC  |              Detail              |
++------------------------------------+---+---------------+------+----------------------------------+
+|kernel_bicg (bicg.c:3)              |   |368971 (100.0%)|368971|-                                 |
+|    auto memory burst for 's'(read) |   |   390 (  0.1%)|   390|cache size=1560B                  |
+|    loop i (bicg.c:11)              |390|    10 (  0.0%)|    10|parallel factor=39x, pipeline II=1|
+|    auto memory burst for 'p'(read) |   |   390 (  0.1%)|   390|cache size=1560B                  |
+|    auto memory burst for 'r'(read) |   |    25 (  0.0%)|    25|cache size=1640B                  |
+|    auto memory burst for 'A'(read) |   |159900 ( 43.3%)|159900|cache size=639600B                |
+|    auto memory burst for 'q'(read) |   |    25 (  0.0%)|    25|cache size=1640B                  |
+|    auto memory burst for 'A'(read) |   |159900 ( 43.3%)|159900|cache size=639600B                |
+|    loop i (bicg.c:17)              |410| 48380 ( 13.1%)| 48380|-                                 |
+|        loop j (bicg.c:22)          |390| 45100 ( 12.2%)|   110|parallel factor=39x, pipeline II=6|
+|    auto memory burst for 's'(write)|   |   390 (  0.1%)|   390|cache size=1560B                  |
+|    auto memory burst for 'q'(write)|   |    25 (  0.0%)|    25|cache size=1640B                  |
++------------------------------------+---+---------------+------+----------------------------------+
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++------------------------------------+----------+----------+----------+--------+-------+------+
+|             Hierarchy              |   LUT    |    FF    |   BRAM   |  DSP   | URAM  |Detail|
++------------------------------------+----------+----------+----------+--------+-------+------+
+|kernel_bicg (bicg.c:3)              |35456 (2%)|36298 (1%)|1324 (30%)|65 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 's'(read) |         -|         -|         -|       -|      -|-     |
+|    loop i (bicg.c:11)              |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'p'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'r'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'A'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'q'(read) |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'A'(read) |         -|         -|         -|       -|      -|-     |
+|    loop i (bicg.c:17)              |         -|         -|         -|       -|      -|-     |
+|        loop j (bicg.c:22)          |         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 's'(write)|         -|         -|         -|       -|      -|-     |
+|    auto memory burst for 'q'(write)|         -|         -|         -|       -|      -|-     |
++------------------------------------+----------+----------+----------+--------+-------+------+

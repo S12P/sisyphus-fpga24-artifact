@@ -1,0 +1,76 @@
+
+
+====================================================================================
+Summary
+====================================================================================
+
+Date: 2024-12-12 12:51:53
+Target Device: /opt/xilinx/platforms/xilinx_u200_gen3x16_xdma_2_202110_1/xilinx_u200_gen3x16_xdma_2_202110_1.xpfm
+Target Frequency: 250MHz
+Estimated Frequency: 250MHz
++----------------------------+--------------+----------+-----------+--------+--------+-------+------+
+|           Kernel           |    Cycles    |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++----------------------------+--------------+----------+-----------+--------+--------+-------+------+
+|kernel_gesummv (gesummv.c:3)|475121 (1.9ms)|20606 (1%)|20372 (~0%)|400 (9%)|10 (~0%)|0 (~0%)|-     |
++----------------------------+--------------+----------+-----------+--------+--------+-------+------+
+
+
+====================================================================================
+Interface
+====================================================================================
+
++-------------------+-----------+-----------+----+------------------+
+|     Interface     |SW Bitwidth|HW Bitwidth|Type|      Detail      |
++-------------------+-----------+-----------+----+------------------+
+|n (gesummv.c:3)    |         32|         32|   -|-                 |
+|alpha (gesummv.c:3)|         32|         32|   -|scalar            |
+|beta (gesummv.c:3) |         32|         32|   -|scalar            |
+|A (gesummv.c:3)    |         32|         64|  RO|cached & coalesced|
+|B (gesummv.c:3)    |         32|         64|  RO|cached & coalesced|
+|tmp (gesummv.c:3)  |         32|        512| R/W|cached & coalesced|
+|x (gesummv.c:3)    |         32|         64|  RO|cached & coalesced|
+|y (gesummv.c:3)    |         32|        512| R/W|cached & coalesced|
++-------------------+-----------+-----------+----+------------------+
+
+
+====================================================================================
+Performance Estimate (TC: Trip Count, AC: Accumulated Cycles, CPC: Cycles Per Call)
+====================================================================================
+
++--------------------------------------+---+---------------+------+--------------------------------------+
+|              Hierarchy               |TC |      AC       | CPC  |                Detail                |
++--------------------------------------+---+---------------+------+--------------------------------------+
+|kernel_gesummv (gesummv.c:3)          |   |475121 (100.0%)|475121|-                                     |
+|    auto memory burst for 'y'(read)   |   |    15 (  0.0%)|    15|cache size=1000B                      |
+|    auto memory burst for 'x'(read)   |   |   125 (  0.0%)|   125|cache size=1000B                      |
+|    auto memory burst for 'x'(read)   |   |   125 (  0.0%)|   125|cache size=1000B                      |
+|    auto memory burst for 'tmp'(read) |   |    15 (  0.0%)|    15|cache size=1000B                      |
+|    auto memory burst for 'B'(read)   |   | 31250 (  6.6%)| 31250|cache size=250000B                    |
+|    auto memory burst for 'A'(read)   |   | 31250 (  6.6%)| 31250|cache size=250000B                    |
+|    loop i (gesummv.c:11)             |250|443500 ( 93.3%)|443500|-                                     |
+|        loop j (gesummv.c:17)         |250|439000 ( 92.4%)|  1756|parallel factor=10x, pipeline II=70[1]|
+|    auto memory burst for 'y'(write)  |   |    15 (  0.0%)|    15|cache size=1000B                      |
+|    auto memory burst for 'tmp'(write)|   |    15 (  0.0%)|    15|cache size=1000B                      |
++--------------------------------------+---+---------------+------+--------------------------------------+
+[1]: Unable to enforce a carried dependence constraint because of the access on variable 'tmp' (gesummv.c:3)
+
+
+====================================================================================
+Resource Estimate
+====================================================================================
+
++--------------------------------------+----------+-----------+--------+--------+-------+------+
+|              Hierarchy               |   LUT    |    FF     |  BRAM  |  DSP   | URAM  |Detail|
++--------------------------------------+----------+-----------+--------+--------+-------+------+
+|kernel_gesummv (gesummv.c:3)          |20606 (1%)|20372 (~0%)|400 (9%)|10 (~0%)|0 (~0%)|-     |
+|    auto memory burst for 'y'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'x'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'tmp'(read) |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'B'(read)   |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'A'(read)   |         -|          -|       -|       -|      -|-     |
+|    loop i (gesummv.c:11)             |         -|          -|       -|       -|      -|-     |
+|        loop j (gesummv.c:17)         |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'y'(write)  |         -|          -|       -|       -|      -|-     |
+|    auto memory burst for 'tmp'(write)|         -|          -|       -|       -|      -|-     |
++--------------------------------------+----------+-----------+--------+--------+-------+------+

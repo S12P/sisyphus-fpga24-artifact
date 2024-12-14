@@ -1,0 +1,889 @@
+
+
+================================================================
+== Synthesis Summary Report of 'kernel_doitgen'
+================================================================
++ General Information: 
+    * Date:           Thu Dec 12 11:03:30 2024
+    * Version:        2023.2 (Build 4023990 on Oct 11 2023)
+    * Project:        kernel_doitgen
+    * Solution:       solution (Vitis Kernel Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu200-fsgd2104-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------+--------+-------+----------+-----------+----------+----------+--------+----------+----------+---------+------------+------------+-----+
+    |                 Modules                 |  Issue |       | Latency  |  Latency  | Iteration|          |  Trip  |          |          |         |            |            |     |
+    |                 & Loops                 |  Type  | Slack | (cycles) |    (ns)   |  Latency | Interval |  Count | Pipelined|   BRAM   |   DSP   |     FF     |     LUT    | URAM|
+    +-----------------------------------------+--------+-------+----------+-----------+----------+----------+--------+----------+----------+---------+------------+------------+-----+
+    |+ kernel_doitgen                         |  Timing|  -0.33|  52098323|  2.084e+08|         -|  52098324|       -|        no|  330 (7%)|  5 (~0%)|  29254 (1%)|  25562 (2%)|    -|
+    | + merlin_memcpy_0_1                     |       -|   0.00|    120088|  4.804e+05|         -|    120088|       -|        no|         -|        -|  1842 (~0%)|  1207 (~0%)|    -|
+    |  + merlin_memcpy_0_1_Pipeline_merlinL0  |       -|   0.00|    120016|  4.801e+05|         -|    120016|       -|        no|         -|        -|  1710 (~0%)|   728 (~0%)|    -|
+    |   o merlinL0                            |       -|   2.92|    120014|  4.801e+05|        16|         1|  120000|       yes|         -|        -|           -|           -|    -|
+    | + kernel_doitgen_Pipeline_L2            |       -|   0.00|         7|     28.000|         -|         7|       -|        no|         -|        -|   526 (~0%)|   627 (~0%)|    -|
+    |  o L2                                   |       -|   2.92|         5|     20.000|         3|         1|       4|       yes|         -|        -|           -|           -|    -|
+    | + kernel_doitgen_Pipeline_L23           |       -|   0.00|       903|  3.612e+03|         -|       903|       -|        no|         -|        -|  1061 (~0%)|   670 (~0%)|    -|
+    |  o L2                                   |       -|   2.92|       901|  3.604e+03|         3|         1|     900|       yes|         -|        -|           -|           -|    -|
+    | + kernel_doitgen_Pipeline_L3            |       -|   0.00|         5|     20.000|         -|         5|       -|        no|         -|        -|   517 (~0%)|  1109 (~0%)|    -|
+    |  o L3                                   |       -|   2.92|         3|     12.000|         2|         1|       3|       yes|         -|        -|           -|           -|    -|
+    | + merlin_memcpy_1_1                     |       -|   0.00|    120088|  4.804e+05|         -|    120088|       -|        no|         -|        -|  1231 (~0%)|  1610 (~0%)|    -|
+    |  + merlin_memcpy_1_1_Pipeline_merlinL1  |       -|   0.00|    120018|  4.801e+05|         -|    120018|       -|        no|         -|        -|  1101 (~0%)|  1121 (~0%)|    -|
+    |   o merlinL1                            |       -|   2.92|    120016|  4.801e+05|        18|         1|  120000|       yes|         -|        -|           -|           -|    -|
+    | o merlinL8_merlinL7                     |       -|   2.92|  51858000|  2.074e+08|     25929|         -|    2000|        no|         -|        -|           -|           -|    -|
+    |  + kernel_doitgen_Pipeline_merlinL3     |  Timing|  -0.33|         6|     24.000|         -|         6|       -|        no|         -|        -|   467 (~0%)|  1775 (~0%)|    -|
+    |   o merlinL3                            |       -|   2.92|         4|     16.000|         2|         1|       4|       yes|         -|        -|           -|           -|    -|
+    |  o merlinL6                             |       -|   2.92|     25920|  1.037e+05|       432|         -|      60|        no|         -|        -|           -|           -|    -|
+    |   + kernel_doitgen_Pipeline_merlinL5    |       -|   0.19|       427|  1.708e+03|         -|       427|       -|        no|         -|  5 (~0%)|  2013 (~0%)|  1444 (~0%)|    -|
+    |    o merlinL5                           |      II|   2.92|       425|  1.700e+03|       111|       105|       4|       yes|         -|        -|           -|           -|    -|
+    +-----------------------------------------+--------+-------+----------+-----------+----------+----------+--------+----------+----------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface                                | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|                                          | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++------------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_merlin_gmem_kernel_doitgen_128_0   | 128 -> 512 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | 32 -> 512  | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          | BRAM=30           |
++------------------------------------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                                         |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 4=AP_CONTINUE 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                                           |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                                      |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                                      |
+| s_axi_control | A_1      | 0x10   | 32    | W      | Data signal of A                 |                                                                                    |
+| s_axi_control | A_2      | 0x14   | 32    | W      | Data signal of A                 |                                                                                    |
+| s_axi_control | C4_1     | 0x1c   | 32    | W      | Data signal of C4                |                                                                                    |
+| s_axi_control | C4_2     | 0x20   | 32    | W      | Data signal of C4                |                                                                                    |
+| s_axi_control | sum_1    | 0x28   | 32    | W      | Data signal of sum               |                                                                                    |
+| s_axi_control | sum_2    | 0x2c   | 32    | W      | Data signal of sum               |                                                                                    |
++---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+------------------+
+| Argument | Direction | Datatype         |
++----------+-----------+------------------+
+| A        | inout     | float*           |
+| C4       | in        | merlin_uint_128* |
+| sum      | inout     | merlin_uint_512* |
++----------+-----------+------------------+
+
+* SW-to-HW Mapping
++----------+------------------------------------------+-----------+----------+---------------------------------+
+| Argument | HW Interface                             | HW Type   | HW Usage | HW Info                         |
++----------+------------------------------------------+-----------+----------+---------------------------------+
+| A        | m_axi_merlin_gmem_kernel_doitgen_32_A    | interface |          |                                 |
+| A        | s_axi_control                            | register  | offset   | name=A_1 offset=0x10 range=32   |
+| A        | s_axi_control                            | register  | offset   | name=A_2 offset=0x14 range=32   |
+| C4       | m_axi_merlin_gmem_kernel_doitgen_128_0   | interface |          |                                 |
+| C4       | s_axi_control                            | register  | offset   | name=C4_1 offset=0x1c range=32  |
+| C4       | s_axi_control                            | register  | offset   | name=C4_2 offset=0x20 range=32  |
+| sum      | m_axi_merlin_gmem_kernel_doitgen_512_sum | interface |          |                                 |
+| sum      | s_axi_control                            | register  | offset   | name=sum_1 offset=0x28 range=32 |
+| sum      | s_axi_control                            | register  | offset   | name=sum_2 offset=0x2c range=32 |
++----------+------------------------------------------+-----------+----------+---------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++------------------------------------------+-----------+--------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| HW Interface                             | Direction | Length | Width | Loop | Loop Location                                                                                                                                         |
++------------------------------------------+-----------+--------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| m_axi_merlin_gmem_kernel_doitgen_128_0   | read      | 225    | 512   |      |                                                                                                                                                       |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | read      | 7500   | 512   |      |                                                                                                                                                       |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | write     | 7500   | 512   |      |                                                                                                                                                       |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | read      | 4      | 512   | L2   | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3421:3 |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | write     | 3      | 512   | L3   | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3672:3 |
++------------------------------------------+-----------+--------+-------+------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+* All M_AXI Variable Accesses
++------------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+----------------------------------------------------------------------------------------------------------+
+| HW Interface                             | Variable | Access Location                                                                                                                                                       | Direction | Burst Status | Length | Loop     | Loop Location                                                                                                                                                       | Resolution | Problem                                                                                                  |
++------------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+----------------------------------------------------------------------------------------------------------+
+| m_axi_merlin_gmem_kernel_doitgen_128_0   | C4       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_128.h:56:14                     | read      | Widened      | 225    | L2       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus_3d.h:1705:3            |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_128_0   | C4       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_128.h:56:14                     | read      | Inferred     | 900    | L2       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus_3d.h:1705:3            |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | src      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:37:134 | read      | Widened      | 7500   | merlinL0 | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:32:3 |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | src      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:37:134 | read      | Inferred     | 120000 | merlinL0 | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:32:3 |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | dst      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:56:25  | write     | Widened      | 7500   | merlinL1 | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:51:3 |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_32_A    | dst      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:56:25  | write     | Inferred     | 120000 | merlinL1 | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/__merlinkernel_kernel_doitgen.c:51:3 |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | sum      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_512.h:56:14                     | read      | Widen Fail   |        | L2       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3421:3               | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | sum      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_512.h:56:14                     | read      | Inferred     | 4      | L2       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3421:3               |            |                                                                                                          |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | sum      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_512.h:95:23                     | write     | Widen Fail   |        | L3       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3672:3               | 214-353    | Could not widen since type i512 size is greater than or equal to the max_widen_bitwidth threshold of 512 |
+| m_axi_merlin_gmem_kernel_doitgen_512_sum | sum      | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/memcpy_512.h:95:23                     | write     | Inferred     | 3      | L3       | /workspaces/Sisyphus_Result/vitis/nlp-dse-without-tree/doitgen_MEDIUM_evaluation/only_nlp10/.merlin_prj/run/implement/exec/hls/mars_wide_bus.h:3672:3               |            |                                                                                                          |
++------------------------------------------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+----------------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+| Name                                    | DSP | Pragma | Variable     | Op   | Impl    | Latency |
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+| + kernel_doitgen                        | 5   |        |              |      |         |         |
+|   add_ln109_1_fu_26448_p2               |     |        | add_ln109_1  | add  | fabric  | 0       |
+|   add_ln109_fu_26460_p2                 |     |        | add_ln109    | add  | fabric  | 0       |
+|   add_ln113_fu_26569_p2                 |     |        | add_ln113    | add  | fabric  | 0       |
+|   add_ln111_fu_26923_p2                 |     |        | add_ln111    | add  | fabric  | 0       |
+|   add_ln95_fu_26532_p2                  |     |        | add_ln95     | add  | fabric  | 0       |
+|  + merlin_memcpy_0_1                    | 0   |        |              |      |         |         |
+|   + merlin_memcpy_0_1_Pipeline_merlinL0 | 0   |        |              |      |         |         |
+|     i_4_fu_439_p2                       |     |        | i_4          | add  | fabric  | 0       |
+|     add_ln37_1_fu_572_p2                |     |        | add_ln37_1   | add  | fabric  | 0       |
+|     add_ln37_2_fu_458_p2                |     |        | add_ln37_2   | add  | fabric  | 0       |
+|     add_ln37_3_fu_588_p2                |     |        | add_ln37_3   | add  | fabric  | 0       |
+|     add_ln28_fu_484_p2                  |     |        | add_ln28     | add  | fabric  | 0       |
+|  + kernel_doitgen_Pipeline_L2           | 0   |        |              |      |         |         |
+|    i_9_fu_1173_p2                       |     |        | i_9          | add  | fabric  | 0       |
+|  + kernel_doitgen_Pipeline_L23          | 0   |        |              |      |         |         |
+|    i_7_fu_1088_p2                       |     |        | i_7          | add  | fabric  | 0       |
+|    index3_1_fu_1402_p2                  |     |        | index3_1     | add  | fabric  | 0       |
+|    index2_5_fu_1141_p2                  |     |        | index2_5     | add  | fabric  | 0       |
+|    index1_4_fu_1155_p2                  |     |        | index1_4     | add  | fabric  | 0       |
+|  + kernel_doitgen_Pipeline_merlinL3     | 0   |        |              |      |         |         |
+|    add_ln140_fu_845_p2                  |     |        | add_ln140    | add  | fabric  | 0       |
+|    add_ln161_14_fu_855_p2               |     |        | add_ln161_14 | add  | fabric  | 0       |
+|    empty_42_fu_882_p2                   |     |        | empty_42     | sub  | fabric  | 0       |
+|    add_ln161_fu_888_p2                  |     |        | add_ln161    | add  | fabric  | 0       |
+|    add_ln161_1_fu_894_p2                |     |        | add_ln161_1  | add  | fabric  | 0       |
+|    add_ln161_2_fu_900_p2                |     |        | add_ln161_2  | add  | fabric  | 0       |
+|    add_ln161_3_fu_906_p2                |     |        | add_ln161_3  | add  | fabric  | 0       |
+|    add_ln161_4_fu_912_p2                |     |        | add_ln161_4  | add  | fabric  | 0       |
+|    add_ln161_5_fu_918_p2                |     |        | add_ln161_5  | add  | fabric  | 0       |
+|    add_ln161_6_fu_924_p2                |     |        | add_ln161_6  | add  | fabric  | 0       |
+|    add_ln161_7_fu_930_p2                |     |        | add_ln161_7  | add  | fabric  | 0       |
+|    add_ln161_8_fu_936_p2                |     |        | add_ln161_8  | add  | fabric  | 0       |
+|    add_ln161_9_fu_942_p2                |     |        | add_ln161_9  | add  | fabric  | 0       |
+|    add_ln161_10_fu_948_p2               |     |        | add_ln161_10 | add  | fabric  | 0       |
+|    add_ln161_11_fu_954_p2               |     |        | add_ln161_11 | add  | fabric  | 0       |
+|    add_ln161_12_fu_960_p2               |     |        | add_ln161_12 | add  | fabric  | 0       |
+|    add_ln161_13_fu_966_p2               |     |        | add_ln161_13 | add  | fabric  | 0       |
+|  + kernel_doitgen_Pipeline_merlinL5     | 5   |        |              |      |         |         |
+|    add_ln116_fu_1268_p2                 |     |        | add_ln116    | add  | fabric  | 0       |
+|    add_ln135_1_fu_1366_p2               |     |        | add_ln135_1  | add  | fabric  | 0       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul          | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add          | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_1        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_1        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_2        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_2        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_3        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_3        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_4        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_4        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_5        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_5        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_6        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_6        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_7        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_7        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_8        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_8        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_9        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_9        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_s        | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_s        | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_10       | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_10       | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_11       | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_11       | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_12       | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_12       | fadd | fulldsp | 6       |
+|    fmul_32ns_32ns_32_4_max_dsp_1_U222   | 3   |        | mul_13       | fmul | maxdsp  | 3       |
+|    fadd_32ns_32ns_32_7_full_dsp_1_U221  | 2   |        | add_13       | fadd | fulldsp | 6       |
+|  + kernel_doitgen_Pipeline_L3           | 0   |        |              |      |         |         |
+|    i_6_fu_474_p2                        |     |        | i_6          | add  | fabric  | 0       |
+|  + merlin_memcpy_1_1                    | 0   |        |              |      |         |         |
+|   + merlin_memcpy_1_1_Pipeline_merlinL1 | 0   |        |              |      |         |         |
+|     i_2_fu_444_p2                       |     |        | i_2          | add  | fabric  | 0       |
+|     add_ln56_1_fu_501_p2                |     |        | add_ln56_1   | add  | fabric  | 0       |
+|     add_ln56_2_fu_457_p2                |     |        | add_ln56_2   | add  | fabric  | 0       |
+|     add_ln56_3_fu_517_p2                |     |        | add_ln56_3   | add  | fabric  | 0       |
+|     add_ln47_fu_679_p2                  |     |        | add_ln47     | add  | fabric  | 0       |
++-----------------------------------------+-----+--------+--------------+------+---------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++----------------------------------------------+--------------+-----------+------+------+--------+----------------+------+---------+------------------+
+| Name                                         | Usage        | Type      | BRAM | URAM | Pragma | Variable       | Impl | Latency | Bitwidth, Depth, |
+|                                              |              |           |      |      |        |                |      |         | Banks            |
++----------------------------------------------+--------------+-----------+------+------+--------+----------------+------+---------+------------------+
+| + kernel_doitgen                             |              |           | 330  | 0    |        |                |      |         |                  |
+|   control_s_axi_U                            | interface    | s_axilite |      |      |        |                |      |         |                  |
+|   merlin_gmem_kernel_doitgen_128_0_m_axi_U   | interface    | m_axi     | 30   |      |        |                |      |         |                  |
+|   merlin_gmem_kernel_doitgen_32_A_m_axi_U    | interface    | m_axi     | 30   |      |        |                |      |         |                  |
+|   merlin_gmem_kernel_doitgen_512_sum_m_axi_U | interface    | m_axi     | 30   |      |        |                |      |         |                  |
+|   C4_8_0_buf_U                               | ram_1p array |           |      |      |        | C4_8_0_buf     | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_60_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_60  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_61_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_61  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_62_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_62  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_63_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_63  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_64_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_64  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_65_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_65  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_66_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_66  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_67_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_67  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_68_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_68  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_69_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_69  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_70_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_70  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_71_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_71  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_72_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_72  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_73_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_73  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_74_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_74  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_75_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_75  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_76_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_76  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_77_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_77  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_78_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_78  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_79_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_79  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_80_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_80  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_81_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_81  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_82_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_82  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_83_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_83  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_84_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_84  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_85_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_85  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_86_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_86  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_87_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_87  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_88_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_88  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_89_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_89  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_90_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_90  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_91_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_91  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_92_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_92  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_93_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_93  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_94_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_94  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_95_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_95  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_96_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_96  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_97_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_97  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_98_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_98  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_99_U                            | ram_1p array |           |      |      |        | C4_8_0_buf_99  | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_100_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_100 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_101_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_101 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_102_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_102 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_103_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_103 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_104_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_104 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_105_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_105 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_106_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_106 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_107_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_107 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_108_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_108 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_109_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_109 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_110_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_110 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_111_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_111 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_112_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_112 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_113_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_113 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_114_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_114 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_115_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_115 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_116_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_116 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_117_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_117 | auto | 1       | 32, 60, 1        |
+|   C4_8_0_buf_118_U                           | ram_1p array |           |      |      |        | C4_8_0_buf_118 | auto | 1       | 32, 60, 1        |
+|   A_buf_U                                    | ram_1p array |           | 16   |      |        | A_buf          | auto | 1       | 32, 8000, 1      |
+|   A_buf_1_U                                  | ram_1p array |           | 16   |      |        | A_buf_1        | auto | 1       | 32, 8000, 1      |
+|   A_buf_2_U                                  | ram_1p array |           | 16   |      |        | A_buf_2        | auto | 1       | 32, 8000, 1      |
+|   A_buf_3_U                                  | ram_1p array |           | 16   |      |        | A_buf_3        | auto | 1       | 32, 8000, 1      |
+|   A_buf_4_U                                  | ram_1p array |           | 16   |      |        | A_buf_4        | auto | 1       | 32, 8000, 1      |
+|   A_buf_5_U                                  | ram_1p array |           | 16   |      |        | A_buf_5        | auto | 1       | 32, 8000, 1      |
+|   A_buf_6_U                                  | ram_1p array |           | 16   |      |        | A_buf_6        | auto | 1       | 32, 8000, 1      |
+|   A_buf_7_U                                  | ram_1p array |           | 16   |      |        | A_buf_7        | auto | 1       | 32, 8000, 1      |
+|   A_buf_8_U                                  | ram_1p array |           | 16   |      |        | A_buf_8        | auto | 1       | 32, 8000, 1      |
+|   A_buf_9_U                                  | ram_1p array |           | 16   |      |        | A_buf_9        | auto | 1       | 32, 8000, 1      |
+|   A_buf_10_U                                 | ram_1p array |           | 16   |      |        | A_buf_10       | auto | 1       | 32, 8000, 1      |
+|   A_buf_11_U                                 | ram_1p array |           | 16   |      |        | A_buf_11       | auto | 1       | 32, 8000, 1      |
+|   A_buf_12_U                                 | ram_1p array |           | 16   |      |        | A_buf_12       | auto | 1       | 32, 8000, 1      |
+|   A_buf_13_U                                 | ram_1p array |           | 16   |      |        | A_buf_13       | auto | 1       | 32, 8000, 1      |
+|   A_buf_14_U                                 | ram_1p array |           | 16   |      |        | A_buf_14       | auto | 1       | 32, 8000, 1      |
++----------------------------------------------+--------------+-----------+------+------+--------+----------------+------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Ignored Pragmas
++-----------+----------+---------------------------------------------------------------+-------------------------------------------------+
+| Type      | Options  | Location                                                      | Messages                                        |
++-----------+----------+---------------------------------------------------------------+-------------------------------------------------+
+| data_pack | VARIABLE | ../../../__merlinkernel_kernel_doitgen.c:77 in kernel_doitgen | the pragma is not supported and will be ignored |
+| data_pack | VARIABLE | ../../../__merlinkernel_kernel_doitgen.c:79 in kernel_doitgen | the pragma is not supported and will be ignored |
++-----------+----------+---------------------------------------------------------------+-------------------------------------------------+
+
+* Pragmas with Warnings
++--------+---------+--------------------------------------------------+-------------------------------------------------------------------------------+
+| Type   | Options | Location                                         | Messages                                                                      |
++--------+---------+--------------------------------------------------+-------------------------------------------------------------------------------+
+| inline | SELF    | ../../../memcpy_128.h:33 in merlin_get_range_128 | the 'self/all' option to 'Inline' pragma is not supported and will be ignored |
+| inline | SELF    | ../../../memcpy_128.h:74 in merlin_set_range_128 | the 'self/all' option to 'Inline' pragma is not supported and will be ignored |
+| inline | SELF    | ../../../memcpy_512.h:33 in merlin_get_range_512 | the 'self/all' option to 'Inline' pragma is not supported and will be ignored |
+| inline | SELF    | ../../../memcpy_512.h:74 in merlin_set_range_512 | the 'self/all' option to 'Inline' pragma is not supported and will be ignored |
++--------+---------+--------------------------------------------------+-------------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++----------------------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+| Type                 | Options                                                                       | Location                                                                                                          |
++----------------------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+| inline               | off                                                                           | ../../../__merlinkernel_kernel_doitgen.c:25 in merlin_memcpy_0                                                    |
+| function_instantiate | variable=dst_idx_0,dst_idx_1,dst_idx_2,dst_idx_3,src_idx_0                    | ../../../__merlinkernel_kernel_doitgen.c:27 in merlin_memcpy_0, dst_idx_0,dst_idx_1,dst_idx_2,dst_idx_3,src_idx_0 |
+| pipeline             | II=1                                                                          | ../../../__merlinkernel_kernel_doitgen.c:34 in merlin_memcpy_0                                                    |
+| loop_tripcount       | max=120000                                                                    | ../../../__merlinkernel_kernel_doitgen.c:36 in merlin_memcpy_0                                                    |
+| inline               | off                                                                           | ../../../__merlinkernel_kernel_doitgen.c:44 in merlin_memcpy_1                                                    |
+| function_instantiate | variable=dst_idx_0,src_idx_0,src_idx_1,src_idx_2,src_idx_3                    | ../../../__merlinkernel_kernel_doitgen.c:46 in merlin_memcpy_1, dst_idx_0,src_idx_0,src_idx_1,src_idx_2,src_idx_3 |
+| pipeline             | II=1                                                                          | ../../../__merlinkernel_kernel_doitgen.c:53 in merlin_memcpy_1                                                    |
+| loop_tripcount       | max=120000                                                                    | ../../../__merlinkernel_kernel_doitgen.c:55 in merlin_memcpy_1                                                    |
+| interface            | m_axi port=A offset=slave depth=120000 bundle=merlin_gmem_kernel_doitgen_32_A | ../../../__merlinkernel_kernel_doitgen.c:63 in kernel_doitgen, A                                                  |
+| interface            | m_axi port=C4 offset=slave depth=900 bundle=merlin_gmem_kernel_doitgen_128_0  | ../../../__merlinkernel_kernel_doitgen.c:65 in kernel_doitgen, C4                                                 |
+| interface            | m_axi port=sum offset=slave depth=4 bundle=merlin_gmem_kernel_doitgen_512_sum | ../../../__merlinkernel_kernel_doitgen.c:67 in kernel_doitgen, sum                                                |
+| interface            | s_axilite port=A bundle=control                                               | ../../../__merlinkernel_kernel_doitgen.c:69 in kernel_doitgen, A                                                  |
+| interface            | s_axilite port=C4 bundle=control                                              | ../../../__merlinkernel_kernel_doitgen.c:71 in kernel_doitgen, C4                                                 |
+| interface            | s_axilite port=sum bundle=control                                             | ../../../__merlinkernel_kernel_doitgen.c:73 in kernel_doitgen, sum                                                |
+| interface            | s_axilite port=return bundle=control                                          | ../../../__merlinkernel_kernel_doitgen.c:75 in kernel_doitgen, return                                             |
+| array_partition      | variable=C4_8_0_buf cyclic factor=4 dim=3                                     | ../../../__merlinkernel_kernel_doitgen.c:93 in kernel_doitgen, C4_8_0_buf                                         |
+| array_partition      | variable=C4_8_0_buf complete dim=2                                            | ../../../__merlinkernel_kernel_doitgen.c:95 in kernel_doitgen, C4_8_0_buf                                         |
+| array_partition      | variable=sum_buf cyclic factor=16 dim=1                                       | ../../../__merlinkernel_kernel_doitgen.c:98 in kernel_doitgen, sum_buf                                            |
+| array_partition      | variable=A_buf complete dim=4                                                 | ../../../__merlinkernel_kernel_doitgen.c:101 in kernel_doitgen, A_buf                                             |
+| pipeline             |                                                                               | ../../../__merlinkernel_kernel_doitgen.c:124 in kernel_doitgen                                                    |
+| unroll               |                                                                               | ../../../__merlinkernel_kernel_doitgen.c:134 in kernel_doitgen                                                    |
+| dependence           | variable=A_buf array inter false                                              | ../../../__merlinkernel_kernel_doitgen.c:148 in kernel_doitgen, A_buf                                             |
+| pipeline             |                                                                               | ../../../__merlinkernel_kernel_doitgen.c:150 in kernel_doitgen                                                    |
+| unroll               |                                                                               | ../../../__merlinkernel_kernel_doitgen.c:160 in kernel_doitgen                                                    |
+| inline               |                                                                               | ../../../mars_wide_bus.h:50 in memcpy_wide_bus_single_read_char_512                                               |
+| inline               |                                                                               | ../../../mars_wide_bus.h:64 in memcpy_wide_bus_single_write_char_512                                              |
+| inline               |                                                                               | ../../../mars_wide_bus.h:78 in memcpy_wide_bus_single_read_short_512                                              |
+| inline               |                                                                               | ../../../mars_wide_bus.h:92 in memcpy_wide_bus_single_write_short_512                                             |
+| inline               |                                                                               | ../../../mars_wide_bus.h:105 in memcpy_wide_bus_single_read_int_512                                               |
+| inline               |                                                                               | ../../../mars_wide_bus.h:119 in memcpy_wide_bus_single_write_int_512                                              |
+| inline               |                                                                               | ../../../mars_wide_bus.h:132 in memcpy_wide_bus_single_read_long_512                                              |
+| inline               |                                                                               | ../../../mars_wide_bus.h:146 in memcpy_wide_bus_single_write_long_512                                             |
+| inline               |                                                                               | ../../../mars_wide_bus.h:160 in memcpy_wide_bus_single_read_long_long_512                                         |
+| inline               |                                                                               | ../../../mars_wide_bus.h:175 in memcpy_wide_bus_single_write_long_long_512                                        |
+| inline               |                                                                               | ../../../mars_wide_bus.h:189 in memcpy_wide_bus_single_read_float_512                                             |
+| inline               |                                                                               | ../../../mars_wide_bus.h:205 in memcpy_wide_bus_single_write_float_512                                            |
+| inline               |                                                                               | ../../../mars_wide_bus.h:221 in memcpy_wide_bus_single_read_double_512                                            |
+| inline               |                                                                               | ../../../mars_wide_bus.h:238 in memcpy_wide_bus_single_write_double_512                                           |
+| inline               |                                                                               | ../../../mars_wide_bus.h:255 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:276 in memcpy_wide_bus_read_long_512                                                     |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:290 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:295 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:305 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:317 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:329 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:341 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:353 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:365 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:377 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:389 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:401 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:413 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:425 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:437 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:449 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:461 in memcpy_wide_bus_read_long_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:473 in memcpy_wide_bus_read_long_512                                                     |
+| inline               |                                                                               | ../../../mars_wide_bus.h:489 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:507 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:518 in memcpy_wide_bus_write_long_512                                                    |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:537 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:542 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:551 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:559 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:567 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:575 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:583 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:591 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:599 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:607 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:615 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:623 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:631 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:639 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:647 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:655 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:663 in memcpy_wide_bus_write_long_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:673 in memcpy_wide_bus_write_long_512                                                    |
+| inline               |                                                                               | ../../../mars_wide_bus.h:685 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:706 in memcpy_wide_bus_read_long_long_512                                                |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:720 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:725 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:735 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:747 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:759 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:771 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:783 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:795 in memcpy_wide_bus_read_long_long_512                                                |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:807 in memcpy_wide_bus_read_long_long_512                                                |
+| inline               |                                                                               | ../../../mars_wide_bus.h:823 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:841 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:852 in memcpy_wide_bus_write_long_long_512                                               |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:871 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:876 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:885 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:893 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:901 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:909 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:917 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:925 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:933 in memcpy_wide_bus_write_long_long_512                                               |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:943 in memcpy_wide_bus_write_long_long_512                                               |
+| inline               |                                                                               | ../../../mars_wide_bus.h:955 in memcpy_wide_bus_read_int_512                                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:976 in memcpy_wide_bus_read_int_512                                                      |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:990 in memcpy_wide_bus_read_int_512                                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:995 in memcpy_wide_bus_read_int_512                                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1005 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1017 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1029 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1041 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1053 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1065 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1077 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1089 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1101 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1113 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1125 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1137 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1149 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1161 in memcpy_wide_bus_read_int_512                                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1173 in memcpy_wide_bus_read_int_512                                                     |
+| inline               |                                                                               | ../../../mars_wide_bus.h:1189 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1207 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1218 in memcpy_wide_bus_write_int_512                                                    |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:1237 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1242 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1251 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1259 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1267 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1275 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1283 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1291 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1299 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1307 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1315 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1323 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1331 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1339 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1347 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1355 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1363 in memcpy_wide_bus_write_int_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1373 in memcpy_wide_bus_write_int_512                                                    |
+| inline               |                                                                               | ../../../mars_wide_bus.h:1385 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1406 in memcpy_wide_bus_read_short_512                                                   |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:1420 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1425 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1435 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1447 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1459 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1471 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1483 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1495 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1507 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1519 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1531 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1543 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1555 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1567 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1579 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1591 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1601 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1611 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1621 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1631 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1641 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1651 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1661 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1671 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1681 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1691 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1701 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1711 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1721 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1731 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1741 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1751 in memcpy_wide_bus_read_short_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1761 in memcpy_wide_bus_read_short_512                                                   |
+| inline               |                                                                               | ../../../mars_wide_bus.h:1777 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1795 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1806 in memcpy_wide_bus_write_short_512                                                  |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:1825 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1830 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1837 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1845 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1853 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1861 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1869 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1877 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1885 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1893 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1901 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1909 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1917 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1925 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1933 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1941 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1949 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1957 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1965 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1973 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1981 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1989 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:1997 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2005 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2013 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2021 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2029 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2037 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2045 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2053 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2061 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2069 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2077 in memcpy_wide_bus_write_short_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2087 in memcpy_wide_bus_write_short_512                                                  |
+| inline               |                                                                               | ../../../mars_wide_bus.h:2099 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2120 in memcpy_wide_bus_read_char_512                                                    |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:2134 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2139 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2149 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2161 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2173 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2185 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2197 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2209 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2221 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2233 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2245 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2257 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2269 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2281 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2293 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2305 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2315 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2325 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2335 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2345 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2355 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2365 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2375 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2385 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2395 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2405 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2415 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2425 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2435 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2445 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2455 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2465 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2475 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2485 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2495 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2505 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2515 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2525 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2535 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2545 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2555 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2565 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2575 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2585 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2595 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2605 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2615 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2625 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2635 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2645 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2655 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2665 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2675 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2685 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2695 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2705 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2715 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2725 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2735 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2745 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2755 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2765 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2775 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2785 in memcpy_wide_bus_read_char_512                                                    |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2795 in memcpy_wide_bus_read_char_512                                                    |
+| inline               |                                                                               | ../../../mars_wide_bus.h:2811 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2829 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2840 in memcpy_wide_bus_write_char_512                                                   |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:2859 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2864 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2871 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2879 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2887 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2895 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2903 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2911 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2919 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2927 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2935 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2943 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2951 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2959 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2967 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2975 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2983 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2991 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:2999 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3007 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3015 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3023 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3031 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3039 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3047 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3055 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3063 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3071 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3079 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3087 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3095 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3103 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3111 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3119 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3127 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3135 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3143 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3151 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3159 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3167 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3175 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3183 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3191 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3199 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3207 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3215 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3223 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3231 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3239 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3247 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3255 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3263 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3271 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3279 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3287 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3295 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3303 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3311 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3319 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3327 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3335 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3343 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3351 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3359 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3367 in memcpy_wide_bus_write_char_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3377 in memcpy_wide_bus_write_char_512                                                   |
+| inline               |                                                                               | ../../../mars_wide_bus.h:3389 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3411 in memcpy_wide_bus_read_float_512                                                   |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:3426 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3431 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3441 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3453 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3465 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3477 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3489 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3501 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3513 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3525 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3537 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3549 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3561 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3573 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3585 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3597 in memcpy_wide_bus_read_float_512                                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3609 in memcpy_wide_bus_read_float_512                                                   |
+| inline               |                                                                               | ../../../mars_wide_bus.h:3625 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3642 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3656 in memcpy_wide_bus_write_float_512                                                  |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:3677 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3682 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3692 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3701 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3710 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3719 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3728 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3737 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3746 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3755 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3764 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3773 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3782 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3791 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3800 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3809 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3818 in memcpy_wide_bus_write_float_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3829 in memcpy_wide_bus_write_float_512                                                  |
+| inline               |                                                                               | ../../../mars_wide_bus.h:3843 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3864 in memcpy_wide_bus_read_double_512                                                  |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:3879 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3884 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3894 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3906 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3918 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3930 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3942 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3954 in memcpy_wide_bus_read_double_512                                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3966 in memcpy_wide_bus_read_double_512                                                  |
+| inline               |                                                                               | ../../../mars_wide_bus.h:3982 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:3999 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4013 in memcpy_wide_bus_write_double_512                                                 |
+| pipeline             |                                                                               | ../../../mars_wide_bus.h:4034 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4039 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4049 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4058 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4067 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4076 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4085 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4094 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4103 in memcpy_wide_bus_write_double_512                                                 |
+| unroll               |                                                                               | ../../../mars_wide_bus.h:4114 in memcpy_wide_bus_write_double_512                                                 |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:346 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:388 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:404 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:410 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:421 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:434 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:449 in memcpy_wide_bus_read_char_3d_15_60_128                                         |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:467 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:488 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:502 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:542 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:548 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:556 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:579 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:592 in memcpy_wide_bus_write_char_3d_15_60_128                                        |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:607 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:649 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:665 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:671 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:682 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:695 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:710 in memcpy_wide_bus_read_short_3d_15_60_128                                        |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:728 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:749 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:763 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:803 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:809 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:817 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:840 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:853 in memcpy_wide_bus_write_short_3d_15_60_128                                       |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:868 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:911 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:927 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:933 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:944 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:971 in memcpy_wide_bus_read_int_3d_15_60_128                                          |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:989 in memcpy_wide_bus_write_int_3d_15_60_128                                         |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1010 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1024 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1064 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1070 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1078 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1101 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1114 in memcpy_wide_bus_write_int_3d_15_60_128                                        |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1129 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1172 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1188 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1194 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1205 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1232 in memcpy_wide_bus_read_long_3d_15_60_128                                        |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1250 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1271 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1285 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1325 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1331 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1339 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1362 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1375 in memcpy_wide_bus_write_long_3d_15_60_128                                       |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1390 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1433 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1449 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1455 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1466 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1493 in memcpy_wide_bus_read_long_long_3d_15_60_128                                   |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1511 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1532 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1546 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1586 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1592 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1600 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1624 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1637 in memcpy_wide_bus_write_long_long_3d_15_60_128                                  |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1652 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1694 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1710 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1716 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1727 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1755 in memcpy_wide_bus_read_float_3d_15_60_128                                       |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1773 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1793 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1809 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1850 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1856 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1866 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1892 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1907 in memcpy_wide_bus_write_float_3d_15_60_128                                      |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:1923 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1965 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:1982 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1988 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:1999 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2028 in memcpy_wide_bus_read_double_3d_15_60_128                                      |
+| inline               |                                                                               | ../../../mars_wide_bus_3d.h:2046 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2084 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2101 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| pipeline             |                                                                               | ../../../mars_wide_bus_3d.h:2125 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2131 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2141 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2167 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../mars_wide_bus_3d.h:2182 in memcpy_wide_bus_write_double_3d_15_60_128                                     |
+| unroll               |                                                                               | ../../../memcpy_128.h:40 in merlin_get_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:47 in merlin_get_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:54 in merlin_get_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:61 in merlin_get_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:80 in merlin_set_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:87 in merlin_set_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:94 in merlin_set_range_128                                                                  |
+| unroll               |                                                                               | ../../../memcpy_128.h:101 in merlin_set_range_128                                                                 |
+| unroll               |                                                                               | ../../../memcpy_512.h:40 in merlin_get_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:47 in merlin_get_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:54 in merlin_get_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:61 in merlin_get_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:80 in merlin_set_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:87 in merlin_set_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:94 in merlin_set_range_512                                                                  |
+| unroll               |                                                                               | ../../../memcpy_512.h:101 in merlin_set_range_512                                                                 |
++----------------------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+
+
