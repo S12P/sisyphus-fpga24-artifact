@@ -18,6 +18,12 @@ Ensure the following software dependencies are installed before proceeding:
 - **AMD Vitis HLS 2023.2**  
   High-Level Synthesis (HLS) tool for AMD FPGA development. You can download it [here](https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vitis/vitis-hls.html).  
 
+- **AMD Vitis HLS 2021.1**  
+  High-Level Synthesis (HLS) tool for AMD FPGA development. You can download it [here](https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vitis/vitis-hls.html). 
+
+- **AMD Merlin**  
+  A source-to-source compiler built on top of AMD Vitis. You can download it [here](https://github.com/UCLA-VAST/Merlin-UCLA). 
+
 ### Git LFS (Large File Storage)
 
 This repository uses Git LFS to manage large files such as binaries, datasets, or other resources. Git LFS must be installed before cloning the repository.
